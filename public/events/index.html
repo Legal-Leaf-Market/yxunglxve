@@ -10,12 +10,12 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Stuff the Artist · Yxung Lxve live">
   <meta property="og:description" content="Sat, Nov 14 · Doors 7 PM · Show 8 PM · Columbus Bar, Columbus, IN · No cover · All ages">
-  <meta property="og:image" content="https://yxunglxve.netlify.app/images/flyer-stuff-the-artist.jpg">
-  <meta property="og:url" content="https://yxunglxve.netlify.app/events/">
+  <meta property="og:image" content="https://yxunglxve.com/images/flyer-stuff-the-artist.jpg">
+  <meta property="og:url" content="https://yxunglxve.com/events/">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#0b0d1f">
   <link rel="icon" href="/images/profile.jpg">
-  <link rel="canonical" href="https://yxunglxve.netlify.app/events/">
+  <link rel="canonical" href="https://yxunglxve.com/events/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -932,7 +932,7 @@
       const GUESTS = window.GUESTS || [];
       const ALL = (HEAD ? [Object.assign({ headliner: true }, HEAD)] : []).concat(GUESTS);
       const TOTAL = ALL.length;
-      const BASE = "https://yxunglxve.netlify.app/events/";
+      const BASE = "https://yxunglxve.com/events/";
       const slug = (n) => "card-" + n.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
       const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
       const hue = (n) => [...n].reduce((h, c) => (h * 31 + c.charCodeAt(0)) % 360, 7);
@@ -966,7 +966,7 @@
       const playsOn = (g) => sources(g).map((x) => x.label).join(" + ");
 
       const share = async (g, btn) => {
-        const url = "https://yxunglxve.netlify.app/c/" + slug(g.name).replace(/^card-/, "") + "/";
+        const url = "https://yxunglxve.com/c/" + slug(g.name).replace(/^card-/, "") + "/";
         const text = g.headliner
           ? "Yxung Lxve headlines Stuff the Artist. Sat Nov 14, Columbus Bar, Columbus IN. No cover, all ages."
           : g.name + " is on the lineup for Stuff the Artist with Yxung Lxve. Sat Nov 14, Columbus Bar, Columbus IN. No cover, all ages.";

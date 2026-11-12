@@ -5,7 +5,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const SITE = "https://yxunglxve.netlify.app";
+const SITE = "https://yxunglxve.com";
 const ROOT = path.join(__dirname, "..", "public");
 const FLYER = SITE + "/images/flyer-stuff-the-artist.jpg";
 

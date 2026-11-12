@@ -19,12 +19,12 @@ For a photo, they can send it straight to you. Add it to `public/images/guests/`
 
 | Artist | Card link | Missing |
 |---|---|---|
-| $uicybin | https://yxunglxve.netlify.app/events/#card-uicybin | photo, IG, music link, real bio (earlier Spotify/IG match was wrong, removed) |
-| Lil Bars | https://yxunglxve.netlify.app/events/#card-lil-bars | photo, IG, music link, real bio (Dice $hades on Spotify? unconfirmed) |
-| Anxiety Jay | https://yxunglxve.netlify.app/events/#card-anxiety-jay | photo, real bio (SoundCloud whynotbejoshua2? unconfirmed) |
-| StickNasty The Coldhearted Kid | https://yxunglxve.netlify.app/events/#card-sticknasty-the-coldhearted-kid | photo, IG |
-| David Cameron | https://yxunglxve.netlify.app/events/#card-david-cameron | IG |
-| Baby Gawdey | https://yxunglxve.netlify.app/events/#card-baby-gawdey | (complete) |
-| Nezio | https://yxunglxve.netlify.app/events/#card-nezio | (complete) |
-| Amier Lane | https://yxunglxve.netlify.app/events/#card-amier-lane | (complete) |
-| Teqz | https://yxunglxve.netlify.app/events/#card-teqz | (complete) |
+| $uicybin | https://yxunglxve.com/c/uicybin/ | photo, IG, music link, real bio (earlier Spotify/IG match was wrong, removed) |
+| Lil Bars | https://yxunglxve.com/c/lil-bars/ | photo, IG, music link, real bio (Dice $hades on Spotify? unconfirmed) |
+| Anxiety Jay | https://yxunglxve.com/c/anxiety-jay/ | photo, real bio (SoundCloud whynotbejoshua2? unconfirmed) |
+| StickNasty The Coldhearted Kid | https://yxunglxve.com/c/sticknasty-the-coldhearted-kid/ | photo, IG |
+| David Cameron | https://yxunglxve.com/c/david-cameron/ | IG |
+| Baby Gawdey | https://yxunglxve.com/c/baby-gawdey/ | (complete) |
+| Nezio | https://yxunglxve.com/c/nezio/ | (complete) |
+| Amier Lane | https://yxunglxve.com/c/amier-lane/ | (complete) |
+| Teqz | https://yxunglxve.com/c/teqz/ | (complete) |
