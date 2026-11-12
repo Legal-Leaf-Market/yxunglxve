@@ -1,6 +1,7 @@
 // Trading cards for Stuff the Artist (Nov 14, Columbus Bar).
 //
-// Share links (/c/<name>/) and their previews rebuild automatically on deploy.
+// Share links rebuild automatically on deploy: yxunglxve.com/<short> (e.g. /teqz) and /c/<name>/.
+//   short = optional custom short link (otherwise it is the name with spaces/symbols removed)
 //
 // HOW TO EDIT (on GitHub: open this file, click the pencil, edit, then "Commit changes" to main):
 //   bio        = the text on the back of the card. Swap in each artist's own words whenever you get them.
@@ -18,6 +19,7 @@
 
 window.HEADLINER = {
   name: "Yxung Lxve",
+  short: "yxung",
   role: "Headliner",
   bio: "Columbus boy under the weather but not so highly clever. Two albums deep this year with Room Library and Gumdrop Sunset, a steady run of singles all the way up to Dr.Robotnic, and Saturday he closes it out at home.",
   spotify: "6g91eYiklNIugok5b35mdZ",
@@ -65,6 +67,7 @@ window.GUESTS = [
   },
   {
     name: "StickNasty The Coldhearted Kid",
+    short: "sticknasty",
     bio: "\"I am the man behind the mask.\" Columbus, IN rapper raised on MF Doom, Aesop Rock and Wu-Tang. He's on Yxung Lxve's Gumdrop Sunset with \"A New Greeting,\" and on BandLab with fellow guest David Cameron on \"Get Outta Town.\" Saturday they share the stage.",
     spotify: "", spotifyTrack: "7Mmi5Q1mUz2lNrbkdBWgmi", soundcloud: "",
     bandlab: "https://www.bandlab.com/sticknasty9", bandlabTrack: "288da5fe-fdf2-457c-a975-e1bfa08c5737",

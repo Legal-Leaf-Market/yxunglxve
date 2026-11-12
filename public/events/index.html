@@ -966,7 +966,7 @@
       const playsOn = (g) => sources(g).map((x) => x.label).join(" + ");
 
       const share = async (g, btn) => {
-        const url = "https://yxunglxve.com/c/" + slug(g.name).replace(/^card-/, "") + "/";
+        const url = "https://yxunglxve.com/" + (g.short || g.name.toLowerCase().replace(/\$/g, "s").replace(/[^a-z0-9]/g, ""));
         const text = g.headliner
           ? "Yxung Lxve headlines Stuff the Artist. Sat Nov 14, Columbus Bar, Columbus IN. No cover, all ages."
           : g.name + " is on the lineup for Stuff the Artist with Yxung Lxve. Sat Nov 14, Columbus Bar, Columbus IN. No cover, all ages.";
