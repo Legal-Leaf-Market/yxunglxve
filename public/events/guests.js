@@ -63,7 +63,7 @@ window.GUESTS = [
   },
   {
     name: "StickNasty The Coldhearted Kid",
-    bio: "\"I am the man behind the mask.\" Columbus, IN rapper raised on MF Doom, Aesop Rock and Wu-Tang. He's on Yxung Lxve's Gumdrop Sunset with \"A New Greeting,\" and on BandLab with fellow guest David Cameron on \"Get Outta Town.\"",
+    bio: "\"I am the man behind the mask.\" Columbus, IN rapper raised on MF Doom, Aesop Rock and Wu-Tang. He's on Yxung Lxve's Gumdrop Sunset with \"A New Greeting,\" and on BandLab with fellow guest David Cameron on \"Get Outta Town.\" Saturday they share the stage.",
     spotify: "", spotifyTrack: "7Mmi5Q1mUz2lNrbkdBWgmi", soundcloud: "",
     bandlab: "https://www.bandlab.com/sticknasty9", bandlabTrack: "288da5fe-fdf2-457c-a975-e1bfa08c5737",
     image: "https://bl-prod-images.azureedge.net/v1.0/users/8acf06db-3bd8-4c14-9e70-a156a2f7221f/640x640", track: "Get Outta Town",
