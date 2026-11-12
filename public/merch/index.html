@@ -19,7 +19,7 @@
   <style>
     :root {
       --bg: #0b0d1f; --bg-2: #141838; --bg-3: #1b2048; --fg: #f4ede0; --muted: #9a98b4; --line: #2a2e57;
-      --gold: #e6c27a; --gold-deep: #b8893d; --crimson: #b3172f; --ok: #22c55e;
+      --gold: #e6c27a; --gold-deep: #b8893d; --crimson: #b3172f; --ok: #22c55e; --cash: #00d64f;
     }
     *, *::before, *::after { box-sizing: border-box; }
     html { -webkit-text-size-adjust: 100%; }
@@ -88,18 +88,20 @@
     .howpay { margin: 4px 0 40px; padding: 18px; border: 1px solid var(--line); border-radius: 18px; background: var(--bg-2); }
     .howpay h2 { margin: 0 0 4px; font-family: "Archivo Black", Impact, sans-serif; font-weight: 400; font-size: 1.3rem; text-transform: uppercase; }
     .fine { margin: 0; font-size: 0.8rem; color: var(--muted); }
-    .howpay .fine { margin-bottom: 14px; }
-    .paycards { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; }
-    .pc { min-width: 0; display: grid; gap: 10px; justify-items: center; align-content: start; text-align: center; padding: 16px 12px; border-radius: 14px; border: 2px solid var(--pc); background: var(--bg); }
-    .pc-chime { --pc: #1ec677; }
-    .pc-cash { --pc: #00d64f; }
-    .pc-name { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--pc); }
-    .pc-handle { font-family: "Archivo Black", Impact, sans-serif; font-size: clamp(0.95rem, 4.2vw, 1.25rem); word-break: break-all; line-height: 1.15; }
-    .pc .btn { width: 100%; min-width: 0; white-space: normal; text-align: center; line-height: 1.2; padding: 8px 6px; letter-spacing: 0.08em; font-size: 0.7rem; }
-    .pc .pc-pay { background: var(--pc); border-color: var(--pc); color: #04130b; }
-    .pc .pc-pay:hover { filter: brightness(1.1); }
-    .pc .qr { width: 100%; max-width: 170px; padding: 8px; border-radius: 10px; background: #fff; }
-    .pc .qr svg { display: block; width: 100%; height: auto; }
+    .hp-steps { margin: 12px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; counter-reset: hp; }
+    .hp-steps li { display: flex; align-items: center; gap: 12px; font-size: 0.92rem; }
+    .hp-steps li::before { counter-increment: hp; content: counter(hp); flex: none; width: 28px; height: 28px; border-radius: 999px; display: grid; place-items: center; background: var(--bg-3); border: 1px solid var(--line); color: var(--gold); font-size: 0.8rem; font-weight: 700; }
+    .cashtag { display: inline-flex; align-items: center; gap: 10px; margin: 16px 0 0; padding: 8px 16px; border-radius: 999px; border: 1px solid var(--cash); font-size: 0.9rem; }
+    .cashtag span { color: var(--cash); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; font-size: 0.68rem; }
+    .cashtag b { font-family: "Archivo Black", Impact, sans-serif; font-weight: 400; }
+
+    /* Cash App */
+    .btn.cash { background: var(--cash); border-color: var(--cash); color: #04130b; min-height: 58px; font-size: 0.95rem; letter-spacing: 0.06em; }
+    .btn.cash:hover { background: #2bea6f; }
+    .qrwrap { display: none; }
+    @media (hover: hover) and (pointer: fine) { .qrwrap { display: grid; gap: 8px; justify-items: center; } }
+    .qr { width: 150px; padding: 8px; border-radius: 10px; background: #fff; }
+    .qr svg { display: block; width: 100%; height: auto; }
     .pc-scan { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.06em; }
 
     /* Sticky bag bar */
@@ -193,8 +195,11 @@
     .note div { flex: 1; min-width: 0; font-size: 0.86rem; }
     .note b { word-break: break-word; }
     .note button { flex: none; padding: 8px 12px; border-radius: 999px; border: 1px solid var(--gold); background: none; color: var(--gold); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; }
-    .sent { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    .sent .btn { padding: 0 8px; font-size: 0.72rem; letter-spacing: 0.06em; }
+    .paytop .to { font-size: 0.85rem; color: var(--muted); }
+    .paytop .to b { color: var(--cash); }
+    .pay-sub { margin: 10px 0 0; text-align: center; }
+    .back-q { margin: 0 0 12px; text-align: center; font-weight: 700; font-size: 1.05rem; }
+    .pay-alt { display: grid; gap: 14px; margin-top: 18px; }
 
     .receipt { display: grid; gap: 14px; text-align: center; justify-items: center; padding-top: 8px; }
     .check { width: 64px; height: 64px; border-radius: 999px; background: var(--ok); display: grid; place-items: center; color: #04130b; font-size: 2rem; font-weight: 700; animation: pop 0.4s cubic-bezier(.2,.8,.2,1.4); }
@@ -238,7 +243,7 @@
       <ul class="perks">
         <li><b>Free</b> hand delivery at a show</li>
         <li><b>$5</b> flat shipping to your door</li>
-        <li>Pay with <b>Chime</b> or <b>Cash App</b></li>
+        <li>Pay with <b>Cash App</b></li>
       </ul>
     </section>
 
@@ -246,8 +251,12 @@
 
     <section class="howpay" aria-labelledby="hp-title">
       <h2 id="hp-title">How to pay</h2>
-      <p class="fine">Add your pieces to the bag and check out first. You'll get your exact total and an order # for the payment note. Either app works.</p>
-      <div id="howpay"></div>
+      <ol class="hp-steps">
+        <li><span>Pick your size and add it to your bag</span></li>
+        <li><span>Check out and choose show pickup or shipping</span></li>
+        <li><span>Tap <b>Pay with Cash App</b>. Your total is already filled in.</span></li>
+      </ol>
+      <p class="cashtag"><span>Cash App</span> <b id="hp-tag"></b></p>
     </section>
 
     <footer>
@@ -320,15 +329,25 @@
         <div class="paytop">
           <span class="oid" id="p-oid"></span>
           <div class="big" id="p-amt"></div>
-          <div class="note"><div>Payment note:<br><b id="p-note"></b></div><button type="button" id="p-copy">Copy</button></div>
+          <span class="to" id="p-to"></span>
         </div>
-        <div id="p-cards"></div>
-        <p class="sec-t">Sent it? Tap the app you used</p>
-        <div class="sent">
-          <button class="btn" type="button" data-sent="Chime">I paid with Chime</button>
-          <button class="btn" type="button" data-sent="Cash App">I paid with Cash App</button>
+        <!-- Before they open Cash App -->
+        <div id="p-go">
+          <a class="btn wide cash" id="p-pay" data-cash target="_blank" rel="noopener">Pay with Cash App</a>
+          <p class="fine pay-sub" id="p-sub"></p>
         </div>
-        <p class="fine" style="margin-top:10px">Your order is already saved. If you leave to open the app, come back to this page and it'll be right here.</p>
+        <!-- Back from Cash App -->
+        <div class="hidden" id="p-back">
+          <p class="back-q" id="p-q"></p>
+          <button class="btn wide cash" type="button" data-sent>Yes, I sent it</button>
+          <a class="btn wide ghost" id="p-again" data-cash target="_blank" rel="noopener" style="margin-top:8px">Not yet. Open Cash App</a>
+        </div>
+        <div class="pay-alt">
+          <div class="note"><div>For line in Cash App:<br><b id="p-note"></b></div><button type="button" id="p-copy">Copy</button></div>
+          <div class="qrwrap"><div id="p-qr"></div><span class="pc-scan">On a computer? Scan this with your phone camera.</span></div>
+          <button class="btn wide ghost" type="button" data-sent id="p-sent">I already sent it</button>
+        </div>
+        <p class="fine" style="margin-top:12px">Your order is saved. If you leave to open Cash App, come back to this page and it'll be right here.</p>
       </section>
 
       <!-- 4: Done -->
@@ -353,8 +372,7 @@
   <script src="qrcode.js"></script>
   <script>
     // ===== EDIT HERE =====
-    const CHIME = "Adam-Mitchell-134";  // $ChimeSign (main way to pay)
-    const CASHAPP = "yxunglxve13";      // $cashtag (backup)
+    const CASHAPP = "yxunglxve13";      // $cashtag, without the $
     const SHIPPING = 5;                 // flat-rate shipping, dollars
     const PRODUCTS = [
       { id: "robotnic", name: "Dr Robotnic Raglan", short: "Robotnic", price: 30, badge: "New single",
@@ -385,33 +403,16 @@
     let bag = store.get("yl-bag", []).filter((c) => byId(c.id)); // [{id,size,qty}]
     let pending = store.get("yl-pending", null); // saved order awaiting payment
 
-    // ---------- Pay cards (Chime + Cash App, equal) ----------
+    // ---------- Cash App ----------
+    // cash.app/$tag/30 opens Cash App with $30 already filled in.
+    const cashLink = (amt) => "https://cash.app/$" + CASHAPP + (amt ? "/" + amt : "");
     const qr = (text) => { const q = qrcode(0, "M"); q.addData(text); q.make(); const d = el("div", "qr"); d.innerHTML = q.createSvgTag({ cellSize: 4, margin: 2, scalable: true }); return d; };
-    const PAY = [
-      CHIME && { name: "Chime", handle: "$" + CHIME, cls: "pc-chime", link: () => "https://app.chime.com/link/qr?u=" + encodeURIComponent(CHIME), presets: false },
-      CASHAPP && { name: "Cash App", handle: "$" + CASHAPP, cls: "pc-cash", link: (amt) => "https://cash.app/$" + CASHAPP + (amt ? "/" + amt : ""), presets: true }
-    ].filter(Boolean);
     const copy = async (text, btn, label) => {
       try { await navigator.clipboard.writeText(text); btn.textContent = "Copied ✓"; }
       catch (_) { window.prompt("Copy this:", text); }
       setTimeout(() => { btn.textContent = label; }, 1800);
     };
-    const payCards = (amt) => {
-      const box = el("div", "paycards");
-      for (const m of PAY) {
-        const c = el("div", "pc " + m.cls);
-        c.append(el("span", "pc-name", m.name), el("div", "pc-handle", m.handle));
-        const a = el("a", "btn pc-pay", (amt ? "Pay " + money(amt) : "Pay") + " on " + m.name + " ↗");
-        a.href = m.link(amt); a.target = "_blank"; a.rel = "noopener";
-        const label = "Copy " + m.handle;
-        const cp = el("button", "btn ghost", label); cp.type = "button";
-        cp.addEventListener("click", () => copy(m.handle, cp, label));
-        c.append(a, qr(m.link(amt)), el("span", "pc-scan", amt ? (m.presets ? "Scan · " + money(amt) + " filled in" : "Scan · enter " + money(amt)) : "Scan to pay"), cp);
-        box.append(c);
-      }
-      return box;
-    };
-    $("#howpay").append(payCards(0));
+    $("#hp-tag").textContent = "$" + CASHAPP;
 
     // ---------- Products ----------
     for (const p of PRODUCTS) {
@@ -455,7 +456,8 @@
     // ---------- Bag ----------
     const count = () => bag.reduce((s, c) => s + c.qty, 0);
     const subtotal = () => bag.reduce((s, c) => s + byId(c.id).price * c.qty, 0);
-    const saveBag = () => store.set("yl-bag", bag);
+    // Changing the bag after reaching the pay step re-opens the order (unless they already went to Cash App).
+    const saveBag = () => { store.set("yl-bag", bag); if (pending && !pending.opened) unPend(); };
     function renderBag(bump) {
       const n = count();
       $("#bb-count").textContent = n + (n === 1 ? " item" : " items") + " in your bag";
@@ -490,7 +492,7 @@
     }
 
     // ---------- Checkout sheet ----------
-    const TITLES = ["Your bag", "Delivery", "Your info", "Send payment", "Done"];
+    const TITLES = ["Your bag", "Delivery", "Your info", "Pay with Cash App", "Done"];
     let step = 0;
     const sheetOpen = () => !$("#sheet").classList.contains("hidden");
     const delivery = () => document.querySelector('input[name="delivery"]:checked').value;
@@ -509,10 +511,10 @@
       $("#sh-title").textContent = TITLES[n];
       $$("#progress span").forEach((s, i) => { s.classList.toggle("done", i < n); s.classList.toggle("now", i === n); });
       $("#progress").classList.toggle("hidden", n === 4);
-      $("#sh-back").style.visibility = n > 0 && n < 3 ? "visible" : "hidden";
+      $("#sh-back").style.visibility = n > 0 && n < 4 ? "visible" : "hidden";
       const next = $("#sh-next");
       next.disabled = n === 0 && !bag.length;
-      next.textContent = n === 0 ? "Continue to delivery" : n === 1 ? "Continue" : n === 2 ? "Save order & go to payment" : "Back to the site";
+      next.textContent = n === 0 ? "Continue to delivery" : n === 1 ? "Continue" : n === 2 ? "Continue to payment" : "Back to the site";
       $("#sh-foot").classList.toggle("hidden", n === 3);
       $("#sum").classList.toggle("hidden", n >= 3);
       $("#sh-err").classList.add("hidden");
@@ -533,7 +535,7 @@
     $("#bb-go").addEventListener("click", () => openSheet(pending ? 3 : 0));
     $("#sh-close").addEventListener("click", closeSheet);
     $("#sheet-bg").addEventListener("click", closeSheet);
-    $("#sh-back").addEventListener("click", () => show(Math.max(0, step - 1)));
+    $("#sh-back").addEventListener("click", () => { if (step === 3) unPend(); show(Math.max(0, step - 1)); });
     document.addEventListener("keydown", (e) => { if (e.key === "Escape" && sheetOpen()) closeSheet(); });
     $("#sh-body").addEventListener("input", () => $("#sh-err").classList.add("hidden"));
     $$('input[name="delivery"]').forEach((r) => r.addEventListener("change", () => { $("#ship-fields").classList.toggle("hidden", delivery() !== "ship"); renderSum(); }));
@@ -596,27 +598,66 @@
     const itemsText = (items) => items.map((c) => c.qty + " × " + byId(c.id).name + " (" + c.size + ")").join("; ");
     const noteText = (o) => o.id + ": " + o.items.map((c) => c.qty + " " + byId(c.id).short + " " + c.size).join(", ") + (o.shipping ? ", SHIP" : ", pickup");
     function renderPay() {
-      const o = pending;
-      $("#p-oid").textContent = "Order " + o.id + " · send exactly";
-      $("#p-amt").textContent = money(o.total);
+      const o = pending, amt = money(o.total);
+      $("#p-oid").textContent = "Order " + o.id;
+      $("#p-amt").textContent = amt;
+      $("#p-to").replaceChildren("to ", el("b", null, "$" + CASHAPP), " on Cash App");
+      $("#p-pay").textContent = "Pay " + amt + " with Cash App";
+      $("#p-sub").textContent = "Cash App opens with " + amt + " already filled in. We copy your order # for you, so paste it in the \"For\" line and hit Pay.";
+      $("#p-q").textContent = "Did your " + amt + " go through?";
+      $("#p-pay").href = $("#p-again").href = cashLink(o.total);
       $("#p-note").textContent = noteText(o);
-      $("#p-cards").replaceChildren(payCards(o.total));
+      $("#p-qr").replaceChildren(qr(cashLink(o.total)));
+      askBack(!!o.opened);
     }
+    // After they've gone to Cash App, the main question becomes "did it go through?"
+    function askBack(on) {
+      $("#p-go").classList.toggle("hidden", on);
+      $("#p-sent").classList.toggle("hidden", on);
+      $("#p-back").classList.toggle("hidden", !on);
+    }
+    // Back out of the pay step: drop the saved order but keep everything they typed.
+    function unPend() {
+      const o = pending; if (!o) return;
+      const fill = (id, v) => { const i = $(id); if (i && !i.value.trim()) i.value = v || ""; };
+      fill("#c-name", o.name); fill("#c-phone", o.phone); fill("#c-email", o.email); fill("#c-ig", o.instagram); fill("#c-notes", o.notes);
+      if (o.shipping) {
+        document.querySelector('input[name="delivery"][value="ship"]').checked = true;
+        $("#ship-fields").classList.remove("hidden");
+        fill("#s-address", o.address); fill("#s-city", o.city); fill("#s-zip", o.zip);
+        if (o.state) $("#s-state").value = o.state;
+      }
+      pending = null; store.set("yl-pending", null);
+    }
+    $$("[data-cash]").forEach((a) => a.addEventListener("click", () => {
+      if (!pending) return;
+      // Copy the order # on the same tap so it's ready to paste in Cash App.
+      try { navigator.clipboard.writeText(noteText(pending)).catch(() => {}); } catch (_) {}
+      pending.opened = true; store.set("yl-pending", pending);
+      setTimeout(() => { if (pending && step === 3) askBack(true); }, 1500);
+    }));
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible" && pending && pending.opened && step === 3) askBack(true);
+    });
     $("#p-copy").addEventListener("click", (e) => copy(noteText(pending), e.currentTarget, "Copy"));
 
     $$("[data-sent]").forEach((b) => b.addEventListener("click", async () => {
-      const method = b.dataset.sent, o = pending;
+      const o = pending; if (!o) return;
+      const label = b.textContent;
       $$("[data-sent]").forEach((x) => (x.disabled = true));
       b.textContent = "Confirming…";
-      await post({ "form-name": "payment-sent", order: o.id, name: o.name, method, amount: money(o.total), delivery: o.delivery });
-      renderReceipt(o, method);
+      await post({ "form-name": "payment-sent", order: o.id, name: o.name, method: "Cash App", amount: money(o.total), delivery: o.delivery });
+      renderReceipt(o);
       pending = null; store.set("yl-pending", null);
-      bag = []; saveBag(); renderBag();
-      $$("[data-sent]").forEach((x) => { x.disabled = false; x.textContent = "I paid with " + x.dataset.sent; });
+      // Take what they paid for out of the bag (anything added afterwards stays).
+      for (const i of o.items) { const c = bag.find((x) => x.id === i.id && x.size === i.size); if (c) c.qty -= i.qty; }
+      bag = bag.filter((c) => c.qty > 0); saveBag(); renderBag();
+      $$("[data-sent]").forEach((x) => (x.disabled = false)); b.textContent = label;
       show(4);
     }));
 
-    function renderReceipt(o, method) {
+    function renderReceipt(o) {
+      const method = "Cash App";
       $("#r-line").textContent = "Order " + o.id + " · " + money(o.total) + " sent with " + method;
       const box = $("#r-box"); box.replaceChildren();
       const r = (a, b) => { const d = el("div", "r"); d.append(el("span", null, a), el("span", null, b)); box.append(d); };
