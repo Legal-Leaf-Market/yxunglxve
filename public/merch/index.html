@@ -3,8 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <script src="/inapp.js"></script>
   <title>Merch · YXUNG LXVE</title>
   <meta name="description" content="Pre-order Yxung Lxve merch: the Yxung, Dumb, &amp; Numb raglan, DOUSED tee and the I Got Her Mad hoodie. Hand-delivered at a show or shipped for $5.">
+  <meta property="og:site_name" content="YXUNG LXVE">
+  <meta property="og:type" content="website">
   <meta property="og:title" content="Yxung Lxve merch · Pre-order now">
   <meta property="og:description" content="Yxung, Dumb, &amp; Numb raglan · DOUSED tee · I Got Her Mad hoodie. Pick up at a show free, or $5 shipping.">
   <meta property="og:image" content="https://yxunglxve.netlify.app/merch/img/dumbnumb-shirt.jpg">
@@ -611,6 +614,13 @@
 
     let bag = store.get("yl-bag", []).filter((c) => byId(c.id)); // [{id,size,qty}]
     let pending = store.get("yl-pending", null); // saved order awaiting payment
+    // Returning buyer: pre-fill their info from last time (only into empty fields).
+    (() => {
+      const me = store.get("yl-me", null); if (!me) return;
+      [["#c-name", me.name], ["#c-phone", me.phone], ["#c-email", me.email], ["#c-ig", me.instagram]].forEach(([id, v]) => {
+        const i = document.querySelector(id); if (i && v && !i.value) i.value = v;
+      });
+    })();
     if (pending && !(pending.items || []).every((c) => byId(c.id))) { pending = null; store.set("yl-pending", null); } // item no longer sold
 
     // ---------- Cash App ----------
@@ -823,6 +833,7 @@
         instagram: order.instagram, items: itemsText(order.items), subtotal: money(order.subtotal), shipping: money(order.shipping),
         total: money(order.total), delivery: order.delivery, address: order.address, city: order.city, state: order.state, zip: order.zip, notes: order.notes
       });
+      store.set("yl-me", { name: order.name, phone: order.phone, email: order.email, instagram: order.instagram });
       pending = order; store.set("yl-pending", pending);
       renderPay(); show(3);
     });

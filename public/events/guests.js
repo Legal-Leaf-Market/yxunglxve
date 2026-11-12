@@ -1,5 +1,7 @@
 // Trading cards for Stuff the Artist (Nov 14, Columbus Bar).
 //
+// Share links (/c/<name>/) and their previews rebuild automatically on deploy.
+//
 // HOW TO EDIT (on GitHub: open this file, click the pencil, edit, then "Commit changes" to main):
 //   bio        = the text on the back of the card. Swap in each artist's own words whenever you get them.
 //   spotify    = the code after /artist/ in their Spotify link

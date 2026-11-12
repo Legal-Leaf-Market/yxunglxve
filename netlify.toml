@@ -1,5 +1,7 @@
 [build]
   publish = "public"
+  # Rebuilds the per-artist share pages (/c/<name>/) from public/events/guests.js
+  command = "node scripts/build-cards.js"
 
 # Short aliases for the link-in-bio page
 [[redirects]]
@@ -11,3 +13,20 @@
   from = "/ig"
   to = "/links/"
   status = 301
+
+# Always serve the newest version of pages and scripts (no stale copies in
+# Messenger/Instagram browsers or anyone's cache). Images can cache for a day.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/merch/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
