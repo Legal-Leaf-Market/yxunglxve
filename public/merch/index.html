@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Merch · YXUNG LXVE</title>
-  <meta name="description" content="Pre-order Yxung Lxve merch: Dr Robotnic raglan, DOUSED tee and the I Got Her Mad hoodie. Hand-delivered at a show or shipped for $5.">
+  <meta name="description" content="Pre-order Yxung Lxve merch: the Yxung, Dumb, &amp; Numb raglan, DOUSED tee and the I Got Her Mad hoodie. Hand-delivered at a show or shipped for $5.">
   <meta property="og:title" content="Yxung Lxve merch · Pre-order now">
-  <meta property="og:description" content="Dr Robotnic raglan · DOUSED tee · I Got Her Mad hoodie. Pick up at a show free, or $5 shipping.">
-  <meta property="og:image" content="https://yxunglxve.netlify.app/merch/img/robotnic-shirt.jpg">
+  <meta property="og:description" content="Yxung, Dumb, &amp; Numb raglan · DOUSED tee · I Got Her Mad hoodie. Pick up at a show free, or $5 shipping.">
+  <meta property="og:image" content="https://yxunglxve.netlify.app/merch/img/dumbnumb-shirt.jpg">
   <meta property="og:url" content="https://yxunglxve.netlify.app/merch/">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#0b0d1f">
@@ -375,10 +375,10 @@
     const CASHAPP = "yxunglxve13";      // $cashtag, without the $
     const SHIPPING = 5;                 // flat-rate shipping, dollars
     const PRODUCTS = [
-      { id: "robotnic", name: "Dr Robotnic Raglan", short: "Robotnic", price: 30, badge: "New single",
-        desc: "White body, red 3/4 sleeves. Full-front Dr Robotnic print.",
+      { id: "dumbnumb", name: "Yxung, Dumb, & Numb Raglan", short: "DumbNumb", price: 30, badge: "New",
+        desc: "White body, heather gray 3/4 sleeves and collar. Full-front black-and-white skate photo print.",
         sizes: ["S", "M", "L", "XL", "2XL", "3XL"],
-        pics: [["Shirt", "img/robotnic-shirt.jpg"], ["Print", "img/robotnic-art.jpg"]] },
+        pics: [["Shirt", "img/dumbnumb-shirt.jpg"], ["Print", "img/dumbnumb-art.jpg"]] },
       { id: "doused", name: "DOUSED Tee", short: "DOUSED", price: 30, badge: "",
         desc: "Navy tee. Oversized full-front DOUSED print.",
         sizes: ["S", "M", "L", "XL", "2XL", "3XL"],
@@ -402,6 +402,7 @@
 
     let bag = store.get("yl-bag", []).filter((c) => byId(c.id)); // [{id,size,qty}]
     let pending = store.get("yl-pending", null); // saved order awaiting payment
+    if (pending && !(pending.items || []).every((c) => byId(c.id))) { pending = null; store.set("yl-pending", null); } // item no longer sold
 
     // ---------- Cash App ----------
     // cash.app/$tag/30 opens Cash App with $30 already filled in.
