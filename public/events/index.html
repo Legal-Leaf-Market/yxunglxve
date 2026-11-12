@@ -936,10 +936,10 @@
         const art = el("div", "tc-art");
         if (g.image) {
           const img = el("img"); img.src = g.image; img.alt = g.name; img.loading = "lazy";
-          img.addEventListener("error", () => { img.remove(); art.append(el("span", "tc-mono", g.name.replace(/[^A-Za-z0-9 ]/g, "").split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join("").toUpperCase() || "?")); });
+          img.addEventListener("error", () => { img.remove(); art.append(el("span", "tc-mono", (g.name.startsWith("$") ? "$" + g.name[1] : g.name.replace(/[^A-Za-z0-9 ]/g, "").split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join("")).toUpperCase() || "?")); });
           art.append(img);
         } else {
-          art.append(el("span", "tc-mono", g.name.replace(/[^A-Za-z0-9 ]/g, "").split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join("").toUpperCase() || "?"));
+          art.append(el("span", "tc-mono", (g.name.startsWith("$") ? "$" + g.name[1] : g.name.replace(/[^A-Za-z0-9 ]/g, "").split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join("")).toUpperCase() || "?"));
         }
         art.append(el("span", "tc-shine"));
         const nm = el("h3", "tc-name", g.name);
