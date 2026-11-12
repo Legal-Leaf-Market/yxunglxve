@@ -71,7 +71,7 @@ window.GUESTS = [
   },
   {
     name: "David Cameron",
-    bio: "Coming in straight off SoundCloud. Hit play on the back of this card, then catch David Cameron live at Columbus Bar on Saturday.",
+    bio: "Coming in straight off SoundCloud, and he's already linked up with fellow guest StickNasty on \"Get Outta Town.\" Hit play on both, then catch David Cameron live at Columbus Bar on Saturday.",
     spotify: "", soundcloud: "https://soundcloud.com/david-cameron-509882173", image: "https://i1.sndcdn.com/avatars-pRvrMwfgMLhyTltQ-nFPyVQ-t500x500.jpg", track: "",
     bandlabTrack: "288da5fe-fdf2-457c-a975-e1bfa08c5737", first: "SoundCloud",
     youtube: "", instagram: "", facebook: ""
