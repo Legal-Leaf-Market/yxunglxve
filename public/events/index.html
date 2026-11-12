@@ -415,6 +415,12 @@
     .tc-stats div { display: flex; justify-content: space-between; gap: 10px; font-size: 0.74rem; }
     .tc-stats dt { color: var(--muted); letter-spacing: 0.14em; text-transform: uppercase; font-size: 0.64rem; padding-top: 2px; }
     .tc-stats dd { margin: 0; text-align: right; font-weight: 500; }
+    .tc-tabs-k { margin-bottom: -8px; color: var(--muted); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.8; }
+    .tc-plays { display: flex; flex-direction: column; gap: 8px; }
+    .tc-play-alt { background: none; color: var(--gold); border: 2px solid var(--gold); }
+    .tc-play-alt:hover, .tc-play-alt:focus-visible { background: rgba(230, 194, 122, 0.15); }
+    .tc-play-alt[aria-pressed="true"] { background: var(--gold); color: #0b0d1f; }
+    .tc-plays + .tc-stage:empty { display: none; }
     .tc-stage { display: grid; place-items: center; min-height: 52px; }
     .tc.loaded .tc-stage { display: block; }
     .tc-stage iframe { display: block; width: 100%; border: 0; border-radius: 10px; }
@@ -943,25 +949,23 @@
         a.href = "#" + slug(g.name); li.append(a); return li;
       }));
 
-      const hasPlayer = (g) => !!(g.bandlabTrack || g.spotify || g.soundcloud);
-      const playsOn = (g) => g.bandlabTrack ? "BandLab" : g.spotify ? "Spotify" : g.soundcloud ? "SoundCloud" : "";
-      const embedFor = (g) => {
-        const f = document.createElement("iframe");
-        f.allow = "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture";
-        if (g.bandlabTrack) {
-          f.src = "https://www.bandlab.com/embed/?id=" + encodeURIComponent(g.bandlabTrack);
-          f.height = "200"; f.title = g.name + " on BandLab"; f.allowFullscreen = true;
-        } else if (g.spotify) {
-          f.src = "https://open.spotify.com/embed/artist/" + g.spotify + "?utm_source=generator&theme=0";
-          f.height = "352"; f.title = g.name + " on Spotify";
-        } else {
-          // auto_play: the visitor already tapped Play, so start right away; taller player shows their track list
-          f.src = "https://w.soundcloud.com/player/?url=" + encodeURIComponent(g.soundcloud) +
-            "&color=%23e6c27a&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false";
-          f.height = "320"; f.title = g.name + " on SoundCloud";
-        }
-        return f;
+      // Every music source an artist has, in order. Each one plays inside the card (no linking out).
+      const sources = (g) => {
+        const out = [];
+        const frame = (src, h, title) => {
+          const f = document.createElement("iframe");
+          f.allow = "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture";
+          f.src = src; f.height = h; f.title = g.name + " on " + title; f.allowFullscreen = true;
+          return f;
+        };
+        if (g.bandlabTrack) out.push({ label: "BandLab", make: () => frame("https://www.bandlab.com/embed/?id=" + encodeURIComponent(g.bandlabTrack), "200", "BandLab") });
+        if (g.spotify) out.push({ label: "Spotify", make: () => frame("https://open.spotify.com/embed/artist/" + g.spotify + "?utm_source=generator&theme=0", "352", "Spotify") });
+        else if (g.spotifyTrack) out.push({ label: "Spotify", make: () => frame("https://open.spotify.com/embed/track/" + g.spotifyTrack + "?utm_source=generator&theme=0", "152", "Spotify") });
+        if (g.soundcloud) out.push({ label: "SoundCloud", make: () => frame("https://w.soundcloud.com/player/?url=" + encodeURIComponent(g.soundcloud) +
+          "&color=%23e6c27a&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false", "320", "SoundCloud") });
+        return out;
       };
+      const playsOn = (g) => sources(g).map((x) => x.label).join(" + ");
 
       const share = async (g, btn) => {
         const url = BASE + "#" + slug(g.name);
@@ -1020,16 +1024,34 @@
           stat("Set", "Sat Nov 14 · Columbus Bar");
           back.append(stats);
 
+          const srcs = sources(g);
           const stage = el("div", "tc-stage");
-          if (hasPlayer(g)) {
+          const load = (k) => {
+            if (window.setController) window.setController.pause();
+            stage.replaceChildren(srcs[k].make());
+            card.classList.add("loaded");
+          };
+          if (srcs.length > 1) {
+            // One Play button per source; they stay put so you can switch players any time
+            const row = el("div", "tc-plays");
+            const btns = srcs.map((x, k) => {
+              const b = el("button", "tc-play tc-play-alt");
+              b.type = "button";
+              b.innerHTML = '<span class="tc-tri" aria-hidden="true"></span>Play on ' + x.label;
+              b.setAttribute("aria-pressed", "false");
+              b.addEventListener("click", () => {
+                btns.forEach((o, j) => o.setAttribute("aria-pressed", String(j === k)));
+                load(k);
+              });
+              row.append(b);
+              return b;
+            });
+            back.append(row);
+          } else if (srcs.length) {
             const play = el("button", "tc-play");
             play.type = "button";
-            play.innerHTML = '<span class="tc-tri" aria-hidden="true"></span>Play on ' + playsOn(g);
-            play.addEventListener("click", () => {
-              if (window.setController) window.setController.pause();
-              stage.replaceChildren(embedFor(g));
-              card.classList.add("loaded");
-            });
+            play.innerHTML = '<span class="tc-tri" aria-hidden="true"></span>Play on ' + srcs[0].label;
+            play.addEventListener("click", () => load(0));
             stage.append(play);
           } else {
             stage.append(el("p", "tc-soon", "Music coming soon"));
@@ -1037,10 +1059,10 @@
           back.append(stage);
 
           const links = el("p", "tc-links");
-          const add = (label, href) => { if (!href) return; const a = el("a", null, label); a.href = href; a.target = "_blank"; a.rel = "noopener"; links.append(a); };
+          const add = (label, href) => { if (!href) return; const a = el("a", null, label + " ↗"); a.href = href; a.setAttribute("aria-label", label + " (opens outside this site)"); a.target = "_blank"; a.rel = "noopener"; links.append(a); };
           add("Spotify", g.spotify ? "https://open.spotify.com/artist/" + g.spotify : g.spotifyTrack && "https://open.spotify.com/track/" + g.spotifyTrack);
           add("SoundCloud", g.soundcloud); add("BandLab", g.bandlab); add("YouTube", g.youtube); add("Instagram", g.instagram); add("Facebook", g.facebook);
-          if (links.childElementCount) back.append(links);
+          if (links.childElementCount) back.append(el("span", "tc-tabs-k", "Opens outside the site ↗"), links);
 
           const acts = el("div", "tc-acts");
           const sh = el("button", "tc-share", "Share card"); sh.type = "button";
