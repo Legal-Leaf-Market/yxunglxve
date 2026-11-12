@@ -19,12 +19,12 @@ For a photo, they can send it straight to you. Add it to `public/images/guests/`
 
 | Artist | Card link | Missing |
 |---|---|---|
-| $uicybin | https://yxunglxve.netlify.app/events/#card-uicybin | photo, IG, music link, real bio |
-| Lil Bars | https://yxunglxve.netlify.app/events/#card-lil-bars | photo, IG, music link, real bio |
-| Anxiety Jay | https://yxunglxve.netlify.app/events/#card-anxiety-jay | photo, IG, real bio |
+| $uicybin | https://yxunglxve.netlify.app/events/#card-uicybin | (complete; own bio welcome) |
+| Lil Bars | https://yxunglxve.netlify.app/events/#card-lil-bars | photo, IG, music link, real bio (Dice $hades on Spotify? unconfirmed) |
+| Anxiety Jay | https://yxunglxve.netlify.app/events/#card-anxiety-jay | photo, real bio (SoundCloud whynotbejoshua2? unconfirmed) |
 | StickNasty The Coldhearted Kid | https://yxunglxve.netlify.app/events/#card-sticknasty-the-coldhearted-kid | photo, IG |
-| David Cameron | https://yxunglxve.netlify.app/events/#card-david-cameron | photo, IG |
-| Baby Gawdey | https://yxunglxve.netlify.app/events/#card-baby-gawdey | photo, IG |
-| Nezio | https://yxunglxve.netlify.app/events/#card-nezio | IG |
-| Amier Lane | https://yxunglxve.netlify.app/events/#card-amier-lane | IG |
-| Teqz | https://yxunglxve.netlify.app/events/#card-teqz | IG |
+| David Cameron | https://yxunglxve.netlify.app/events/#card-david-cameron | IG |
+| Baby Gawdey | https://yxunglxve.netlify.app/events/#card-baby-gawdey | (complete) |
+| Nezio | https://yxunglxve.netlify.app/events/#card-nezio | (complete) |
+| Amier Lane | https://yxunglxve.netlify.app/events/#card-amier-lane | IG (@amierlanemusic? unconfirmed) |
+| Teqz | https://yxunglxve.netlify.app/events/#card-teqz | (complete) |

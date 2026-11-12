@@ -27,16 +27,17 @@ window.HEADLINER = {
 window.GUESTS = [
   {
     name: "$uicybin",
-    bio: "One of nine special guests stuffing the Columbus Bar stage. Pull up Saturday and hear it live first.",
-    spotify: "", soundcloud: "", image: "", track: "",
-    youtube: "", instagram: "", facebook: ""
+    bio: "Southern Indiana's own, with the EP \"I CAN'T ESCAPE THE FOG\" and a catalog running from \"TEAR STAINED BALACLAVA\" to \"Feral Flames.\" Saturday $uicybin brings it to the Columbus Bar stage.",
+    spotify: "6xogl5AOLpDwNfe4LFJRZf", soundcloud: "",
+    image: "https://i.scdn.co/image/ab6761610000e5eb1dcd7518d08d1f105312fc27", track: "TEAR STAINED BALACLAVA",
+    youtube: "", instagram: "https://www.instagram.com/suicybin/", facebook: ""
   },
   {
     name: "Nezio",
     bio: "Nezio steps in with \"gangster\" loaded. Saturday it hits the Columbus Bar speakers, and you'll want to be in the room when it does.",
     spotify: "1iKI0Yayiwm91Tlu6BGhH0", soundcloud: "",
     image: "https://i.scdn.co/image/ab6761610000e5eb4024883101f126860b8a119a", track: "gangster",
-    youtube: "", instagram: "", facebook: ""
+    youtube: "", instagram: "https://www.instagram.com/_iamnezio/", facebook: ""
   },
   {
     name: "Amier Lane",
@@ -50,7 +51,7 @@ window.GUESTS = [
     bio: "\"Mayh3m.\" \"Shroomie HyperDrive.\" \"The Void.\" Teqz names songs like levels in a game, and Saturday the boss fight is at Columbus Bar.",
     spotify: "336r8w1OOOUlL9h1CfmcAY", soundcloud: "",
     image: "https://i.scdn.co/image/ab6761610000e5eb42c9327f5118444dcebf81b4", track: "Mayh3m",
-    youtube: "", instagram: "", facebook: ""
+    youtube: "", instagram: "https://www.instagram.com/teqz812/", facebook: ""
   },
   {
     name: "Lil Bars",
@@ -74,12 +75,12 @@ window.GUESTS = [
     name: "Baby Gawdey",
     bio: "Straight from the SoundCloud underground to the Columbus Bar stage. Get familiar now so you know the words Saturday.",
     spotify: "", soundcloud: "https://soundcloud.com/babygawdey", image: "https://i1.sndcdn.com/avatars-000587123565-fzsea5-t500x500.jpg", track: "",
-    youtube: "", instagram: "", facebook: "https://www.facebook.com/CrazyCTheProdigy"
+    youtube: "", instagram: "https://www.instagram.com/chadwants2die/", facebook: "https://www.facebook.com/CrazyCTheProdigy"
   },
   {
     name: "Anxiety Jay",
     bio: "Fresh on Spotify and closing out the special guest list. Anxiety Jay is one to say you saw early. Saturday, Columbus Bar.",
     spotify: "5aEq1lsbCBzTQjQtIPVdeb", soundcloud: "", image: "", track: "",
-    youtube: "", instagram: "", facebook: ""
+    youtube: "", instagram: "https://www.instagram.com/anxiety.wav/", facebook: ""
   }
 ];
