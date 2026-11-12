@@ -12,6 +12,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#0b0d1f">
   <link rel="icon" href="/images/profile.jpg">
+  <link rel="canonical" href="https://yxunglxve.netlify.app/events/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -225,44 +226,98 @@
     .setlist-sub { color: var(--muted); font-size: 0.85rem; }
     .setlist iframe { display: block; border: 0; border-radius: 12px; }
 
-    /* Guest players (click to listen, never auto) */
-    .guests li button {
-      all: unset;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
+    /* Lineup chips jump to guest cards */
+    .guests li { padding: 0; }
+    .guests li a { display: block; padding: 0.55rem 0.9rem; text-decoration: none; }
+    .guests li:hover { border-color: var(--gold); }
+    .guest-hint { margin: 16px 0 0; font-size: 0.85rem; }
+    .guest-hint a { color: var(--gold); text-decoration: none; }
+    .guest-hint a:hover { text-decoration: underline; }
+
+    /* Special guests grid */
+    .sg { margin-top: 72px; }
+    .sg-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px 20px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 14px;
+      margin-bottom: 28px;
     }
-    .guests li.playable { padding: 0; }
-    .guests li.playable button { padding: 0.55rem 0.9rem; }
-    .guests li.playable button::before {
-      content: "";
-      border-left: 8px solid var(--gold);
-      border-top: 5px solid transparent;
-      border-bottom: 5px solid transparent;
-    }
-    .guests li.playable:hover, .guests li.active { border-color: var(--gold); }
-    .guests li.active button { color: var(--gold); }
-    .guests li button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
-    .guest-hint { margin: 14px 0 0; color: var(--muted); font-size: 0.82rem; }
-    .guest-player { margin-top: 14px; }
-    .guest-player iframe { display: block; width: 100%; border: 0; border-radius: 12px; }
-    .guest-player { border-top: 1px solid var(--line); padding-top: 16px; }
-    .guest-now {
-      margin: 0 0 10px;
+    .sg-head h2 {
+      margin: 0;
       font-family: "Archivo Black", Impact, sans-serif;
-      font-size: 1.1rem;
+      font-weight: 400;
+      font-size: clamp(1.6rem, 5vw, 2.4rem);
+      letter-spacing: 0.03em;
       color: var(--gold);
     }
-    .guest-links { margin: 10px 0 0; display: flex; flex-wrap: wrap; gap: 14px; }
-    .guest-links a {
+    .sg-head p { margin: 0; color: var(--muted); font-size: 0.88rem; }
+    .sg-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .sg-card {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(20, 24, 56, 0.7), rgba(11, 13, 31, 0.7));
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      scroll-margin-top: 24px;
+    }
+    .sg-card:target { border-color: var(--gold); }
+    .sg-card h3 {
+      margin: 0;
+      font-family: "Archivo Black", Impact, sans-serif;
+      font-weight: 400;
+      font-size: 1.3rem;
+      letter-spacing: 0.02em;
+    }
+    .sg-stage {
+      min-height: 120px;
+      display: grid;
+      place-items: center;
+      border: 1px dashed var(--line);
+      background: rgba(0, 0, 0, 0.2);
+    }
+    .sg-card.loaded .sg-stage { border: 0; background: none; display: block; min-height: 0; }
+    .sg-stage iframe { display: block; width: 100%; border: 0; border-radius: 12px; }
+    .sg-play {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0.8rem 1.2rem;
+      border: 1px solid var(--gold);
+      background: none;
+      color: var(--gold);
+      font-family: inherit;
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .sg-play:hover, .sg-play:focus-visible { background: var(--gold); color: var(--bg); }
+    .sg-tri {
+      border-left: 10px solid currentColor;
+      border-top: 6px solid transparent;
+      border-bottom: 6px solid transparent;
+    }
+    .sg-soon { margin: 0; color: var(--muted); font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; }
+    .sg-links { margin: 0; display: flex; flex-wrap: wrap; gap: 14px; }
+    .sg-links a {
       color: var(--muted);
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       text-decoration: none;
     }
-    .guest-links a:hover { color: var(--fg); }
+    .sg-links a:hover { color: var(--fg); }
 
     /* Sticky now-playing bar */
     .np {
@@ -488,7 +543,7 @@
   </header>
 
   <main>
-    <span class="eyebrow">Upcoming show</span>
+    <span class="eyebrow" id="ev-eyebrow">Upcoming show</span>
     <h1>STUFF<span class="the">THE</span><span class="artist">ARTIST</span></h1>
     <p class="headline-date">Saturday, November 14</p>
     <div class="chips"><span>No cover</span><span>All ages</span><span>Columbus, IN</span></div>
@@ -539,19 +594,8 @@
           <h2>Lineup</h2>
           <p class="headliner">YXUNG LXVE</p>
           <p class="with">With special guests</p>
-          <ul class="guests" id="guests">
-            <li>$uicybin</li>
-            <li>Nezio</li>
-            <li>Amier Lane</li>
-            <li>Teqz</li>
-            <li>Lil Bars</li>
-            <li>StickNasty The Coldhearted Kid</li>
-            <li>David Cameron</li>
-            <li>Baby Gawdey</li>
-            <li>Anxiety Jay</li>
-          </ul>
-          <p class="guest-hint" id="guest-hint" hidden>Tap a name to hear their music.</p>
-          <div class="guest-player" id="guest-player" hidden></div>
+          <ul class="guests" id="guests"></ul>
+          <p class="guest-hint"><a href="#special-guests">Listen to the special guests &darr;</a></p>
         </div>
 
         <div class="panel">
@@ -564,6 +608,14 @@
           </div>
         </div>
       </div>
+    </section>
+
+    <section class="sg" id="special-guests" aria-labelledby="sg-title">
+      <div class="sg-head">
+        <h2 id="sg-title">SPECIAL GUESTS</h2>
+        <p>Tap play to hear each artist. Nothing plays until you tap.</p>
+      </div>
+      <div class="sg-grid" id="sg-grid"></div>
     </section>
   </main>
 
@@ -593,6 +645,7 @@
     &nbsp;·&nbsp; &copy; 2026 Yxung Lxve
   </footer>
 
+  <script src="/events/guests.js"></script>
   <script>
     // If the flyer image isn't uploaded yet, drop the slot and let the details fill the width.
     const flyer = document.getElementById("flyer");
@@ -602,6 +655,13 @@
     };
     if (flyer.complete && flyer.naturalWidth === 0) hideFlyer();
     else flyer.addEventListener("error", hideFlyer);
+
+    // After the show: relabel the page and stop auto-playing.
+    const SHOW_OVER = Date.now() > Date.parse("2026-11-15T07:00:00Z");
+    if (SHOW_OVER) {
+      document.getElementById("ev-eyebrow").textContent = "Past show · thank you Columbus";
+      document.querySelectorAll(".panel .actions a[href*='maps/dir']").forEach((a) => a.remove());
+    }
 
     // Set list auto-play. Browsers only allow sound after the visitor interacts with the page,
     // so we try right away, then start on the first tap, click or key press anywhere.
@@ -638,11 +698,11 @@
           document.getElementById("np-btn").setAttribute("aria-label", playing ? "Pause the set" : "Play the set");
         });
 
-        const start = () => { if (!playing && !userStopped) ctl.play(); };
+        const start = () => { if (!SHOW_OVER && !playing && !userStopped) ctl.play(); };
         ctl.addListener("ready", () => {
           start();
           const kick = (ev) => {
-            if (ev.target.closest && ev.target.closest("#np, .guest-player")) return;
+            if (ev.target.closest && ev.target.closest("#np, .sg-card")) return;
             start();
           };
           ["pointerdown", "keydown"].forEach((t) =>
@@ -661,79 +721,87 @@
     spotifyApi.async = true;
     document.head.append(spotifyApi);
 
-    // Guest artists. Fill in whatever links you have; a play button appears when there's a
-    // Spotify ID (the part after /artist/) or a SoundCloud URL. Spotify is used first if both exist.
-    // Players load only when someone taps a name, and tapping one pauses the set.
-    const GUESTS = [
-      { name: "$uicybin" },  // TODO: needs a music link
-      { name: "Nezio", spotify: "1iKI0Yayiwm91Tlu6BGhH0" },
-      { name: "Amier Lane", spotify: "26QW9N1LXqnBJ6je3ByhmF", soundcloud: "https://soundcloud.com/amier-lane" },
-      { name: "Teqz", spotify: "336r8w1OOOUlL9h1CfmcAY" },
-      { name: "Lil Bars" },  // TODO: needs a music link
-      { name: "StickNasty The Coldhearted Kid", spotify: "5OOz47ZXWsHN9B5TiA81Lj" },
-      { name: "David Cameron", soundcloud: "https://soundcloud.com/david-cameron-509882173" },
-      { name: "Baby Gawdey", soundcloud: "https://soundcloud.com/babygawdey", facebook: "https://www.facebook.com/CrazyCTheProdigy" },
-      { name: "Anxiety Jay", spotify: "5aEq1lsbCBzTQjQtIPVdeb" }
-    ];
+    // Special guests: data lives in /events/guests.js (window.GUESTS).
     (() => {
+      const GUESTS = window.GUESTS || [];
+      const slug = (n) => "guest-" + n.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
       const list = document.getElementById("guests");
-      const player = document.getElementById("guest-player");
-      let any = false;
+      const grid = document.getElementById("sg-grid");
+
+      list.replaceChildren(...GUESTS.map((g) => {
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        a.href = "#" + slug(g.name);
+        a.textContent = g.name;
+        li.append(a);
+        return li;
+      }));
 
       const embedFor = (g) => {
         const f = document.createElement("iframe");
         f.allow = "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture";
+        f.loading = "lazy";
         if (g.spotify) {
           f.src = "https://open.spotify.com/embed/artist/" + g.spotify + "?utm_source=generator&theme=0";
-          f.height = "152";
+          f.height = "352";
           f.title = g.name + " on Spotify";
         } else {
           f.src = "https://w.soundcloud.com/player/?url=" + encodeURIComponent(g.soundcloud) +
             "&color=%23e6c27a&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&visual=false";
-          f.height = "300";
+          f.height = "352";
           f.title = g.name + " on SoundCloud";
         }
         return f;
       };
-      const linksFor = (g) => {
-        const out = document.createElement("p");
-        out.className = "guest-links";
+
+      grid.replaceChildren(...GUESTS.map((g) => {
+        const card = document.createElement("article");
+        card.className = "sg-card";
+        card.id = slug(g.name);
+
+        const name = document.createElement("h3");
+        name.textContent = g.name;
+
+        const links = document.createElement("p");
+        links.className = "sg-links";
         const add = (label, href) => {
+          if (!href) return;
           const a = document.createElement("a");
           a.href = href; a.target = "_blank"; a.rel = "noopener"; a.textContent = label;
-          out.append(a);
+          links.append(a);
         };
-        if (g.spotify) add("Spotify", "https://open.spotify.com/artist/" + g.spotify);
-        if (g.soundcloud) add("SoundCloud", g.soundcloud);
-        if (g.facebook) add("Facebook", g.facebook);
-        if (g.instagram) add("Instagram", g.instagram);
-        return out;
-      };
+        add("Spotify", g.spotify && "https://open.spotify.com/artist/" + g.spotify);
+        add("SoundCloud", g.soundcloud);
+        add("YouTube", g.youtube);
+        add("Instagram", g.instagram);
+        add("Facebook", g.facebook);
 
-      list.replaceChildren(...GUESTS.map((g) => {
-        const li = document.createElement("li");
-        if (!g.spotify && !g.soundcloud) { li.textContent = g.name; return li; }
-        any = true;
-        li.className = "playable";
-        const btn = document.createElement("button");
-        btn.type = "button";
-        btn.textContent = g.name;
-        btn.setAttribute("aria-label", "Listen to " + g.name);
-        btn.addEventListener("click", () => {
-          if (window.setController) window.setController.pause();
-          list.querySelectorAll("li.active").forEach((x) => x.classList.remove("active"));
-          li.classList.add("active");
-          const head = document.createElement("p");
-          head.className = "guest-now";
-          head.textContent = g.name;
-          player.replaceChildren(head, embedFor(g), linksFor(g));
-          player.hidden = false;
-          player.scrollIntoView({ behavior: "smooth", block: "nearest" });
-        });
-        li.append(btn);
-        return li;
+        const stage = document.createElement("div");
+        stage.className = "sg-stage";
+
+        if (g.spotify || g.soundcloud) {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "sg-play";
+          btn.innerHTML = '<span class="sg-tri" aria-hidden="true"></span><span>Play ' + (g.spotify ? "on Spotify" : "on SoundCloud") + "</span>";
+          btn.setAttribute("aria-label", "Play " + g.name);
+          btn.addEventListener("click", () => {
+            if (window.setController) window.setController.pause();
+            stage.replaceChildren(embedFor(g));
+            card.classList.add("loaded");
+          });
+          stage.append(btn);
+        } else {
+          const soon = document.createElement("p");
+          soon.className = "sg-soon";
+          soon.textContent = "Music coming soon";
+          stage.append(soon);
+        }
+
+        card.append(name, stage);
+        if (links.childElementCount) card.append(links);
+        return card;
       }));
-      document.getElementById("guest-hint").hidden = !any;
     })();
 
     // Downloads an .ics file so the show can be added to any calendar app.
