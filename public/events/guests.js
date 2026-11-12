@@ -44,7 +44,7 @@ window.GUESTS = [
     bio: "A deep catalog, from \"Black Hearts\" to \"What Did I Miss?\" to \"Do My Own Thing.\" Amier Lane brings a real following through the door Saturday. Run the catalog back before the show.",
     spotify: "26QW9N1LXqnBJ6je3ByhmF", soundcloud: "https://soundcloud.com/amier-lane",
     image: "https://i.scdn.co/image/ab6761610000e5ebfccf8fde25cca50183208d4f", track: "Black Hearts",
-    youtube: "", instagram: "", facebook: ""
+    youtube: "", instagram: "https://www.instagram.com/amierlanemusic/", facebook: ""
   },
   {
     name: "Teqz",

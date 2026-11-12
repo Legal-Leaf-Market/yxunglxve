@@ -26,5 +26,5 @@ For a photo, they can send it straight to you. Add it to `public/images/guests/`
 | David Cameron | https://yxunglxve.netlify.app/events/#card-david-cameron | IG |
 | Baby Gawdey | https://yxunglxve.netlify.app/events/#card-baby-gawdey | (complete) |
 | Nezio | https://yxunglxve.netlify.app/events/#card-nezio | (complete) |
-| Amier Lane | https://yxunglxve.netlify.app/events/#card-amier-lane | IG (@amierlanemusic? unconfirmed) |
+| Amier Lane | https://yxunglxve.netlify.app/events/#card-amier-lane | (complete) |
 | Teqz | https://yxunglxve.netlify.app/events/#card-teqz | (complete) |
