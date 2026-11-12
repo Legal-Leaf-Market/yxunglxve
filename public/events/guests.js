@@ -67,13 +67,13 @@ window.GUESTS = [
   {
     name: "David Cameron",
     bio: "Coming in straight off SoundCloud. Hit play on the back of this card, then catch David Cameron live at Columbus Bar on Saturday.",
-    spotify: "", soundcloud: "https://soundcloud.com/david-cameron-509882173", image: "", track: "",
+    spotify: "", soundcloud: "https://soundcloud.com/david-cameron-509882173", image: "https://i1.sndcdn.com/avatars-pRvrMwfgMLhyTltQ-nFPyVQ-t500x500.jpg", track: "",
     youtube: "", instagram: "", facebook: ""
   },
   {
     name: "Baby Gawdey",
     bio: "Straight from the SoundCloud underground to the Columbus Bar stage. Get familiar now so you know the words Saturday.",
-    spotify: "", soundcloud: "https://soundcloud.com/babygawdey", image: "", track: "",
+    spotify: "", soundcloud: "https://soundcloud.com/babygawdey", image: "https://i1.sndcdn.com/avatars-000587123565-fzsea5-t500x500.jpg", track: "",
     youtube: "", instagram: "", facebook: "https://www.facebook.com/CrazyCTheProdigy"
   },
   {
