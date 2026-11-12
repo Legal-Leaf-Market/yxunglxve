@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Links · YXUNG LXVE</title>
+  <meta name="description" content="Yxung Lxve: shows, new music and everywhere to listen.">
+  <meta property="og:title" content="YXUNG LXVE">
+  <meta property="og:description" content="Shows, new music and everywhere to listen.">
+  <meta property="og:image" content="https://yxunglxve.netlify.app/images/profile.jpg">
+  <meta property="og:url" content="https://yxunglxve.netlify.app/links/">
+  <meta name="theme-color" content="#08080a">
+  <link rel="icon" href="/images/profile.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #08080a;
+      --fg: #f2f2f2;
+      --muted: #8a8a92;
+      --line: #26262c;
+      --glow: #7a5cff;
+      --gold: #e6c27a;
+      --gold-deep: #b8893d;
+      --crimson: #c72440;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100svh;
+      background:
+        radial-gradient(700px 420px at 50% -60px, rgba(122, 92, 255, 0.25), transparent 70%),
+        var(--bg);
+      color: var(--fg);
+      font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    .wrap {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 44px 16px 56px;
+      text-align: center;
+    }
+    .avatar {
+      width: 104px;
+      height: 104px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--line);
+      box-shadow: 0 0 50px rgba(122, 92, 255, 0.35);
+    }
+    h1 {
+      margin: 18px 0 0;
+      font-family: "Archivo Black", Impact, sans-serif;
+      font-weight: 400;
+      font-size: 2.4rem;
+      line-height: 1;
+      letter-spacing: 0.03em;
+    }
+    .bio { margin: 10px 0 0; color: var(--muted); font-size: 0.9rem; }
+
+    .group {
+      margin: 30px 0 12px;
+      color: var(--muted);
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+
+    /* Show card (auto-removed after the show) */
+    .show {
+      display: block;
+      margin-top: 28px;
+      text-decoration: none;
+      text-align: left;
+      border: 1px solid var(--gold-deep);
+      background:
+        radial-gradient(400px 200px at 100% 0%, rgba(122, 92, 255, 0.25), transparent 70%),
+        linear-gradient(180deg, #151838, #0b0d1f);
+      overflow: hidden;
+      transition: transform 0.15s;
+    }
+    .show:hover, .show:focus-visible { transform: translateY(-2px); }
+    .show-inner { display: grid; grid-template-columns: 96px 1fr; gap: 14px; padding: 12px; align-items: center; }
+    .show img {
+      width: 96px;
+      height: 144px;
+      object-fit: cover;
+      border: 1px solid rgba(230, 194, 122, 0.4);
+      display: block;
+    }
+    .show .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--gold);
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+    }
+    .show .tag::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--crimson);
+      box-shadow: 0 0 0 3px rgba(199, 36, 64, 0.3);
+    }
+    .show .title {
+      display: block;
+      margin-top: 6px;
+      font-family: "Archivo Black", Impact, sans-serif;
+      font-size: 1.35rem;
+      line-height: 1.05;
+      color: var(--gold);
+    }
+    .show .title em { font-style: normal; color: var(--crimson); }
+    .show .info { display: block; margin-top: 8px; font-size: 0.85rem; line-height: 1.45; color: #f4ede0; }
+    .show .info .dim { color: #9a98b4; }
+    .show .go {
+      display: block;
+      padding: 12px;
+      background: var(--gold);
+      color: #0b0d1f;
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .links { display: grid; gap: 10px; }
+    .link {
+      display: block;
+      padding: 15px 18px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.02);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+    .link:hover, .link:focus-visible { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+    .link.primary { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+    .link.primary:hover, .link.primary:focus-visible { background: transparent; color: var(--fg); }
+    .link small { display: block; margin-top: 2px; font-size: 0.75rem; font-weight: 400; opacity: 0.65; }
+
+    .pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+    .pills a {
+      padding: 0.5rem 0.9rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: 0.82rem;
+      text-decoration: none;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+    .pills a:hover, .pills a:focus-visible { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+
+    footer { margin-top: 40px; color: var(--muted); font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; }
+    footer a { text-decoration: none; }
+    footer a:hover { color: var(--fg); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <img class="avatar" src="/images/profile.jpg" alt="Yxung Lxve" width="104" height="104">
+    <h1>YXUNG LXVE</h1>
+    <p class="bio">Columbus boy under the weather but not so highly clever</p>
+
+    <a class="show" id="show" href="/events/">
+      <span class="show-inner">
+        <img src="/images/flyer-stuff-the-artist.jpg" alt="" width="96" height="144">
+        <span>
+          <span class="tag">Live this Saturday</span>
+          <span class="title">Stuff the <em>Artist</em></span>
+          <span class="info">Sat, Nov 14 · Doors 7 · Show 8<br>Columbus Bar, Columbus IN<br><span class="dim">No cover · All ages</span></span>
+        </span>
+      </span>
+      <span class="go">Show details &rarr;</span>
+    </a>
+
+    <p class="group">New music</p>
+    <div class="links">
+      <a class="link primary" href="https://distrokid.com/hyperfollow/yxunglxve/drrobotnic" target="_blank" rel="noopener">Dr.Robotnic<small>Latest single · listen anywhere</small></a>
+      <a class="link" href="https://open.spotify.com/artist/6g91eYiklNIugok5b35mdZ" target="_blank" rel="noopener">Spotify</a>
+      <a class="link" href="https://music.apple.com/us/artist/yxung-lxve/6772523479" target="_blank" rel="noopener">Apple Music</a>
+      <a class="link" href="https://www.youtube.com/@YxungLxve1996" target="_blank" rel="noopener">YouTube</a>
+    </div>
+
+    <p class="group">More places to listen</p>
+    <div class="pills">
+      <a href="https://music.youtube.com/channel/UCUIxR5ZoFKPIn6vanG4k1SA" target="_blank" rel="noopener">YouTube Music</a>
+      <a href="https://music.amazon.com/artists/B0GZJ1RHMM/yxung-lxve" target="_blank" rel="noopener">Amazon Music</a>
+      <a href="https://tidal.com/artist/79033116" target="_blank" rel="noopener">Tidal</a>
+      <a href="https://www.deezer.com/artist/389108061" target="_blank" rel="noopener">Deezer</a>
+      <a href="https://www.iheart.com/artist/id-50631299/" target="_blank" rel="noopener">iHeartRadio</a>
+    </div>
+
+    <p class="group">Alter ego</p>
+    <div class="links">
+      <a class="link" href="https://open.spotify.com/artist/3sBeLsdeUyI147v3reGY3T" target="_blank" rel="noopener">Adam Shane<small>on Spotify</small></a>
+    </div>
+
+    <p class="group">Everything else</p>
+    <div class="links">
+      <a class="link" href="/">Website<small>All releases, videos &amp; shows</small></a>
+    </div>
+
+    <footer>&copy; 2026 Yxung Lxve · <a href="/">yxunglxve</a></footer>
+  </div>
+  <script>
+    // Remove the show card automatically once the show is over (after 2 AM Eastern, Nov 15).
+    if (Date.now() > Date.parse("2026-11-15T07:00:00Z")) document.getElementById("show").remove();
+  </script>
+</body>
+</html>

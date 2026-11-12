@@ -1,2 +1,13 @@
 [build]
   publish = "public"
+
+# Short aliases for the link-in-bio page
+[[redirects]]
+  from = "/bio"
+  to = "/links/"
+  status = 301
+
+[[redirects]]
+  from = "/ig"
+  to = "/links/"
+  status = 301
