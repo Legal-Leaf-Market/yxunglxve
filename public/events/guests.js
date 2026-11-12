@@ -8,7 +8,9 @@
 //   image      = a photo link for the front of the card (Spotify photos are filled in where they exist)
 //   track      = a song to name on the card (optional)
 //   youtube / instagram / facebook / bandlab = full links, shown on the back of the card
-// Leave a field as "" if you don't have it. The player uses Spotify first, then SoundCloud.
+//   bandlabTrack = a BandLab track to play first (the track ID, not the post ID; ask Claude to look it up from a post link)
+//   spotifyTrack = a single Spotify song to link (code after /track/) when there's no Spotify artist page
+// Leave a field as "" if you don't have it. The player uses BandLab first, then Spotify, then SoundCloud.
 // Players never auto-play; visitors tap to listen.
 
 window.HEADLINER = {
@@ -61,9 +63,11 @@ window.GUESTS = [
   },
   {
     name: "StickNasty The Coldhearted Kid",
-    bio: "Already on the record with Yxung Lxve: StickNasty shows up on \"A New Greeting\" from Gumdrop Sunset. Saturday the collab goes from the album to the stage.",
-    spotify: "5OOz47ZXWsHN9B5TiA81Lj", soundcloud: "", image: "", track: "A New Greeting",
-    youtube: "", instagram: "", facebook: "", bandlab: "https://www.bandlab.com/sticknasty9"
+    bio: "\"I am the man behind the mask.\" Columbus, IN rapper raised on MF Doom, Aesop Rock and Wu-Tang. He's on Yxung Lxve's Gumdrop Sunset with \"A New Greeting,\" and on BandLab with fellow guest David Cameron on \"Get Outta Town.\"",
+    spotify: "", spotifyTrack: "7Mmi5Q1mUz2lNrbkdBWgmi", soundcloud: "",
+    bandlab: "https://www.bandlab.com/sticknasty9", bandlabTrack: "288da5fe-fdf2-457c-a975-e1bfa08c5737",
+    image: "https://bl-prod-images.azureedge.net/v1.0/users/8acf06db-3bd8-4c14-9e70-a156a2f7221f/640x640", track: "Get Outta Town",
+    youtube: "", instagram: "", facebook: ""
   },
   {
     name: "David Cameron",

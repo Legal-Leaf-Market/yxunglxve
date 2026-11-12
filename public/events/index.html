@@ -943,16 +943,22 @@
         a.href = "#" + slug(g.name); li.append(a); return li;
       }));
 
+      const hasPlayer = (g) => !!(g.bandlabTrack || g.spotify || g.soundcloud);
+      const playsOn = (g) => g.bandlabTrack ? "BandLab" : g.spotify ? "Spotify" : g.soundcloud ? "SoundCloud" : "";
       const embedFor = (g) => {
         const f = document.createElement("iframe");
         f.allow = "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture";
-        if (g.spotify) {
+        if (g.bandlabTrack) {
+          f.src = "https://www.bandlab.com/embed/?id=" + encodeURIComponent(g.bandlabTrack);
+          f.height = "200"; f.title = g.name + " on BandLab"; f.allowFullscreen = true;
+        } else if (g.spotify) {
           f.src = "https://open.spotify.com/embed/artist/" + g.spotify + "?utm_source=generator&theme=0";
           f.height = "352"; f.title = g.name + " on Spotify";
         } else {
+          // auto_play: the visitor already tapped Play, so start right away; taller player shows their track list
           f.src = "https://w.soundcloud.com/player/?url=" + encodeURIComponent(g.soundcloud) +
-            "&color=%23e6c27a&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&visual=false";
-          f.height = "166"; f.title = g.name + " on SoundCloud";
+            "&color=%23e6c27a&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false";
+          f.height = "320"; f.title = g.name + " on SoundCloud";
         }
         return f;
       };
@@ -1009,16 +1015,16 @@
           back.append(el("span", "tc-back-num", "#" + num + " · " + (g.headliner ? "Headliner" : "Special guest")), el("h3", "tc-back-name", g.name), el("p", "tc-bio", g.bio || ""));
           const stats = el("dl", "tc-stats");
           const stat = (k, v) => { if (!v) return; const d = el("div"); d.append(el("dt", null, k), el("dd", null, v)); stats.append(d); };
-          stat("Plays on", g.spotify ? "Spotify" : g.soundcloud ? "SoundCloud" : "Live only (for now)");
+          stat("Plays on", playsOn(g) || "Live only (for now)");
           stat("Track", g.track ? "“" + g.track + "”" : "");
           stat("Set", "Sat Nov 14 · Columbus Bar");
           back.append(stats);
 
           const stage = el("div", "tc-stage");
-          if (g.spotify || g.soundcloud) {
+          if (hasPlayer(g)) {
             const play = el("button", "tc-play");
             play.type = "button";
-            play.innerHTML = '<span class="tc-tri" aria-hidden="true"></span>Play ' + (g.spotify ? "on Spotify" : "on SoundCloud");
+            play.innerHTML = '<span class="tc-tri" aria-hidden="true"></span>Play on ' + playsOn(g);
             play.addEventListener("click", () => {
               if (window.setController) window.setController.pause();
               stage.replaceChildren(embedFor(g));
@@ -1032,7 +1038,7 @@
 
           const links = el("p", "tc-links");
           const add = (label, href) => { if (!href) return; const a = el("a", null, label); a.href = href; a.target = "_blank"; a.rel = "noopener"; links.append(a); };
-          add("Spotify", g.spotify && "https://open.spotify.com/artist/" + g.spotify);
+          add("Spotify", g.spotify ? "https://open.spotify.com/artist/" + g.spotify : g.spotifyTrack && "https://open.spotify.com/track/" + g.spotifyTrack);
           add("SoundCloud", g.soundcloud); add("BandLab", g.bandlab); add("YouTube", g.youtube); add("Instagram", g.instagram); add("Facebook", g.facebook);
           if (links.childElementCount) back.append(links);
 
