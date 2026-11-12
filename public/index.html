@@ -4,52 +4,302 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>YXUNG LXVE</title>
-  <meta name="description" content="YXUNG LXVE — official site.">
+  <meta name="description" content="Yxung Lxve — my music mix of my music to you.">
+  <meta property="og:title" content="YXUNG LXVE">
+  <meta property="og:description" content="My music mix of my music to you.">
+  <meta property="og:image" content="https://yt3.googleusercontent.com/KVBXUsZ1cP8_xf7Rc-3CIXG-fTXUlHGmhKYAPTslPH_lDDtgxrEXlAUqTLskdivo_w_HBvxbA3Y=s900-c-k-c0x00ffffff-no-rj">
+  <meta name="theme-color" content="#08080a">
+  <link rel="icon" href="https://yt3.googleusercontent.com/KVBXUsZ1cP8_xf7Rc-3CIXG-fTXUlHGmhKYAPTslPH_lDDtgxrEXlAUqTLskdivo_w_HBvxbA3Y=s120-c-k-c0x00ffffff-no-rj">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg: #08080a;
+      --fg: #f2f2f2;
+      --muted: #8a8a92;
+      --line: #222228;
+      --glow: #7a5cff;
+    }
     *, *::before, *::after { box-sizing: border-box; }
-    html, body { margin: 0; height: 100%; }
+    html { scroll-behavior: smooth; }
     body {
-      background: #0a0a0a;
-      color: #f5f5f5;
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+
+    /* Hero */
+    .hero {
+      min-height: 100svh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 16px;
+      padding: 48px 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -20%;
+      background: radial-gradient(circle at 50% 45%, rgba(122, 92, 255, 0.22), transparent 55%);
+      animation: breathe 8s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes breathe {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.08); }
+    }
+    .avatar {
+      position: relative;
+      width: 132px;
+      height: 132px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--line);
+      box-shadow: 0 0 60px rgba(122, 92, 255, 0.35);
     }
     h1 {
-      margin: 0;
-      font-size: clamp(2.5rem, 12vw, 8rem);
-      font-weight: 900;
-      letter-spacing: 0.08em;
+      position: relative;
+      margin: 28px 0 0;
+      font-family: "Archivo Black", Impact, sans-serif;
+      font-weight: 400;
+      font-size: clamp(3rem, 14vw, 9rem);
+      line-height: 0.9;
+      letter-spacing: 0.02em;
     }
-    p {
-      margin: 1rem 0 0;
-      font-size: 0.9rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      opacity: 0.6;
+    .tagline {
+      position: relative;
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      letter-spacing: 0.04em;
     }
-    a.btn {
-      margin-top: 2rem;
+    .actions {
+      position: relative;
+      margin-top: 32px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .btn {
       display: inline-block;
-      padding: 0.8rem 1.6rem;
-      border: 1px solid #f5f5f5;
-      color: #f5f5f5;
+      padding: 0.85rem 1.5rem;
+      border: 1px solid var(--fg);
       text-decoration: none;
-      font-size: 0.85rem;
-      letter-spacing: 0.25em;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
       transition: background 0.2s, color 0.2s;
     }
-    a.btn:hover, a.btn:focus-visible { background: #f5f5f5; color: #0a0a0a; }
+    .btn:hover, .btn:focus-visible { background: var(--fg); color: var(--bg); }
+    .btn.solid { background: var(--fg); color: var(--bg); }
+    .btn.solid:hover, .btn.solid:focus-visible { background: transparent; color: var(--fg); }
+
+    /* Music */
+    section.music {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 16px 96px;
+    }
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 14px;
+      margin-bottom: 32px;
+    }
+    h2 {
+      margin: 0;
+      font-family: "Archivo Black", Impact, sans-serif;
+      font-weight: 400;
+      font-size: clamp(1.6rem, 5vw, 2.4rem);
+      letter-spacing: 0.04em;
+    }
+    .section-head a {
+      color: var(--muted);
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+    .section-head a:hover { color: var(--fg); }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 28px;
+    }
+    .track { margin: 0; }
+    .player {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      background: #111 center / cover no-repeat;
+      border: 1px solid var(--line);
+      cursor: pointer;
+      overflow: hidden;
+      display: block;
+      width: 100%;
+      padding: 0;
+    }
+    .player::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0.05));
+      transition: background 0.2s;
+    }
+    .player:hover::after { background: linear-gradient(to top, rgba(0,0,0,0.35), rgba(0,0,0,0)); }
+    .play {
+      position: absolute;
+      z-index: 1;
+      top: 50%;
+      left: 50%;
+      width: 64px;
+      height: 64px;
+      margin: -32px 0 0 -32px;
+      border-radius: 50%;
+      border: 1px solid var(--fg);
+      background: rgba(8, 8, 10, 0.6);
+      display: grid;
+      place-items: center;
+      transition: transform 0.2s;
+    }
+    .player:hover .play { transform: scale(1.08); }
+    .play::before {
+      content: "";
+      margin-left: 4px;
+      border-left: 16px solid var(--fg);
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+    }
+    .player iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    figcaption {
+      margin-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .title { font-weight: 500; }
+
+    section#spotify { padding-top: 0; }
+    iframe.spotify {
+      display: block;
+      width: 100%;
+      border: 0;
+      border-radius: 12px;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 32px 16px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    footer a { text-decoration: none; }
+    footer a:hover { color: var(--fg); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero::before { animation: none; }
+      html { scroll-behavior: auto; }
+    }
   </style>
 </head>
 <body>
-  <h1>YXUNG LXVE</h1>
-  <p>Coming soon</p>
-  <a class="btn" href="https://www.youtube.com/@YxungLxve1996" target="_blank" rel="noopener">YouTube</a>
+  <header class="hero">
+    <img class="avatar" src="https://yt3.googleusercontent.com/KVBXUsZ1cP8_xf7Rc-3CIXG-fTXUlHGmhKYAPTslPH_lDDtgxrEXlAUqTLskdivo_w_HBvxbA3Y=s900-c-k-c0x00ffffff-no-rj" alt="Yxung Lxve" width="132" height="132">
+    <h1>YXUNG<br>LXVE</h1>
+    <p class="tagline">my music mix of my music to you</p>
+    <div class="actions">
+      <a class="btn solid" href="#music">Listen</a>
+      <a class="btn" href="https://open.spotify.com/artist/6g91eYiklNIugok5b35mdZ" target="_blank" rel="noopener">Spotify</a>
+      <a class="btn" href="https://www.youtube.com/@YxungLxve1996?sub_confirmation=1" target="_blank" rel="noopener">YouTube</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="music" id="music">
+      <div class="section-head">
+        <h2>MUSIC</h2>
+        <a href="https://www.youtube.com/@YxungLxve1996/videos" target="_blank" rel="noopener">All on YouTube &rarr;</a>
+      </div>
+      <div class="grid" id="tracks"></div>
+    </section>
+
+    <section class="music" id="spotify">
+      <div class="section-head">
+        <h2>STREAM</h2>
+        <a href="https://open.spotify.com/artist/6g91eYiklNIugok5b35mdZ" target="_blank" rel="noopener">Open in Spotify &rarr;</a>
+      </div>
+      <iframe class="spotify" src="https://open.spotify.com/embed/artist/6g91eYiklNIugok5b35mdZ?utm_source=generator&amp;theme=0" title="Yxung Lxve on Spotify" height="452" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+    </section>
+  </main>
+
+  <footer>
+    <a href="https://open.spotify.com/artist/6g91eYiklNIugok5b35mdZ" target="_blank" rel="noopener">Spotify</a>
+    &nbsp;·&nbsp;
+    <a href="https://www.youtube.com/@YxungLxve1996" target="_blank" rel="noopener">YouTube</a>
+    &nbsp;·&nbsp; &copy; <span id="year">2026</span> Yxung Lxve
+  </footer>
+
+  <script>
+    // Newest first. To add a track: add { id: "<YouTube video ID>", title: "..." }.
+    const TRACKS = [
+      { id: "YmoM7ZAbDJg", title: "Dimly-lit eyesight" },
+      { id: "n1cw-RFucpQ", title: "astroboy" },
+      { id: "Nalxh9fLTNo", title: "Take a cab" },
+      { id: "OcfJa_kGnXk", title: "Okay" }
+    ];
+
+    const grid = document.getElementById("tracks");
+    for (const t of TRACKS) {
+      const fig = document.createElement("figure");
+      fig.className = "track";
+
+      const btn = document.createElement("button");
+      btn.className = "player";
+      btn.type = "button";
+      btn.setAttribute("aria-label", "Play " + t.title);
+      btn.style.backgroundImage = "url(https://i.ytimg.com/vi/" + t.id + "/hqdefault.jpg)";
+      btn.innerHTML = '<span class="play"></span>';
+      btn.addEventListener("click", () => {
+        const iframe = document.createElement("iframe");
+        iframe.src = "https://www.youtube-nocookie.com/embed/" + t.id + "?autoplay=1&rel=0";
+        iframe.title = t.title;
+        iframe.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
+        iframe.allowFullscreen = true;
+        btn.replaceChildren(iframe);
+        btn.style.cursor = "default";
+      }, { once: true });
+
+      const cap = document.createElement("figcaption");
+      const title = document.createElement("span");
+      title.className = "title";
+      title.textContent = t.title;
+      cap.append(title);
+
+      fig.append(btn, cap);
+      grid.append(fig);
+    }
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
