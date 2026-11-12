@@ -30,3 +30,9 @@
   for = "/merch/img/*"
   [headers.values]
     Cache-Control = "public, max-age=86400"
+
+# Short artist card links
+[[redirects]]
+  from = "/c/sticknasty"
+  to = "/c/sticknasty-the-coldhearted-kid/"
+  status = 301
