@@ -19,7 +19,7 @@ For a photo, they can send it straight to you. Add it to `public/images/guests/`
 
 | Artist | Card link | Missing |
 |---|---|---|
-| $uicybin | https://yxunglxve.netlify.app/events/#card-uicybin | (complete; own bio welcome) |
+| $uicybin | https://yxunglxve.netlify.app/events/#card-uicybin | photo, IG, music link, real bio (earlier Spotify/IG match was wrong, removed) |
 | Lil Bars | https://yxunglxve.netlify.app/events/#card-lil-bars | photo, IG, music link, real bio (Dice $hades on Spotify? unconfirmed) |
 | Anxiety Jay | https://yxunglxve.netlify.app/events/#card-anxiety-jay | photo, real bio (SoundCloud whynotbejoshua2? unconfirmed) |
 | StickNasty The Coldhearted Kid | https://yxunglxve.netlify.app/events/#card-sticknasty-the-coldhearted-kid | photo, IG |

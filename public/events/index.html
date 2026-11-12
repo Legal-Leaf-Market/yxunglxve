@@ -963,6 +963,9 @@
         else if (g.spotifyTrack) out.push({ label: "Spotify", make: () => frame("https://open.spotify.com/embed/track/" + g.spotifyTrack + "?utm_source=generator&theme=0", "152", "Spotify") });
         if (g.soundcloud) out.push({ label: "SoundCloud", make: () => frame("https://w.soundcloud.com/player/?url=" + encodeURIComponent(g.soundcloud) +
           "&color=%23e6c27a&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false", "320", "SoundCloud") });
+        // first: "SoundCloud" / "Spotify" / "BandLab" puts that button on top
+        const k = g.first ? out.findIndex((x) => x.label.toLowerCase() === g.first.toLowerCase()) : -1;
+        if (k > 0) out.unshift(out.splice(k, 1)[0]);
         return out;
       };
       const playsOn = (g) => sources(g).map((x) => x.label).join(" + ");

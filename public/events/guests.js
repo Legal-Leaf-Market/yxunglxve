@@ -9,6 +9,7 @@
 //   track      = a song to name on the card (optional)
 //   youtube / instagram / facebook / bandlab = full links, shown on the back of the card
 //   bandlabTrack = a BandLab track to play first (the track ID, not the post ID; ask Claude to look it up from a post link)
+//   first        = which Play button goes on top when there are two ("SoundCloud", "Spotify" or "BandLab")
 //   spotifyTrack = a single Spotify song to link (code after /track/) when there's no Spotify artist page
 // Leave a field as "" if you don't have it. The player uses BandLab first, then Spotify, then SoundCloud.
 // Players never auto-play; visitors tap to listen.
@@ -29,10 +30,9 @@ window.HEADLINER = {
 window.GUESTS = [
   {
     name: "$uicybin",
-    bio: "Southern Indiana's own, with the EP \"I CAN'T ESCAPE THE FOG\" and a catalog running from \"TEAR STAINED BALACLAVA\" to \"Feral Flames.\" Saturday $uicybin brings it to the Columbus Bar stage.",
-    spotify: "6xogl5AOLpDwNfe4LFJRZf", soundcloud: "",
-    image: "https://i.scdn.co/image/ab6761610000e5eb1dcd7518d08d1f105312fc27", track: "TEAR STAINED BALACLAVA",
-    youtube: "", instagram: "https://www.instagram.com/suicybin/", facebook: ""
+    bio: "One of nine special guests stuffing the Columbus Bar stage. Pull up Saturday and hear it live first.",
+    spotify: "", soundcloud: "", image: "", track: "",
+    youtube: "", instagram: "", facebook: ""
   },
   {
     name: "Nezio",
@@ -73,6 +73,7 @@ window.GUESTS = [
     name: "David Cameron",
     bio: "Coming in straight off SoundCloud. Hit play on the back of this card, then catch David Cameron live at Columbus Bar on Saturday.",
     spotify: "", soundcloud: "https://soundcloud.com/david-cameron-509882173", image: "https://i1.sndcdn.com/avatars-pRvrMwfgMLhyTltQ-nFPyVQ-t500x500.jpg", track: "",
+    bandlabTrack: "288da5fe-fdf2-457c-a975-e1bfa08c5737", first: "SoundCloud",
     youtube: "", instagram: "", facebook: ""
   },
   {
