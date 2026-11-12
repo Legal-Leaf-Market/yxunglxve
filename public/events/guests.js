@@ -7,7 +7,7 @@
 //   soundcloud = their full SoundCloud link, e.g. "https://soundcloud.com/babygawdey"
 //   image      = a photo link for the front of the card (Spotify photos are filled in where they exist)
 //   track      = a song to name on the card (optional)
-//   youtube / instagram / facebook = full links, shown on the back of the card
+//   youtube / instagram / facebook / bandlab = full links, shown on the back of the card
 // Leave a field as "" if you don't have it. The player uses Spotify first, then SoundCloud.
 // Players never auto-play; visitors tap to listen.
 
@@ -63,7 +63,7 @@ window.GUESTS = [
     name: "StickNasty The Coldhearted Kid",
     bio: "Already on the record with Yxung Lxve: StickNasty shows up on \"A New Greeting\" from Gumdrop Sunset. Saturday the collab goes from the album to the stage.",
     spotify: "5OOz47ZXWsHN9B5TiA81Lj", soundcloud: "", image: "", track: "A New Greeting",
-    youtube: "", instagram: "", facebook: ""
+    youtube: "", instagram: "", facebook: "", bandlab: "https://www.bandlab.com/sticknasty9"
   },
   {
     name: "David Cameron",

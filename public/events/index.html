@@ -1033,7 +1033,7 @@
           const links = el("p", "tc-links");
           const add = (label, href) => { if (!href) return; const a = el("a", null, label); a.href = href; a.target = "_blank"; a.rel = "noopener"; links.append(a); };
           add("Spotify", g.spotify && "https://open.spotify.com/artist/" + g.spotify);
-          add("SoundCloud", g.soundcloud); add("YouTube", g.youtube); add("Instagram", g.instagram); add("Facebook", g.facebook);
+          add("SoundCloud", g.soundcloud); add("BandLab", g.bandlab); add("YouTube", g.youtube); add("Instagram", g.instagram); add("Facebook", g.facebook);
           if (links.childElementCount) back.append(links);
 
           const acts = el("div", "tc-acts");
