@@ -234,90 +234,237 @@
     .guest-hint a { color: var(--gold); text-decoration: none; }
     .guest-hint a:hover { text-decoration: underline; }
 
-    /* Special guests grid */
-    .sg { margin-top: 72px; }
+    /* Trading cards */
+    .sg { margin-top: 80px; }
     .sg-head {
       display: flex;
       flex-wrap: wrap;
-      align-items: baseline;
+      align-items: flex-end;
       justify-content: space-between;
       gap: 8px 20px;
       border-bottom: 1px solid var(--line);
       padding-bottom: 14px;
-      margin-bottom: 28px;
+      margin-bottom: 32px;
+    }
+    .sg-kicker {
+      display: block;
+      color: var(--crimson);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
     }
     .sg-head h2 {
       margin: 0;
       font-family: "Archivo Black", Impact, sans-serif;
       font-weight: 400;
-      font-size: clamp(1.6rem, 5vw, 2.4rem);
+      font-size: clamp(2rem, 6vw, 3rem);
       letter-spacing: 0.03em;
       color: var(--gold);
     }
-    .sg-head p { margin: 0; color: var(--muted); font-size: 0.88rem; }
+    .sg-head p { margin: 0; color: var(--muted); font-size: 0.9rem; }
     .sg-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 28px;
     }
-    .sg-card {
-      border: 1px solid var(--line);
-      background: linear-gradient(180deg, rgba(20, 24, 56, 0.7), rgba(11, 13, 31, 0.7));
-      padding: 20px;
+    .tc {
+      --rx: 0deg; --ry: 0deg; --mx: 50%; --my: 50%;
+      perspective: 1200px;
+      aspect-ratio: 5 / 7;
+      cursor: pointer;
+      outline: none;
+      scroll-margin-top: 80px;
+    }
+    .tc:focus-visible .tc-inner { box-shadow: 0 0 0 3px var(--gold); }
+    .tc-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transform: rotateX(var(--rx)) rotateY(var(--ry));
+      transition: transform 0.6s cubic-bezier(.2, .8, .2, 1);
+      border-radius: 14px;
+    }
+    .tc.flipped .tc-inner { transform: rotateX(var(--rx)) rotateY(calc(180deg + var(--ry))); }
+    .tc-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: 14px;
+      overflow: hidden;
+      padding: 12px;
       display: flex;
       flex-direction: column;
-      gap: 14px;
-      scroll-margin-top: 24px;
+      border: 2px solid var(--gold-deep);
+      background:
+        linear-gradient(160deg, hsl(var(--h) 55% 22%), #0b0d1f 60%),
+        #0b0d1f;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(230, 194, 122, 0.25);
     }
-    .sg-card:target { border-color: var(--gold); }
-    .sg-card h3 {
+    .tc-headliner .tc-face {
+      border-color: var(--gold);
+      background:
+        linear-gradient(160deg, #3a1450, #0b0d1f 55%, #2a0d18),
+        #0b0d1f;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(230, 194, 122, 0.25), inset 0 0 0 1px rgba(230, 194, 122, 0.5);
+    }
+    .tc-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding: 2px 4px 8px;
+    }
+    .tc-role { color: var(--fg); }
+    .tc-headliner .tc-role { color: var(--crimson); }
+    .tc-art {
+      position: relative;
+      flex: 1;
+      min-height: 0;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(230, 194, 122, 0.45);
+      background:
+        radial-gradient(circle at 30% 20%, hsl(var(--h) 80% 55% / 0.55), transparent 55%),
+        radial-gradient(circle at 80% 90%, rgba(199, 36, 64, 0.5), transparent 55%),
+        #141838;
+      display: grid;
+      place-items: center;
+    }
+    .tc-art img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .tc-mono {
+      font-family: "Archivo Black", Impact, sans-serif;
+      font-size: 4.5rem;
+      color: rgba(244, 237, 224, 0.92);
+      letter-spacing: 0.02em;
+      text-shadow: 0 6px 30px rgba(0, 0, 0, 0.5);
+    }
+    .tc-shine {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at var(--mx) var(--my), rgba(255, 255, 255, 0.28), transparent 45%),
+        linear-gradient(115deg, transparent 35%, rgba(230, 194, 122, 0.18) 45%, rgba(122, 92, 255, 0.18) 55%, transparent 65%);
+      mix-blend-mode: screen;
+      background-size: 100% 100%, 250% 250%;
+      animation: sheen 6s linear infinite;
+    }
+    @keyframes sheen { from { background-position: 0 0, 100% 100%; } to { background-position: 0 0, -150% -150%; } }
+    .tc-name {
+      margin: 10px 4px 0;
+      font-family: "Archivo Black", Impact, sans-serif;
+      font-weight: 400;
+      font-size: 1.35rem;
+      line-height: 1.05;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+    .tc-headliner .tc-name { color: var(--gold); font-size: 1.6rem; }
+    .tc-foot {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      margin: 8px 4px 0;
+      padding-top: 8px;
+      border-top: 1px solid rgba(230, 194, 122, 0.3);
+      font-size: 0.6rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .tc-hint {
+      position: absolute;
+      top: 44px;
+      right: 20px;
+      padding: 4px 8px;
+      background: rgba(11, 13, 31, 0.75);
+      border: 1px solid rgba(230, 194, 122, 0.4);
+      border-radius: 999px;
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .tc-back {
+      transform: rotateY(180deg);
+      padding: 16px;
+      gap: 10px;
+      overflow-y: auto;
+      background: linear-gradient(200deg, hsl(var(--h) 45% 16%), #0b0d1f 55%), #0b0d1f;
+    }
+    .tc:not(.flipped) .tc-back iframe { visibility: hidden; }
+    .tc-back-num { font-size: 0.66rem; letter-spacing: 0.2em; color: var(--gold); font-weight: 600; }
+    .tc-back-name {
       margin: 0;
       font-family: "Archivo Black", Impact, sans-serif;
       font-weight: 400;
-      font-size: 1.3rem;
-      letter-spacing: 0.02em;
+      font-size: 1.2rem;
+      line-height: 1.05;
+      text-transform: uppercase;
     }
-    .sg-stage {
-      min-height: 120px;
-      display: grid;
-      place-items: center;
-      border: 1px dashed var(--line);
-      background: rgba(0, 0, 0, 0.2);
-    }
-    .sg-card.loaded .sg-stage { border: 0; background: none; display: block; min-height: 0; }
-    .sg-stage iframe { display: block; width: 100%; border: 0; border-radius: 12px; }
-    .sg-play {
+    .tc-bio { margin: 0; font-size: 0.86rem; line-height: 1.45; color: var(--fg); }
+    .tc-stats { margin: 0; display: grid; gap: 4px; border-top: 1px solid rgba(230, 194, 122, 0.25); padding-top: 8px; }
+    .tc-stats div { display: flex; justify-content: space-between; gap: 10px; font-size: 0.74rem; }
+    .tc-stats dt { color: var(--muted); letter-spacing: 0.14em; text-transform: uppercase; font-size: 0.64rem; padding-top: 2px; }
+    .tc-stats dd { margin: 0; text-align: right; font-weight: 500; }
+    .tc-stage { display: grid; place-items: center; min-height: 52px; }
+    .tc.loaded .tc-stage { display: block; }
+    .tc-stage iframe { display: block; width: 100%; border: 0; border-radius: 10px; }
+    .tc-play {
       display: inline-flex;
       align-items: center;
-      gap: 12px;
-      padding: 0.8rem 1.2rem;
+      gap: 10px;
+      width: 100%;
+      justify-content: center;
+      padding: 0.75rem 1rem;
+      border: 0;
+      background: var(--gold);
+      color: #0b0d1f;
+      font-family: inherit;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    .tc-play:hover, .tc-play:focus-visible { background: #f7e2ad; }
+    .tc-tri { border-left: 10px solid currentColor; border-top: 6px solid transparent; border-bottom: 6px solid transparent; }
+    .tc-soon { margin: 0; color: var(--muted); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; }
+    .tc-links { margin: 0; display: flex; flex-wrap: wrap; gap: 12px; }
+    .tc-links a { color: var(--muted); font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; }
+    .tc-links a:hover { color: var(--fg); }
+    .tc-acts { margin-top: auto; display: flex; gap: 8px; }
+    .tc-share, .tc-flipback {
+      flex: 1;
+      padding: 0.6rem 0.5rem;
       border: 1px solid var(--gold);
       background: none;
       color: var(--gold);
       font-family: inherit;
-      font-size: 0.74rem;
+      font-size: 0.66rem;
       font-weight: 600;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       cursor: pointer;
-      transition: background 0.2s, color 0.2s;
     }
-    .sg-play:hover, .sg-play:focus-visible { background: var(--gold); color: var(--bg); }
-    .sg-tri {
-      border-left: 10px solid currentColor;
-      border-top: 6px solid transparent;
-      border-bottom: 6px solid transparent;
+    .tc-flipback { flex: 0 0 auto; border-color: var(--line); color: var(--muted); }
+    .tc-share:hover, .tc-share:focus-visible { background: var(--gold); color: #0b0d1f; }
+    .tc-flipback:hover { color: var(--fg); border-color: var(--fg); }
+    @media (prefers-reduced-motion: reduce) {
+      .tc-inner { transition: none; }
+      .tc-shine { animation: none; }
     }
-    .sg-soon { margin: 0; color: var(--muted); font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; }
-    .sg-links { margin: 0; display: flex; flex-wrap: wrap; gap: 14px; }
-    .sg-links a {
-      color: var(--muted);
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      text-decoration: none;
+    @media (max-width: 560px) {
+      .sg-grid { grid-template-columns: minmax(0, 1fr); max-width: 340px; margin: 0 auto; }
     }
-    .sg-links a:hover { color: var(--fg); }
 
     /* Sticky now-playing bar */
     .np {
@@ -595,7 +742,7 @@
           <p class="headliner">YXUNG LXVE</p>
           <p class="with">With special guests</p>
           <ul class="guests" id="guests"></ul>
-          <p class="guest-hint"><a href="#special-guests">Listen to the special guests &darr;</a></p>
+          <p class="guest-hint"><a href="#special-guests">See the lineup cards &darr;</a></p>
         </div>
 
         <div class="panel">
@@ -612,8 +759,11 @@
 
     <section class="sg" id="special-guests" aria-labelledby="sg-title">
       <div class="sg-head">
-        <h2 id="sg-title">SPECIAL GUESTS</h2>
-        <p>Tap play to hear each artist. Nothing plays until you tap.</p>
+        <div>
+          <span class="sg-kicker">Stuff the Artist · Series 1</span>
+          <h2 id="sg-title">THE LINEUP</h2>
+        </div>
+        <p>Collect all 10. Tap a card to flip it, hit play, and share your card.</p>
       </div>
       <div class="sg-grid" id="sg-grid"></div>
     </section>
@@ -702,7 +852,7 @@
         ctl.addListener("ready", () => {
           start();
           const kick = (ev) => {
-            if (ev.target.closest && ev.target.closest("#np, .sg-card")) return;
+            if (ev.target.closest && ev.target.closest("#np, .tc")) return;
             start();
           };
           ["pointerdown", "keydown"].forEach((t) =>
@@ -721,87 +871,165 @@
     spotifyApi.async = true;
     document.head.append(spotifyApi);
 
-    // Special guests: data lives in /events/guests.js (window.GUESTS).
+    // Trading cards: data lives in /events/guests.js (window.HEADLINER, window.GUESTS).
     (() => {
+      const HEAD = window.HEADLINER;
       const GUESTS = window.GUESTS || [];
-      const slug = (n) => "guest-" + n.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-      const list = document.getElementById("guests");
-      const grid = document.getElementById("sg-grid");
+      const ALL = (HEAD ? [Object.assign({ headliner: true }, HEAD)] : []).concat(GUESTS);
+      const TOTAL = ALL.length;
+      const BASE = "https://yxunglxve.netlify.app/events/";
+      const slug = (n) => "card-" + n.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+      const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+      const hue = (n) => [...n].reduce((h, c) => (h * 31 + c.charCodeAt(0)) % 360, 7);
 
+      // Lineup chips in the panel jump to the cards.
+      const list = document.getElementById("guests");
       list.replaceChildren(...GUESTS.map((g) => {
-        const li = document.createElement("li");
-        const a = document.createElement("a");
-        a.href = "#" + slug(g.name);
-        a.textContent = g.name;
-        li.append(a);
-        return li;
+        const li = el("li"); const a = el("a", null, g.name);
+        a.href = "#" + slug(g.name); li.append(a); return li;
       }));
 
       const embedFor = (g) => {
         const f = document.createElement("iframe");
         f.allow = "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture";
-        f.loading = "lazy";
         if (g.spotify) {
           f.src = "https://open.spotify.com/embed/artist/" + g.spotify + "?utm_source=generator&theme=0";
-          f.height = "352";
-          f.title = g.name + " on Spotify";
+          f.height = "152"; f.title = g.name + " on Spotify";
         } else {
           f.src = "https://w.soundcloud.com/player/?url=" + encodeURIComponent(g.soundcloud) +
             "&color=%23e6c27a&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&visual=false";
-          f.height = "352";
-          f.title = g.name + " on SoundCloud";
+          f.height = "166"; f.title = g.name + " on SoundCloud";
         }
         return f;
       };
 
-      grid.replaceChildren(...GUESTS.map((g) => {
-        const card = document.createElement("article");
-        card.className = "sg-card";
+      const share = async (g, btn) => {
+        const url = BASE + "#" + slug(g.name);
+        const text = g.headliner
+          ? "Yxung Lxve headlines Stuff the Artist. Sat Nov 14, Columbus Bar, Columbus IN. No cover, all ages."
+          : g.name + " is on the lineup for Stuff the Artist with Yxung Lxve. Sat Nov 14, Columbus Bar, Columbus IN. No cover, all ages.";
+        try {
+          if (navigator.share) { await navigator.share({ title: g.name + " · Stuff the Artist", text, url }); return; }
+          await navigator.clipboard.writeText(text + " " + url);
+          btn.textContent = "Link copied";
+        } catch (e) {
+          if (e && e.name === "AbortError") return;
+          window.prompt("Copy this link:", url);
+        }
+        setTimeout(() => { btn.textContent = "Share card"; }, 2200);
+      };
+
+      const cards = ALL.map((g, i) => {
+        const num = String(i).padStart(2, "0");
+        const card = el("article", "tc" + (g.headliner ? " tc-headliner" : ""));
         card.id = slug(g.name);
+        card.tabIndex = 0;
+        card.setAttribute("role", "button");
+        card.setAttribute("aria-label", g.name + " card. Press to flip.");
+        card.style.setProperty("--h", hue(g.name));
+        const inner = el("div", "tc-inner");
 
-        const name = document.createElement("h3");
-        name.textContent = g.name;
+        // FRONT
+        const front = el("div", "tc-face tc-front");
+        const top = el("div", "tc-top");
+        top.append(el("span", "tc-num", "#" + num + " / " + String(TOTAL - 1).padStart(2, "0")), el("span", "tc-role", g.headliner ? "Headliner" : "Special guest"));
+        const art = el("div", "tc-art");
+        if (g.image) {
+          const img = el("img"); img.src = g.image; img.alt = g.name; img.loading = "lazy";
+          img.addEventListener("error", () => { img.remove(); art.append(el("span", "tc-mono", g.name.replace(/[^A-Za-z0-9 ]/g, "").split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join("").toUpperCase() || "?")); });
+          art.append(img);
+        } else {
+          art.append(el("span", "tc-mono", g.name.replace(/[^A-Za-z0-9 ]/g, "").split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join("").toUpperCase() || "?"));
+        }
+        art.append(el("span", "tc-shine"));
+        const nm = el("h3", "tc-name", g.name);
+        const foot = el("div", "tc-foot");
+        foot.append(el("span", null, "Stuff the Artist"), el("span", null, "Nov 14 · Columbus Bar"));
+        front.append(top, art, nm, foot, el("span", "tc-hint", "Tap to flip ↻"));
 
-        const links = document.createElement("p");
-        links.className = "sg-links";
-        const add = (label, href) => {
-          if (!href) return;
-          const a = document.createElement("a");
-          a.href = href; a.target = "_blank"; a.rel = "noopener"; a.textContent = label;
-          links.append(a);
-        };
-        add("Spotify", g.spotify && "https://open.spotify.com/artist/" + g.spotify);
-        add("SoundCloud", g.soundcloud);
-        add("YouTube", g.youtube);
-        add("Instagram", g.instagram);
-        add("Facebook", g.facebook);
+        // BACK
+        const back = el("div", "tc-face tc-back");
+        back.append(el("span", "tc-back-num", "#" + num), el("h3", "tc-back-name", g.name), el("p", "tc-bio", g.bio || ""));
+        const stats = el("dl", "tc-stats");
+        const stat = (k, v) => { if (!v) return; const d = el("div"); d.append(el("dt", null, k), el("dd", null, v)); stats.append(d); };
+        stat("Plays on", g.spotify ? "Spotify" : g.soundcloud ? "SoundCloud" : "Live only (for now)");
+        stat("Track", g.track ? "“" + g.track + "”" : "");
+        stat("Set", "Sat Nov 14 · Columbus Bar");
+        back.append(stats);
 
-        const stage = document.createElement("div");
-        stage.className = "sg-stage";
-
+        const stage = el("div", "tc-stage");
         if (g.spotify || g.soundcloud) {
-          const btn = document.createElement("button");
-          btn.type = "button";
-          btn.className = "sg-play";
-          btn.innerHTML = '<span class="sg-tri" aria-hidden="true"></span><span>Play ' + (g.spotify ? "on Spotify" : "on SoundCloud") + "</span>";
-          btn.setAttribute("aria-label", "Play " + g.name);
-          btn.addEventListener("click", () => {
+          const play = el("button", "tc-play");
+          play.type = "button";
+          play.innerHTML = '<span class="tc-tri" aria-hidden="true"></span>Play ' + (g.spotify ? "on Spotify" : "on SoundCloud");
+          play.addEventListener("click", () => {
             if (window.setController) window.setController.pause();
             stage.replaceChildren(embedFor(g));
             card.classList.add("loaded");
           });
-          stage.append(btn);
+          stage.append(play);
         } else {
-          const soon = document.createElement("p");
-          soon.className = "sg-soon";
-          soon.textContent = "Music coming soon";
-          stage.append(soon);
+          stage.append(el("p", "tc-soon", "Music coming soon"));
         }
+        back.append(stage);
 
-        card.append(name, stage);
-        if (links.childElementCount) card.append(links);
+        const links = el("p", "tc-links");
+        const add = (label, href) => { if (!href) return; const a = el("a", null, label); a.href = href; a.target = "_blank"; a.rel = "noopener"; links.append(a); };
+        add("Spotify", g.spotify && "https://open.spotify.com/artist/" + g.spotify);
+        add("SoundCloud", g.soundcloud); add("YouTube", g.youtube); add("Instagram", g.instagram); add("Facebook", g.facebook);
+        if (links.childElementCount) back.append(links);
+
+        const acts = el("div", "tc-acts");
+        const sh = el("button", "tc-share", "Share card"); sh.type = "button";
+        sh.addEventListener("click", () => share(g, sh));
+        const fb = el("button", "tc-flipback", "↻ Flip"); fb.type = "button";
+        fb.addEventListener("click", () => flip(card, false));
+        acts.append(sh, fb);
+        back.append(acts);
+
+        inner.append(front, back);
+        card.append(inner);
         return card;
-      }));
+      });
+
+      const flip = (card, on) => {
+        const v = on == null ? !card.classList.contains("flipped") : on;
+        card.classList.toggle("flipped", v);
+        card.setAttribute("aria-pressed", String(v));
+      };
+      for (const card of cards) {
+        card.addEventListener("click", (e) => {
+          if (e.target.closest("button, a, iframe")) return;
+          flip(card);
+        });
+        card.addEventListener("keydown", (e) => {
+          if (e.target !== card) return;
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(card); }
+        });
+        // Subtle holo tilt on desktop
+        card.addEventListener("pointermove", (e) => {
+          if (e.pointerType !== "mouse") return;
+          const r = card.getBoundingClientRect();
+          const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+          card.style.setProperty("--rx", (-y * 8).toFixed(2) + "deg");
+          card.style.setProperty("--ry", (x * 10).toFixed(2) + "deg");
+          card.style.setProperty("--mx", ((x + 0.5) * 100).toFixed(1) + "%");
+          card.style.setProperty("--my", ((y + 0.5) * 100).toFixed(1) + "%");
+        });
+        card.addEventListener("pointerleave", () => { card.style.setProperty("--rx", "0deg"); card.style.setProperty("--ry", "0deg"); });
+      }
+      document.getElementById("sg-grid").replaceChildren(...cards);
+
+      // Shared links (#card-name) open straight to that artist's card, flipped.
+      const openFromHash = () => {
+        const c = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+        if (c && c.classList.contains("tc")) {
+          c.scrollIntoView({ behavior: "smooth", block: "center" });
+          setTimeout(() => flip(c, true), 450);
+        }
+      };
+      openFromHash();
+      window.addEventListener("hashchange", openFromHash);
     })();
 
     // Downloads an .ics file so the show can be added to any calendar app.
