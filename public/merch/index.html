@@ -109,7 +109,23 @@
     .done { text-align: center; display: grid; gap: 14px; justify-items: center; }
     .done .oid { font-family: "Archivo Black", Impact, sans-serif; font-size: 1.6rem; color: var(--gold); letter-spacing: 0.06em; }
     .done .amt { font-family: "Archivo Black", Impact, sans-serif; font-size: 2.6rem; line-height: 1; }
-    .done .pays { display: grid; gap: 10px; width: 100%; max-width: 380px; }
+    .done .pays { width: 100%; }
+    .howpay { margin: 26px 0 0; padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: var(--bg-2); }
+    .howpay h2 { margin: 0 0 4px; font-family: "Archivo Black", Impact, sans-serif; font-weight: 400; font-size: 1.3rem; text-transform: uppercase; }
+    .howpay .fine { margin-bottom: 14px; }
+    .paycards { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; }
+    .pc { min-width: 0; display: grid; gap: 10px; justify-items: center; align-content: start; text-align: center; padding: 16px 12px; border-radius: 14px; border: 2px solid var(--pc); background: var(--bg); }
+    .pc-chime { --pc: #1ec677; }
+    .pc-cash { --pc: #00d64f; }
+    .pc-name { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--pc); }
+    .pc-handle { font-family: "Archivo Black", Impact, sans-serif; font-size: clamp(0.95rem, 4.2vw, 1.3rem); word-break: break-all; line-height: 1.15; }
+    .pc .btn { width: 100%; flex: none; min-width: 0; white-space: normal; text-align: center; line-height: 1.2; padding: 8px 6px; letter-spacing: 0.08em; font-size: 0.7rem; }
+    .pc .pc-pay { background: var(--pc); border-color: var(--pc); color: #04130b; }
+    .pc .pc-pay:hover { filter: brightness(1.1); }
+    .pc .qr { width: 100%; max-width: 180px; padding: 8px; border-radius: 10px; background: #fff; }
+    .pc .qr svg { display: block; width: 100%; height: auto; }
+    .pc-scan { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.08em; }
+    @media (max-width: 380px) { .pc .btn { font-size: 0.68rem; letter-spacing: 0.08em; padding: 0 8px; } }
     .done .note { background: var(--bg); border: 1px dashed var(--gold-deep); border-radius: 10px; padding: 10px 14px; font-size: 0.9rem; }
     .chime { display: grid; gap: 10px; padding: 16px; border: 2px solid var(--gold); border-radius: 14px; background: var(--bg); text-align: left; }
     .chime .sign { font-family: "Archivo Black", Impact, sans-serif; font-size: clamp(1.3rem, 6vw, 1.7rem); color: var(--gold); word-break: break-all; }
@@ -136,8 +152,14 @@
       <ol class="steps">
         <li><b>1</b>Pick size</li>
         <li><b>2</b>Send your info</li>
-        <li><b>3</b>Pay with Chime</li>
+        <li><b>3</b>Pay with Chime or Cash App</li>
       </ol>
+    </section>
+
+    <section class="howpay" aria-labelledby="hp-title">
+      <h2 id="hp-title">How to pay</h2>
+      <p class="fine">Order below first. You'll get your exact total and an order # for the payment note. Either one works.</p>
+      <div id="howpay"></div>
     </section>
 
     <div class="grid" id="grid"></div>
@@ -159,12 +181,7 @@
             <label>Name <input name="name" required autocomplete="name" placeholder="First and last"></label>
             <label>Phone or email <input name="contact" required autocomplete="tel" placeholder="So we can reach you when it's ready"></label>
             <label>Instagram (optional) <input name="instagram" placeholder="@handle"></label>
-            <span class="lbl">How you'll pay</span>
-            <div class="pay-pick">
-              <label><input type="radio" name="payment" value="Chime" checked> Chime</label>
-              <label><input type="radio" name="payment" value="Cash App"> Cash App</label>
-              <label><input type="radio" name="payment" value="Venmo"> Venmo</label>
-            </div>
+            <input type="hidden" name="payment" value="Chime or Cash App">
             <label>Getting it (optional) <textarea name="notes" rows="2" placeholder="Pick up at a show in Columbus, or tell us if you need it shipped"></textarea></label>
             <input type="hidden" name="order" id="f-order">
             <input type="hidden" name="items" id="f-items">
@@ -180,7 +197,7 @@
           <div class="oid" id="d-oid"></div>
           <div>Send</div>
           <div class="amt" id="d-amt"></div>
-          <div class="note">Put <b id="d-note"></b> in the payment note so we can match it.</div>
+          <div class="note">Copy this into the payment note exactly:<br><b id="d-note"></b></div>
           <div class="pays" id="d-pays"></div>
           <p class="fine" id="d-fallback"></p>
           <p class="fine">Screenshot this screen. We'll reach out when your merch is printed.</p>
@@ -193,22 +210,22 @@
     </footer>
   </div>
 
+  <script src="qrcode.js"></script>
   <script>
     // ===== EDIT HERE =====
     // Your payment handles (no $ or @). Leave "" to hide that option.
     const CHIME = "Adam-Mitchell-134"; // $ChimeSign -> main way to pay
-    const CASHAPP = "";   // e.g. "yxunglxve"  -> cash.app/$yxunglxve
-    const VENMO = "";     // e.g. "yxung-lxve" -> venmo.com/u/yxung-lxve
+    const CASHAPP = "yxunglxve13";      // $cashtag -> backup way to pay
     const PRODUCTS = [
-      { id: "robotnic", name: "Dr Robotnic Raglan", price: 30, badge: "New single",
+      { id: "robotnic", name: "Dr Robotnic Raglan", short: "Robotnic", price: 30, badge: "New single",
         desc: "White body, red 3/4 sleeves. Full-front Dr Robotnic print.",
         sizes: ["S", "M", "L", "XL", "2XL", "3XL"],
         pics: [["Shirt", "img/robotnic-shirt.jpg"], ["Print", "img/robotnic-art.jpg"]] },
-      { id: "doused", name: "DOUSED Tee", price: 30, badge: "",
+      { id: "doused", name: "DOUSED Tee", short: "DOUSED", price: 30, badge: "",
         desc: "Navy tee. Oversized full-front DOUSED print.",
         sizes: ["S", "M", "L", "XL", "2XL", "3XL"],
         pics: [["Shirt", "img/doused-shirt.jpg"], ["Print", "img/doused-art.jpg"]] },
-      { id: "mad", name: "I Got Her Mad Hoodie", price: 45, badge: "",
+      { id: "mad", name: "I Got Her Mad Hoodie", short: "Hoodie", price: 45, badge: "",
         desc: "Butter yellow hoodie. Film-frame album art on the front.",
         sizes: ["S", "M", "L", "XL", "2XL", "3XL"],
         pics: [["Hoodie", "img/hoodie-shirt.jpg"], ["Print", "img/hoodie-art.jpg"]] }
@@ -288,13 +305,32 @@
     }
     render();
 
-    // Hide a payment option that has no handle yet
-    const HANDLES = { "Chime": CHIME, "Cash App": CASHAPP, "Venmo": VENMO };
-    for (const [k, v] of Object.entries(HANDLES)) if (!v) document.querySelector('input[value="' + k + '"]').closest("label").classList.add("hidden");
-    const firstPay = Object.keys(HANDLES).find((k) => HANDLES[k]);
-    if (firstPay) document.querySelector('input[value="' + firstPay + '"]').checked = true;
-    if (Object.values(HANDLES).filter(Boolean).length < 2) document.querySelector(".pay-pick").previousElementSibling.textContent = "You'll pay with";
-
+    // Pay cards: Chime and Cash App, shown side by side, same size. amt/note are set after an order.
+    const qr = (text) => { const q = qrcode(0, "M"); q.addData(text); q.make(); const d = el("div", "qr"); d.innerHTML = q.createSvgTag({ cellSize: 4, margin: 2, scalable: true }); return d; };
+    const PAY = [
+      CHIME && { name: "Chime", handle: "$" + CHIME, cls: "pc-chime", link: () => "https://app.chime.com/link/qr?u=" + encodeURIComponent(CHIME), presets: false },
+      CASHAPP && { name: "Cash App", handle: "$" + CASHAPP, cls: "pc-cash", link: (amt) => "https://cash.app/$" + CASHAPP + (amt ? "/" + amt : ""), presets: true }
+    ].filter(Boolean);
+    const payCards = (amt, note) => {
+      const box = el("div", "paycards");
+      for (const m of PAY) {
+        const c = el("div", "pc " + m.cls);
+        c.append(el("span", "pc-name", m.name), el("div", "pc-handle", m.handle));
+        const a = el("a", "btn pc-pay", (amt ? "Pay " + money(amt) : "Pay") + " on " + m.name + " ↗");
+        a.href = m.link(amt); a.target = "_blank"; a.rel = "noopener";
+        const cp = el("button", "btn ghost", "Copy " + m.handle); cp.type = "button";
+        cp.addEventListener("click", async () => {
+          try { await navigator.clipboard.writeText(m.handle); cp.textContent = "Copied ✓"; }
+          catch (_) { window.prompt("Copy this:", m.handle); }
+          setTimeout(() => { cp.textContent = "Copy " + m.handle; }, 2000);
+        });
+        c.append(a, qr(m.link(amt)), el("span", "pc-scan", "Scan to pay" + (amt && m.presets ? " " + money(amt) : "")), cp);
+        if (amt && !m.presets) c.append(el("span", "pc-scan", "Enter " + money(amt) + " in Chime"));
+        box.append(c);
+      }
+      return box;
+    };
+    $("#howpay").append(payCards(0));
     const makeId = () => "YL-" + Array.from(crypto.getRandomValues(new Uint8Array(4)), (b) => "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"[b % 32]).join("");
 
     $("#form").addEventListener("submit", async (e) => {
@@ -305,39 +341,19 @@
       $("#f-order").value = oid; $("#f-items").value = items; $("#f-total").value = money(amt);
       const btn = $("#submit"); btn.disabled = true; btn.textContent = "Saving…";
       const data = new URLSearchParams(new FormData(e.target));
+      let saved = false;
       try {
         const r = await fetch("/merch/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: data.toString() });
-        if (!r.ok) throw new Error("HTTP " + r.status);
-      } catch (x) {
-        err.textContent = "Couldn't save your order. Check your connection and try again, or DM @yxung_lxve96.";
-        err.classList.remove("hidden"); btn.disabled = false; btn.textContent = "Place pre-order";
-        return;
-      }
-      const method = new FormData(e.target).get("payment");
-      const note = oid + " merch";
+        saved = r.ok;
+      } catch (x) { saved = false; }
+      // Even if saving failed, the payment note carries the whole order, so nothing is lost.
+      const note = oid + ": " + cart.map((c) => c.qty + " " + byId(c.id).short + " " + c.size).join(", ");
+      document.querySelector("#done .kicker").textContent = saved ? "Order saved" : "Almost done";
       $("#d-oid").textContent = "Order " + oid;
       $("#d-amt").textContent = money(amt);
       $("#d-note").textContent = note;
-      const pays = $("#d-pays"); pays.replaceChildren();
-      const link = (label, href, ghost) => { const a = el("a", "btn" + (ghost ? " ghost" : ""), label); a.href = href; a.target = "_blank"; a.rel = "noopener"; pays.append(a); };
-      const ca = CASHAPP && (() => link("Pay " + money(amt) + " on Cash App ↗", "https://cash.app/$" + CASHAPP + "/" + amt, method !== "Cash App"));
-      const vm = VENMO && (() => link("Pay " + money(amt) + " on Venmo ↗", "https://venmo.com/" + VENMO + "?txn=pay&amount=" + amt + "&note=" + encodeURIComponent(note), method !== "Venmo"));
-      if (method === "Chime" && CHIME) {
-        const box = el("div", "chime");
-        box.append(el("span", "lbl", "Chime · Pay Anyone"), el("div", "sign", "$" + CHIME));
-        const cp = el("button", "btn", "Copy $" + CHIME); cp.type = "button";
-        cp.addEventListener("click", async () => {
-          try { await navigator.clipboard.writeText("$" + CHIME); cp.textContent = "Copied ✓"; }
-          catch (_) { window.prompt("Copy this:", "$" + CHIME); }
-          setTimeout(() => { cp.textContent = "Copy $" + CHIME; }, 2000);
-        });
-        const ol = el("ol", "how");
-        ["Open the Chime app and tap Pay Anyone", "Paste $" + CHIME, "Send " + money(amt) + " with " + note + " in the note"].forEach((t) => ol.append(el("li", null, t)));
-        box.append(cp, ol);
-        pays.append(box);
-      }
-      if (method === "Venmo") { vm && vm(); ca && ca(); } else { ca && ca(); vm && vm(); }
-      $("#d-fallback").textContent = "Can't pay with " + method + "? DM @yxung_lxve96 with your order # and we'll sort it out.";
+      $("#d-pays").replaceChildren(payCards(amt, note));
+      $("#d-fallback").textContent = (saved ? "" : "Your order goes through with your payment. Also screenshot this and DM it to @yxung_lxve96. ") + "Trouble paying? DM @yxung_lxve96 with your order #.";
       $("#form-box").classList.add("hidden");
       $("#done").classList.remove("hidden");
       $("#order").scrollIntoView({ behavior: "smooth", block: "start" });
