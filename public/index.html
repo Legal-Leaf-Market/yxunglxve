@@ -294,54 +294,159 @@
       .hero::before { animation: none; }
       html { scroll-behavior: auto; }
     }
-    .show-banner {
-      display: flex;
+    /* Show takeover (auto-removed after the show) */
+    .show {
+      --gold: #e6c27a;
+      --gold-deep: #b8893d;
+      --crimson: #c72440;
+      --cream: #f4ede0;
+      --navy-line: #2a2e57;
+      min-height: 100svh;
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 56px;
       align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 6px 14px;
-      padding: 11px 16px;
-      background: linear-gradient(90deg, #1a1236, #2a1030 50%, #1a1236);
-      border-bottom: 1px solid #3a2a55;
-      color: #f4ede0;
-      text-decoration: none;
-      font-size: 0.78rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      text-align: center;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 48px 16px;
       position: relative;
-      z-index: 2;
     }
-    .show-banner .live {
+    .show-bg {
+      background:
+        radial-gradient(1000px 600px at 75% 0%, rgba(122, 92, 255, 0.22), transparent 60%),
+        radial-gradient(800px 500px at 0% 60%, rgba(179, 23, 47, 0.16), transparent 60%),
+        #0b0d1f;
+      border-bottom: 1px solid #2a2e57;
+    }
+    .show-flyer { display: block; }
+    .show-flyer img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--gold-deep);
+      box-shadow:
+        0 0 0 6px #0b0d1f,
+        0 0 0 7px rgba(230, 194, 122, 0.35),
+        0 30px 80px rgba(0, 0, 0, 0.6),
+        0 0 120px rgba(122, 92, 255, 0.25);
+    }
+    .show-eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      color: #e6c27a;
+      gap: 10px;
+      color: var(--gold);
+      font-size: 0.75rem;
       font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
     }
-    .show-banner .live::before {
+    .show-eyebrow::before {
       content: "";
-      width: 7px;
-      height: 7px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
-      background: #c72440;
-      box-shadow: 0 0 0 3px rgba(199, 36, 64, 0.3);
+      background: var(--crimson);
+      box-shadow: 0 0 0 4px rgba(199, 36, 64, 0.3);
     }
-    .show-banner .cta { color: #e6c27a; border-bottom: 1px solid currentColor; }
-    .show-banner:hover .cta, .show-banner:focus-visible .cta { color: #f4ede0; }
+    .show h2 {
+      margin: 14px 0 0;
+      font-family: "Archivo Black", Impact, sans-serif;
+      font-weight: 400;
+      font-size: clamp(2.8rem, 8vw, 5.6rem);
+      line-height: 0.92;
+      color: var(--gold);
+      background: linear-gradient(180deg, #f7e2ad 0%, var(--gold) 45%, var(--gold-deep) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .show h2 .the {
+      display: block;
+      font-size: 0.32em;
+      letter-spacing: 0.5em;
+      margin: 0.35em 0 0.3em;
+      -webkit-text-fill-color: var(--cream);
+    }
+    .show h2 .artist { -webkit-text-fill-color: var(--crimson); }
+    .show-date {
+      margin: 22px 0 0;
+      font-family: "Archivo Black", Impact, sans-serif;
+      font-size: clamp(1.2rem, 3vw, 1.7rem);
+      color: var(--cream);
+    }
+    .show-facts {
+      margin: 10px 0 0;
+      color: var(--cream);
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+    .show-facts .dim { color: #9a98b4; }
+    .show-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .show-chips span {
+      padding: 0.4rem 0.85rem;
+      border: 1px solid var(--gold-deep);
+      color: var(--gold);
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .show-guests {
+      margin: 22px 0 0;
+      color: #9a98b4;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+    .show-guests strong { color: var(--cream); font-weight: 500; }
+    .show-actions { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px; }
+    .show .btn { border-color: var(--gold); color: var(--gold); }
+    .show .btn:hover, .show .btn:focus-visible { background: var(--gold); color: #0b0d1f; }
+    .show .btn.solid { background: var(--gold); color: #0b0d1f; }
+    .show .btn.solid:hover, .show .btn.solid:focus-visible { background: transparent; color: var(--gold); }
+    .show-more {
+      display: inline-block;
+      margin-top: 28px;
+      color: #9a98b4;
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+    .show-more:hover { color: var(--cream); }
+    @media (max-width: 860px) {
+      .show { grid-template-columns: minmax(0, 1fr); gap: 32px; min-height: 0; padding-top: 32px; }
+      .show-flyer { max-width: 520px; width: 100%; margin: 0 auto; }
+      .show-info { order: -1; }
+    }
   </style>
 </head>
 <body>
-  <a class="show-banner" id="show-banner" href="/events/">
-    <span class="live">Live · Sat Nov 14</span>
-    <span>Stuff the Artist · Columbus Bar · Doors 7 PM · No cover · All ages</span>
-    <span class="cta">Details &rarr;</span>
-  </a>
+  <div class="show-bg" id="show">
+    <section class="show" aria-label="Upcoming show">
+      <a class="show-flyer" href="/events/" aria-label="Show details">
+        <img src="/images/flyer-stuff-the-artist.jpg" width="1200" height="1800" alt="Stuff the Artist flyer: Yxung Lxve with special guests, Saturday November 14, Columbus Bar, Columbus, Indiana. No cover, doors 7 PM, show 8 PM, all ages.">
+      </a>
+      <div class="show-info">
+        <span class="show-eyebrow">Live this Saturday</span>
+        <h2>STUFF<span class="the">THE</span><span class="artist">ARTIST</span></h2>
+        <p class="show-date">Saturday, November 14</p>
+        <p class="show-facts">Doors 7 PM · Show 8 PM<br>Columbus Bar · 322 4th St, Columbus, IN<br><span class="dim">Food &amp; drink specials to help support the venue</span></p>
+        <div class="show-chips"><span>No cover</span><span>All ages</span></div>
+        <p class="show-guests"><strong>Yxung Lxve</strong> with special guests $uicybin, Nezio, Amier Lane, Teqz, Lil Bars, StickNasty The Coldhearted Kid, David Cameron, Baby Gawdey &amp; Anxiety Jay</p>
+        <div class="show-actions">
+          <a class="btn solid" href="https://www.google.com/maps/dir/?api=1&destination=Columbus+Bar+322+4th+St+Columbus+IN+47201" target="_blank" rel="noopener">Directions</a>
+          <a class="btn" href="/events/">Show details</a>
+        </div>
+        <a class="show-more" href="#top-artist">Listen to Yxung Lxve &darr;</a>
+      </div>
+    </section>
+  </div>
   <script>
-    // Hide the banner automatically once the show is over (after 2 AM Eastern, Nov 15).
-    if (Date.now() > Date.parse("2026-11-15T07:00:00Z")) document.getElementById("show-banner").remove();
+    // Remove the show takeover automatically once the show is over (after 2 AM Eastern, Nov 15).
+    if (Date.now() > Date.parse("2026-11-15T07:00:00Z")) document.getElementById("show").remove();
   </script>
-  <header class="hero">
+  <header class="hero" id="top-artist">
     <img class="avatar" src="images/profile.jpg" alt="Yxung Lxve" width="132" height="132">
     <h1>YXUNG<br>LXVE</h1>
     <p class="tagline">Columbus boy under the weather but not so highly clever</p>
