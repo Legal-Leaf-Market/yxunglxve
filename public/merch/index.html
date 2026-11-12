@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Merch · YXUNG LXVE</title>
-  <meta name="description" content="Pre-order Yxung Lxve merch: Dr Robotnic raglan, DOUSED tee and the I Got Her Mad hoodie.">
+  <meta name="description" content="Pre-order Yxung Lxve merch: Dr Robotnic raglan, DOUSED tee and the I Got Her Mad hoodie. Hand-delivered at a show or shipped for $5.">
   <meta property="og:title" content="Yxung Lxve merch · Pre-order now">
-  <meta property="og:description" content="Dr Robotnic raglan · DOUSED tee · I Got Her Mad hoodie. Limited first run.">
+  <meta property="og:description" content="Dr Robotnic raglan · DOUSED tee · I Got Her Mad hoodie. Pick up at a show free, or $5 shipping.">
   <meta property="og:image" content="https://yxunglxve.netlify.app/merch/img/robotnic-shirt.jpg">
   <meta property="og:url" content="https://yxunglxve.netlify.app/merch/">
   <meta name="twitter:card" content="summary_large_image">
@@ -18,8 +18,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0b0d1f; --bg-2: #141838; --fg: #f4ede0; --muted: #9a98b4; --line: #2a2e57;
-      --gold: #e6c27a; --gold-deep: #b8893d; --crimson: #b3172f; --violet: #7a5cff;
+      --bg: #0b0d1f; --bg-2: #141838; --bg-3: #1b2048; --fg: #f4ede0; --muted: #9a98b4; --line: #2a2e57;
+      --gold: #e6c27a; --gold-deep: #b8893d; --crimson: #b3172f; --ok: #22c55e;
     }
     *, *::before, *::after { box-sizing: border-box; }
     html { -webkit-text-size-adjust: 100%; }
@@ -27,23 +27,27 @@
       margin: 0; background: radial-gradient(1200px 600px at 50% -10%, #23194a 0%, transparent 60%), var(--bg);
       color: var(--fg); font-family: Inter, system-ui, -apple-system, sans-serif; line-height: 1.5;
     }
+    body.has-bag { padding-bottom: 96px; }
+    html.lock, html.lock body { overflow: hidden; }
     a { color: inherit; }
+    button { font-family: inherit; }
     .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+    .hidden { display: none !important; }
     header.top { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; }
     .brand { font-family: "Archivo Black", Impact, sans-serif; letter-spacing: 0.06em; text-decoration: none; font-size: 1.05rem; }
     .top nav { display: flex; gap: 18px; font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; }
     .top nav a { text-decoration: none; color: var(--muted); }
     .top nav a:hover, .top nav a[aria-current] { color: var(--fg); }
-    .hero { padding: 28px 0 8px; }
+    .hero { padding: 24px 0 4px; }
     .kicker { color: var(--crimson); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; }
     h1 { margin: 6px 0 8px; font-family: "Archivo Black", Impact, sans-serif; font-weight: 400; font-size: clamp(2.4rem, 9vw, 4.4rem); line-height: 0.95; color: var(--gold); }
-    .hero p { margin: 0; color: var(--muted); max-width: 560px; }
-    .steps { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 16px 0 0; padding: 0; list-style: none; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; }
-    .steps li { display: flex; align-items: center; gap: 8px; }
-    .steps b { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 999px; background: var(--gold); color: var(--bg); font-size: 0.72rem; }
+    .hero p { margin: 0; color: var(--muted); max-width: 580px; }
+    .perks { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 0; padding: 0; list-style: none; }
+    .perks li { padding: 7px 12px; border: 1px solid var(--line); border-radius: 999px; font-size: 0.78rem; background: var(--bg-2); }
+    .perks b { color: var(--gold); }
 
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 22px; margin: 28px 0; }
-    .item { background: var(--bg-2); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 22px; margin: 26px 0; }
+    .item { background: var(--bg-2); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; transition: border-color 0.2s, box-shadow 0.2s; }
     .item.on { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold), 0 16px 40px rgba(230, 194, 122, 0.12); }
     .pics { position: relative; aspect-ratio: 1 / 1.05; background: #ecebe6; }
     .pics img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; transition: opacity 0.25s; }
@@ -51,9 +55,10 @@
     .pics.alt img:first-child { opacity: 0; }
     .pics.alt img + img { opacity: 1; }
     .views { position: absolute; left: 10px; bottom: 10px; display: flex; gap: 6px; }
-    .views button { padding: 6px 10px; border-radius: 999px; border: 0; background: rgba(11, 13, 31, 0.8); color: var(--fg); font: 600 0.66rem Inter, sans-serif; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; }
+    .views button { padding: 6px 10px; border-radius: 999px; border: 0; background: rgba(11, 13, 31, 0.8); color: var(--fg); font-size: 0.66rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; }
     .views button[aria-pressed="true"] { background: var(--gold); color: var(--bg); }
     .badge { position: absolute; top: 10px; left: 10px; padding: 5px 10px; border-radius: 999px; background: var(--crimson); color: #fff; font-size: 0.64rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
+    .inbag { position: absolute; top: 10px; right: 10px; padding: 5px 10px; border-radius: 999px; background: var(--gold); color: var(--bg); font-size: 0.66rem; font-weight: 700; letter-spacing: 0.1em; }
     .body { padding: 16px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
     .row { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
     .item h2 { margin: 0; font-family: "Archivo Black", Impact, sans-serif; font-weight: 400; font-size: 1.35rem; line-height: 1.05; text-transform: uppercase; }
@@ -61,80 +66,161 @@
     .desc { margin: 0; color: var(--muted); font-size: 0.88rem; }
     .lbl { font-size: 0.66rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
     .sizes { display: flex; flex-wrap: wrap; gap: 6px; }
-    .sizes button {
-      min-width: 46px; padding: 9px 10px; border-radius: 10px; border: 1px solid var(--line); background: none; color: var(--fg);
-      font: 600 0.82rem Inter, sans-serif; cursor: pointer;
-    }
+    .sizes button { min-width: 46px; padding: 9px 10px; border-radius: 10px; border: 1px solid var(--line); background: none; color: var(--fg); font-size: 0.82rem; font-weight: 600; cursor: pointer; }
     .sizes button[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
-    .add { display: flex; gap: 8px; margin-top: auto; }
-    .qty { display: flex; align-items: center; border: 1px solid var(--line); border-radius: 10px; }
-    .qty button { width: 40px; height: 44px; border: 0; background: none; color: var(--fg); font-size: 1.2rem; cursor: pointer; }
-    .qty span { min-width: 26px; text-align: center; font-weight: 600; }
+    .sizes.shake { animation: shake 0.35s; }
+    @keyframes shake { 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
     .btn {
-      flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; padding: 0 16px;
-      border-radius: 10px; border: 1px solid var(--gold); background: var(--gold); color: var(--bg);
-      font: 700 0.8rem Inter, sans-serif; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 18px;
+      border-radius: 12px; border: 1px solid var(--gold); background: var(--gold); color: var(--bg);
+      font-size: 0.82rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
     }
     .btn:hover { background: #f7e2ad; }
+    .btn:active { transform: scale(0.98); }
     .btn.ghost { background: none; color: var(--gold); }
     .btn.ghost:hover { background: rgba(230, 194, 122, 0.12); }
     .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn.wide { width: 100%; }
     .hint { min-height: 1.2em; margin: -4px 0 0; font-size: 0.78rem; color: var(--gold); }
 
-    .order { display: grid; grid-template-columns: 1.1fr 1fr; gap: 22px; margin: 10px 0 40px; scroll-margin-top: 16px; }
-    .panel { background: var(--bg-2); border: 1px solid var(--line); border-radius: 16px; padding: 20px; }
-    .panel h2 { margin: 0 0 12px; font-family: "Archivo Black", Impact, sans-serif; font-weight: 400; font-size: 1.3rem; text-transform: uppercase; }
-    .cart { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
-    .cart li { display: flex; justify-content: space-between; gap: 10px; align-items: center; padding-bottom: 10px; border-bottom: 1px solid var(--line); font-size: 0.92rem; }
-    .cart small { color: var(--muted); }
-    .cart .x { border: 0; background: none; color: var(--muted); cursor: pointer; font-size: 0.9rem; padding: 4px 8px; }
-    .empty { color: var(--muted); font-size: 0.9rem; margin: 0; }
-    .total { display: flex; justify-content: space-between; margin-top: 14px; font-size: 1.05rem; font-weight: 700; }
-    .total span:last-child { color: var(--gold); font-family: "Archivo Black", Impact, sans-serif; font-size: 1.4rem; font-weight: 400; }
-    form { display: grid; gap: 12px; }
-    label { display: grid; gap: 6px; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
-    input, select, textarea {
-      width: 100%; padding: 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); color: var(--fg);
-      font: 16px Inter, sans-serif; letter-spacing: normal; text-transform: none;
-    }
-    input:focus, select:focus, textarea:focus { outline: 2px solid var(--gold); outline-offset: 1px; }
-    .pay-pick { display: flex; gap: 8px; }
-    .pay-pick label { flex: 1; display: flex; align-items: center; gap: 8px; padding: 12px; border: 1px solid var(--line); border-radius: 10px; cursor: pointer; color: var(--fg); letter-spacing: 0.1em; }
-    .pay-pick input { width: auto; accent-color: var(--gold); }
-    .pay-pick label:has(input:checked) { border-color: var(--gold); }
-    .fine { margin: 0; font-size: 0.78rem; color: var(--muted); }
-    .err { color: #ff8a9b; font-size: 0.85rem; margin: 0; }
-    .hidden { display: none !important; }
-
-    .done { text-align: center; display: grid; gap: 14px; justify-items: center; }
-    .done .oid { font-family: "Archivo Black", Impact, sans-serif; font-size: 1.6rem; color: var(--gold); letter-spacing: 0.06em; }
-    .done .amt { font-family: "Archivo Black", Impact, sans-serif; font-size: 2.6rem; line-height: 1; }
-    .done .pays { width: 100%; }
-    .howpay { margin: 26px 0 0; padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: var(--bg-2); }
+    /* How to pay */
+    .howpay { margin: 4px 0 40px; padding: 18px; border: 1px solid var(--line); border-radius: 18px; background: var(--bg-2); }
     .howpay h2 { margin: 0 0 4px; font-family: "Archivo Black", Impact, sans-serif; font-weight: 400; font-size: 1.3rem; text-transform: uppercase; }
+    .fine { margin: 0; font-size: 0.8rem; color: var(--muted); }
     .howpay .fine { margin-bottom: 14px; }
     .paycards { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; }
     .pc { min-width: 0; display: grid; gap: 10px; justify-items: center; align-content: start; text-align: center; padding: 16px 12px; border-radius: 14px; border: 2px solid var(--pc); background: var(--bg); }
     .pc-chime { --pc: #1ec677; }
     .pc-cash { --pc: #00d64f; }
     .pc-name { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--pc); }
-    .pc-handle { font-family: "Archivo Black", Impact, sans-serif; font-size: clamp(0.95rem, 4.2vw, 1.3rem); word-break: break-all; line-height: 1.15; }
-    .pc .btn { width: 100%; flex: none; min-width: 0; white-space: normal; text-align: center; line-height: 1.2; padding: 8px 6px; letter-spacing: 0.08em; font-size: 0.7rem; }
+    .pc-handle { font-family: "Archivo Black", Impact, sans-serif; font-size: clamp(0.95rem, 4.2vw, 1.25rem); word-break: break-all; line-height: 1.15; }
+    .pc .btn { width: 100%; min-width: 0; white-space: normal; text-align: center; line-height: 1.2; padding: 8px 6px; letter-spacing: 0.08em; font-size: 0.7rem; }
     .pc .pc-pay { background: var(--pc); border-color: var(--pc); color: #04130b; }
     .pc .pc-pay:hover { filter: brightness(1.1); }
-    .pc .qr { width: 100%; max-width: 180px; padding: 8px; border-radius: 10px; background: #fff; }
+    .pc .qr { width: 100%; max-width: 170px; padding: 8px; border-radius: 10px; background: #fff; }
     .pc .qr svg { display: block; width: 100%; height: auto; }
-    .pc-scan { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.08em; }
-    @media (max-width: 380px) { .pc .btn { font-size: 0.68rem; letter-spacing: 0.08em; padding: 0 8px; } }
-    .done .note { background: var(--bg); border: 1px dashed var(--gold-deep); border-radius: 10px; padding: 10px 14px; font-size: 0.9rem; }
-    .chime { display: grid; gap: 10px; padding: 16px; border: 2px solid var(--gold); border-radius: 14px; background: var(--bg); text-align: left; }
-    .chime .sign { font-family: "Archivo Black", Impact, sans-serif; font-size: clamp(1.3rem, 6vw, 1.7rem); color: var(--gold); word-break: break-all; }
-    .chime .how { margin: 0; padding-left: 20px; font-size: 0.9rem; display: grid; gap: 4px; }
+    .pc-scan { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.06em; }
+
+    /* Sticky bag bar */
+    .bagbar {
+      position: fixed; left: 50%; bottom: max(12px, env(safe-area-inset-bottom)); z-index: 50;
+      width: min(560px, calc(100% - 24px)); transform: translate(-50%, 150%);
+      display: flex; align-items: center; gap: 12px; padding: 10px 10px 10px 18px;
+      border-radius: 18px; border: 1px solid rgba(230, 194, 122, 0.5); background: rgba(20, 24, 56, 0.96);
+      -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); box-shadow: 0 18px 50px rgba(0, 0, 0, 0.5);
+      transition: transform 0.35s cubic-bezier(.2,.8,.2,1);
+    }
+    .bagbar.show { transform: translate(-50%, 0); }
+    .bagbar.bump { animation: bump 0.4s; }
+    @keyframes bump { 40% { transform: translate(-50%, -6px); } }
+    .bagbar .info { flex: 1; min-width: 0; line-height: 1.2; }
+    .bagbar .info b { display: block; font-size: 0.95rem; }
+    .bagbar .info span { font-size: 0.78rem; color: var(--muted); }
+    .bagbar .btn { min-height: 46px; }
+
+    /* Checkout sheet */
+    .sheet-bg { position: fixed; inset: 0; z-index: 90; background: rgba(5, 6, 16, 0.7); opacity: 0; transition: opacity 0.25s; }
+    .sheet-bg.open { opacity: 1; }
+    .sheet {
+      position: fixed; z-index: 100; left: 50%; bottom: 0; width: min(560px, 100%); max-height: 94dvh;
+      transform: translate(-50%, 100%); transition: transform 0.35s cubic-bezier(.2,.8,.2,1);
+      display: flex; flex-direction: column; background: var(--bg-2); border: 1px solid var(--line); border-bottom: 0;
+      border-radius: 22px 22px 0 0; box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.5);
+    }
+    .sheet.open { transform: translate(-50%, 0); }
+    @media (min-width: 760px) {
+      .sheet { left: auto; right: 0; top: 0; bottom: 0; max-height: none; width: 480px; border-radius: 0; border: 0; border-left: 1px solid var(--line); transform: translateX(100%); }
+      .sheet.open { transform: translateX(0); }
+    }
+    .sh-head { display: flex; align-items: center; gap: 12px; padding: 14px 16px 10px; }
+    .sh-head h2 { flex: 1; margin: 0; font-family: "Archivo Black", Impact, sans-serif; font-weight: 400; font-size: 1.15rem; text-transform: uppercase; }
+    .icon-btn { width: 40px; height: 40px; border-radius: 999px; border: 1px solid var(--line); background: none; color: var(--fg); font-size: 1rem; cursor: pointer; flex: none; }
+    .icon-btn:hover { border-color: var(--gold); }
+    .progress { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; padding: 0 16px 12px; }
+    .progress span { display: grid; gap: 6px; font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+    .progress span::before { content: ""; height: 4px; border-radius: 4px; background: var(--line); }
+    .progress span.done::before, .progress span.now::before { background: var(--gold); }
+    .progress span.now { color: var(--fg); }
+    .sh-body { flex: 1; overflow-y: auto; padding: 4px 16px 16px; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+    .sh-foot { padding: 12px 16px max(14px, env(safe-area-inset-bottom)); border-top: 1px solid var(--line); background: var(--bg-2); display: grid; gap: 8px; }
+    .sum { display: grid; gap: 4px; font-size: 0.88rem; }
+    .sum div { display: flex; justify-content: space-between; }
+    .sum .grand { font-size: 1.05rem; font-weight: 700; }
+    .sum .grand span:last-child { font-family: "Archivo Black", Impact, sans-serif; font-weight: 400; color: var(--gold); font-size: 1.3rem; }
+    .muted { color: var(--muted); }
+
+    .lines { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+    .lines li { display: grid; grid-template-columns: 64px 1fr auto; gap: 12px; align-items: center; }
+    .lines img { width: 64px; height: 64px; object-fit: cover; border-radius: 10px; background: #ecebe6; }
+    .lines .nm { font-weight: 600; line-height: 1.2; }
+    .lines small { color: var(--muted); }
+    .mini-qty { display: inline-flex; align-items: center; gap: 2px; margin-top: 6px; border: 1px solid var(--line); border-radius: 999px; }
+    .mini-qty button { width: 30px; height: 30px; border: 0; background: none; color: var(--fg); font-size: 1rem; cursor: pointer; }
+    .mini-qty span { min-width: 18px; text-align: center; font-size: 0.85rem; font-weight: 600; }
+    .lines .amt { font-weight: 700; }
+
+    .choices { display: grid; gap: 10px; }
+    .choice { position: relative; display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center; padding: 16px; border: 2px solid var(--line); border-radius: 14px; cursor: pointer; background: var(--bg); }
+    .choice input { position: absolute; opacity: 0; pointer-events: none; }
+    .choice .dot { width: 22px; height: 22px; border-radius: 999px; border: 2px solid var(--muted); display: grid; place-items: center; }
+    .choice:has(input:checked) { border-color: var(--gold); background: rgba(230, 194, 122, 0.07); }
+    .choice:has(input:checked) .dot { border-color: var(--gold); }
+    .choice:has(input:checked) .dot::after { content: ""; width: 10px; height: 10px; border-radius: 999px; background: var(--gold); }
+    .choice:has(input:focus-visible) { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .choice b { display: block; font-size: 1rem; }
+    .choice small { color: var(--muted); font-size: 0.82rem; line-height: 1.35; display: block; }
+    .choice .tag { font-family: "Archivo Black", Impact, sans-serif; color: var(--gold); font-size: 1.05rem; white-space: nowrap; }
+
+    .fields { display: grid; gap: 12px; margin-top: 14px; }
+    .fields .two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .fields .three { display: grid; grid-template-columns: 1.4fr 0.7fr 1fr; gap: 10px; }
+    label.f { display: grid; gap: 6px; font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+    label.f i { font-style: normal; text-transform: none; letter-spacing: 0; opacity: 0.8; }
+    input, select, textarea {
+      width: 100%; min-width: 0; padding: 13px 12px; border-radius: 12px; border: 1px solid var(--line); background: var(--bg); color: var(--fg);
+      font: 16px Inter, sans-serif; letter-spacing: normal; text-transform: none;
+    }
+    input:focus, select:focus, textarea:focus { outline: 2px solid var(--gold); outline-offset: 1px; border-color: transparent; }
+    input.bad { border-color: #ff8a9b; }
+    .err { color: #ff8a9b; font-size: 0.85rem; margin: 0; }
+    .sec-t { margin: 18px 0 8px; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+
+    .paytop { text-align: center; display: grid; gap: 6px; justify-items: center; padding: 6px 0 14px; }
+    .paytop .oid { font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+    .paytop .big { font-family: "Archivo Black", Impact, sans-serif; font-size: 3rem; line-height: 1; color: var(--gold); }
+    .note { width: 100%; display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 1px dashed var(--gold-deep); border-radius: 12px; background: var(--bg); text-align: left; }
+    .note div { flex: 1; min-width: 0; font-size: 0.86rem; }
+    .note b { word-break: break-word; }
+    .note button { flex: none; padding: 8px 12px; border-radius: 999px; border: 1px solid var(--gold); background: none; color: var(--gold); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; }
+    .sent { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .sent .btn { padding: 0 8px; font-size: 0.72rem; letter-spacing: 0.06em; }
+
+    .receipt { display: grid; gap: 14px; text-align: center; justify-items: center; padding-top: 8px; }
+    .check { width: 64px; height: 64px; border-radius: 999px; background: var(--ok); display: grid; place-items: center; color: #04130b; font-size: 2rem; font-weight: 700; animation: pop 0.4s cubic-bezier(.2,.8,.2,1.4); }
+    @keyframes pop { from { transform: scale(0.3); opacity: 0; } }
+    .receipt h3 { margin: 0; font-family: "Archivo Black", Impact, sans-serif; font-weight: 400; font-size: 1.6rem; text-transform: uppercase; }
+    .rc { width: 100%; text-align: left; padding: 14px; border: 1px solid var(--line); border-radius: 14px; background: var(--bg); display: grid; gap: 8px; font-size: 0.88rem; }
+    .rc .r { display: flex; justify-content: space-between; gap: 12px; }
+    .rc .r span:first-child { color: var(--muted); }
+    .rc .r span:last-child { text-align: right; }
+    .rc hr { width: 100%; border: 0; border-top: 1px solid var(--line); margin: 2px 0; }
+
     footer { padding: 28px 0 40px; color: var(--muted); font-size: 0.8rem; border-top: 1px solid var(--line); }
-    @media (max-width: 820px) { .order { grid-template-columns: 1fr; } }
+    @media (prefers-reduced-motion: reduce) { .sheet, .bagbar, .sheet-bg { transition: none; } .check, .bagbar.bump, .sizes.shake { animation: none; } }
   </style>
 </head>
 <body>
+  <!-- Netlify form definitions (hidden; the checkout posts these with JS). Orders land in Netlify: Site > Forms. -->
+  <form name="preorder" data-netlify="true" netlify-honeypot="company" hidden>
+    <input name="company"><input name="order"><input name="name"><input name="phone"><input name="email"><input name="instagram">
+    <input name="items"><input name="subtotal"><input name="shipping"><input name="total"><input name="delivery">
+    <input name="address"><input name="city"><input name="state"><input name="zip"><textarea name="notes"></textarea>
+  </form>
+  <form name="payment-sent" data-netlify="true" hidden>
+    <input name="order"><input name="name"><input name="method"><input name="amount"><input name="delivery">
+  </form>
+
   <div class="wrap">
     <header class="top">
       <a class="brand" href="/">YXUNG LXVE</a>
@@ -148,75 +234,128 @@
     <section class="hero">
       <span class="kicker">Pre-order · First run</span>
       <h1>MERCH</h1>
-      <p>Three pieces, printed to order. Lock yours in now. We print once the pre-orders are in.</p>
-      <ol class="steps">
-        <li><b>1</b>Pick size</li>
-        <li><b>2</b>Send your info</li>
-        <li><b>3</b>Pay with Chime or Cash App</li>
-      </ol>
-    </section>
-
-    <section class="howpay" aria-labelledby="hp-title">
-      <h2 id="hp-title">How to pay</h2>
-      <p class="fine">Order below first. You'll get your exact total and an order # for the payment note. Either one works.</p>
-      <div id="howpay"></div>
+      <p>Three pieces, printed to order. Lock yours in now and we print once pre-orders are in.</p>
+      <ul class="perks">
+        <li><b>Free</b> hand delivery at a show</li>
+        <li><b>$5</b> flat shipping to your door</li>
+        <li>Pay with <b>Chime</b> or <b>Cash App</b></li>
+      </ul>
     </section>
 
     <div class="grid" id="grid"></div>
 
-    <section class="order" id="order">
-      <div class="panel">
-        <h2>Your order</h2>
-        <ul class="cart" id="cart"></ul>
-        <p class="empty" id="empty">Nothing yet. Pick a size above and hit Add.</p>
-        <div class="total"><span>Total</span><span id="total">$0</span></div>
-      </div>
-
-      <div class="panel">
-        <div id="form-box">
-          <h2>Your info</h2>
-          <!-- Orders land in Netlify: Site > Forms > preorder -->
-          <form id="form" name="preorder" method="POST" data-netlify="true" netlify-honeypot="company">
-            <input type="hidden" name="form-name" value="preorder">
-            <p class="hidden"><label>Leave empty <input name="company" tabindex="-1" autocomplete="off"></label></p>
-            <label>Name <input name="name" required autocomplete="name" placeholder="First and last"></label>
-            <label>Phone or email <input name="contact" required autocomplete="tel" placeholder="So we can reach you when it's ready"></label>
-            <label>Instagram (optional) <input name="instagram" placeholder="@handle"></label>
-            <input type="hidden" name="payment" value="Chime or Cash App">
-            <label>Getting it (optional) <textarea name="notes" rows="2" placeholder="Pick up at a show in Columbus, or tell us if you need it shipped"></textarea></label>
-            <input type="hidden" name="order" id="f-order">
-            <input type="hidden" name="items" id="f-items">
-            <input type="hidden" name="total" id="f-total">
-            <p class="err hidden" id="err"></p>
-            <button class="btn" type="submit" id="submit" disabled>Place pre-order</button>
-            <p class="fine">Your order is saved when you tap Place pre-order. Next screen shows exactly what to send.</p>
-          </form>
-        </div>
-
-        <div class="done hidden" id="done">
-          <span class="kicker">Order saved</span>
-          <div class="oid" id="d-oid"></div>
-          <div>Send</div>
-          <div class="amt" id="d-amt"></div>
-          <div class="note">Copy this into the payment note exactly:<br><b id="d-note"></b></div>
-          <div class="pays" id="d-pays"></div>
-          <p class="fine" id="d-fallback"></p>
-          <p class="fine">Screenshot this screen. We'll reach out when your merch is printed.</p>
-        </div>
-      </div>
+    <section class="howpay" aria-labelledby="hp-title">
+      <h2 id="hp-title">How to pay</h2>
+      <p class="fine">Add your pieces to the bag and check out first. You'll get your exact total and an order # for the payment note. Either app works.</p>
+      <div id="howpay"></div>
     </section>
 
     <footer>
-      Questions? DM <a href="https://www.instagram.com/yxung_lxve96/" target="_blank" rel="noopener">@yxung_lxve96</a>. Pre-order items are printed to order; colors on screen are previews.
+      Questions? DM <a href="https://www.instagram.com/yxung_lxve96/" target="_blank" rel="noopener">@yxung_lxve96 ↗</a>. Pre-order items are printed to order; colors on screen are previews.
     </footer>
   </div>
+
+  <!-- Sticky bag -->
+  <div class="bagbar" id="bagbar" aria-live="polite">
+    <div class="info"><b id="bb-count">Bag</b><span id="bb-total"></span></div>
+    <button class="btn" type="button" id="bb-go">Checkout →</button>
+  </div>
+
+  <!-- Checkout -->
+  <div class="sheet-bg hidden" id="sheet-bg"></div>
+  <aside class="sheet hidden" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sh-title">
+    <div class="sh-head">
+      <button class="icon-btn" type="button" id="sh-back" aria-label="Back">←</button>
+      <h2 id="sh-title">Your bag</h2>
+      <button class="icon-btn" type="button" id="sh-close" aria-label="Close">✕</button>
+    </div>
+    <div class="progress" id="progress"><span>Bag</span><span>Delivery</span><span>Info</span><span>Pay</span></div>
+    <div class="sh-body" id="sh-body">
+
+      <!-- 0: Bag -->
+      <section data-step="0">
+        <ul class="lines" id="lines"></ul>
+        <p class="fine" id="bag-empty" style="padding:20px 0">Your bag is empty.</p>
+      </section>
+
+      <!-- 1: Delivery -->
+      <section data-step="1">
+        <div class="choices" role="radiogroup" aria-label="Delivery">
+          <label class="choice">
+            <input type="radio" name="delivery" value="pickup" checked>
+            <span class="dot" aria-hidden="true"></span>
+            <span><b>Hand-delivered at a show</b><small>South Central Indiana. Sat Nov 14 at Columbus Bar if it's printed in time, otherwise the next show (date TBD). We'll reach out.</small></span>
+            <span class="tag">FREE</span>
+          </label>
+          <label class="choice">
+            <input type="radio" name="delivery" value="ship">
+            <span class="dot" aria-hidden="true"></span>
+            <span><b>Ship to my house</b><small>Flat rate, mailed when the run is printed.</small></span>
+            <span class="tag">$5</span>
+          </label>
+        </div>
+        <div class="fields hidden" id="ship-fields">
+          <label class="f">Street address <input id="s-address" autocomplete="street-address" placeholder="123 Main St, Apt 4"></label>
+          <div class="three">
+            <label class="f">City <input id="s-city" autocomplete="address-level2"></label>
+            <label class="f">State <input id="s-state" autocomplete="address-level1" value="IN" maxlength="2"></label>
+            <label class="f">ZIP <input id="s-zip" autocomplete="postal-code" inputmode="numeric" maxlength="10"></label>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2: Info -->
+      <section data-step="2">
+        <div class="fields" style="margin-top:0">
+          <label class="f">Name <input id="c-name" autocomplete="name" placeholder="First and last"></label>
+          <label class="f">Phone <input id="c-phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="We'll text you when it's ready"></label>
+          <label class="f">Email <i>(optional, for your receipt)</i> <input id="c-email" type="email" autocomplete="email"></label>
+          <label class="f">Instagram <i>(optional)</i> <input id="c-ig" placeholder="@handle" autocapitalize="off"></label>
+          <label class="f">Anything else? <i>(optional)</i> <textarea id="c-notes" rows="2"></textarea></label>
+        </div>
+      </section>
+
+      <!-- 3: Pay -->
+      <section data-step="3">
+        <div class="paytop">
+          <span class="oid" id="p-oid"></span>
+          <div class="big" id="p-amt"></div>
+          <div class="note"><div>Payment note:<br><b id="p-note"></b></div><button type="button" id="p-copy">Copy</button></div>
+        </div>
+        <div id="p-cards"></div>
+        <p class="sec-t">Sent it? Tap the app you used</p>
+        <div class="sent">
+          <button class="btn" type="button" data-sent="Chime">I paid with Chime</button>
+          <button class="btn" type="button" data-sent="Cash App">I paid with Cash App</button>
+        </div>
+        <p class="fine" style="margin-top:10px">Your order is already saved. If you leave to open the app, come back to this page and it'll be right here.</p>
+      </section>
+
+      <!-- 4: Done -->
+      <section data-step="4">
+        <div class="receipt">
+          <div class="check" aria-hidden="true">✓</div>
+          <h3>You're locked in</h3>
+          <p class="fine" id="r-line"></p>
+          <div class="rc" id="r-box"></div>
+          <p class="fine">Screenshot this. We'll check the payment and text you when your merch is ready. Questions? DM <a href="https://www.instagram.com/yxung_lxve96/" target="_blank" rel="noopener">@yxung_lxve96 ↗</a></p>
+        </div>
+      </section>
+    </div>
+
+    <div class="sh-foot" id="sh-foot">
+      <div class="sum" id="sum"></div>
+      <p class="err hidden" id="sh-err"></p>
+      <button class="btn wide" type="button" id="sh-next">Continue</button>
+    </div>
+  </aside>
 
   <script src="qrcode.js"></script>
   <script>
     // ===== EDIT HERE =====
-    // Your payment handles (no $ or @). Leave "" to hide that option.
-    const CHIME = "Adam-Mitchell-134"; // $ChimeSign -> main way to pay
-    const CASHAPP = "yxunglxve13";      // $cashtag -> backup way to pay
+    const CHIME = "Adam-Mitchell-134";  // $ChimeSign (main way to pay)
+    const CASHAPP = "yxunglxve13";      // $cashtag (backup)
+    const SHIPPING = 5;                 // flat-rate shipping, dollars
     const PRODUCTS = [
       { id: "robotnic", name: "Dr Robotnic Raglan", short: "Robotnic", price: 30, badge: "New single",
         desc: "White body, red 3/4 sleeves. Full-front Dr Robotnic print.",
@@ -234,16 +373,53 @@
     // =====================
 
     const $ = (s) => document.querySelector(s);
+    const $$ = (s) => [...document.querySelectorAll(s)];
     const el = (t, c, txt) => { const e = document.createElement(t); if (c) e.className = c; if (txt != null) e.textContent = txt; return e; };
     const money = (n) => "$" + n;
-    const cart = []; // {id, size, qty}
+    const byId = (id) => PRODUCTS.find((p) => p.id === id);
+    const store = {
+      get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (_) { return d; } },
+      set(k, v) { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, JSON.stringify(v)); } catch (_) {} }
+    };
 
-    const grid = $("#grid");
+    let bag = store.get("yl-bag", []).filter((c) => byId(c.id)); // [{id,size,qty}]
+    let pending = store.get("yl-pending", null); // saved order awaiting payment
+
+    // ---------- Pay cards (Chime + Cash App, equal) ----------
+    const qr = (text) => { const q = qrcode(0, "M"); q.addData(text); q.make(); const d = el("div", "qr"); d.innerHTML = q.createSvgTag({ cellSize: 4, margin: 2, scalable: true }); return d; };
+    const PAY = [
+      CHIME && { name: "Chime", handle: "$" + CHIME, cls: "pc-chime", link: () => "https://app.chime.com/link/qr?u=" + encodeURIComponent(CHIME), presets: false },
+      CASHAPP && { name: "Cash App", handle: "$" + CASHAPP, cls: "pc-cash", link: (amt) => "https://cash.app/$" + CASHAPP + (amt ? "/" + amt : ""), presets: true }
+    ].filter(Boolean);
+    const copy = async (text, btn, label) => {
+      try { await navigator.clipboard.writeText(text); btn.textContent = "Copied ✓"; }
+      catch (_) { window.prompt("Copy this:", text); }
+      setTimeout(() => { btn.textContent = label; }, 1800);
+    };
+    const payCards = (amt) => {
+      const box = el("div", "paycards");
+      for (const m of PAY) {
+        const c = el("div", "pc " + m.cls);
+        c.append(el("span", "pc-name", m.name), el("div", "pc-handle", m.handle));
+        const a = el("a", "btn pc-pay", (amt ? "Pay " + money(amt) : "Pay") + " on " + m.name + " ↗");
+        a.href = m.link(amt); a.target = "_blank"; a.rel = "noopener";
+        const label = "Copy " + m.handle;
+        const cp = el("button", "btn ghost", label); cp.type = "button";
+        cp.addEventListener("click", () => copy(m.handle, cp, label));
+        c.append(a, qr(m.link(amt)), el("span", "pc-scan", amt ? (m.presets ? "Scan · " + money(amt) + " filled in" : "Scan · enter " + money(amt)) : "Scan to pay"), cp);
+        box.append(c);
+      }
+      return box;
+    };
+    $("#howpay").append(payCards(0));
+
+    // ---------- Products ----------
     for (const p of PRODUCTS) {
       const card = el("article", "item"); card.id = p.id;
       const pics = el("div", "pics");
       p.pics.forEach(([label, src], i) => { const im = el("img"); im.src = src; im.alt = p.name + " " + label.toLowerCase(); if (i) im.loading = "lazy"; pics.append(im); });
       if (p.badge) pics.append(el("span", "badge", p.badge));
+      const inbag = el("span", "inbag hidden"); pics.append(inbag);
       const views = el("div", "views");
       const vb = p.pics.map(([label], i) => {
         const b = el("button", null, label); b.type = "button"; b.setAttribute("aria-pressed", String(i === 0));
@@ -251,116 +427,214 @@
         views.append(b); return b;
       });
       pics.append(views);
-
       const body = el("div", "body");
       const row = el("div", "row"); row.append(el("h2", null, p.name), el("span", "price", money(p.price)));
       body.append(row, el("p", "desc", p.desc), el("span", "lbl", "Size"));
-      let size = null, qty = 1;
+      let size = null;
       const sizes = el("div", "sizes");
       const sb = p.sizes.map((s) => {
         const b = el("button", null, s); b.type = "button"; b.setAttribute("aria-pressed", "false");
         b.addEventListener("click", () => { size = s; sb.forEach((o) => o.setAttribute("aria-pressed", String(o === b))); hint.textContent = ""; });
         sizes.append(b); return b;
       });
-      body.append(sizes);
-      const add = el("div", "add");
-      const q = el("div", "qty");
-      const minus = el("button", null, "−"), plus = el("button", null, "+"), qn = el("span", null, "1");
-      minus.type = plus.type = "button"; minus.setAttribute("aria-label", "Fewer"); plus.setAttribute("aria-label", "More");
-      minus.addEventListener("click", () => { qty = Math.max(1, qty - 1); qn.textContent = qty; });
-      plus.addEventListener("click", () => { qty = Math.min(20, qty + 1); qn.textContent = qty; });
-      q.append(minus, qn, plus);
-      const addBtn = el("button", "btn", "Add"); addBtn.type = "button";
+      const addBtn = el("button", "btn wide", "Add to bag"); addBtn.type = "button";
       const hint = el("p", "hint");
       addBtn.addEventListener("click", () => {
-        if (!size) { hint.textContent = "Pick a size first"; return; }
-        const hit = cart.find((c) => c.id === p.id && c.size === size);
-        if (hit) hit.qty += qty; else cart.push({ id: p.id, size, qty });
-        hint.textContent = "Added " + qty + " × " + size + " ✓";
-        qty = 1; qn.textContent = "1";
-        render();
+        if (!size) { hint.textContent = "Pick a size first"; sizes.classList.remove("shake"); void sizes.offsetWidth; sizes.classList.add("shake"); return; }
+        const hit = bag.find((c) => c.id === p.id && c.size === size);
+        if (hit) hit.qty = Math.min(20, hit.qty + 1); else bag.push({ id: p.id, size, qty: 1 });
+        hint.textContent = "Added " + size + " ✓";
+        addBtn.textContent = "Add another";
+        saveBag(); renderBag(true);
       });
-      add.append(q, addBtn);
-      body.append(add, hint);
+      body.append(sizes, addBtn, hint);
       card.append(pics, body);
-      grid.append(card);
+      $("#grid").append(card);
     }
 
-    const byId = (id) => PRODUCTS.find((p) => p.id === id);
-    const total = () => cart.reduce((s, c) => s + byId(c.id).price * c.qty, 0);
-    const summary = () => cart.map((c) => c.qty + " × " + byId(c.id).name + " (" + c.size + ")").join("; ");
-    function render() {
-      const ul = $("#cart"); ul.replaceChildren();
-      cart.forEach((c, i) => {
-        const p = byId(c.id), li = el("li");
-        const left = el("div"); left.append(el("div", null, c.qty + " × " + p.name), el("small", null, "Size " + c.size));
-        const right = el("div"); right.append(el("span", null, money(p.price * c.qty)));
-        const x = el("button", "x", "✕"); x.type = "button"; x.setAttribute("aria-label", "Remove");
-        x.addEventListener("click", () => { cart.splice(i, 1); render(); });
-        right.append(x); li.append(left, right); ul.append(li);
-      });
-      $("#empty").classList.toggle("hidden", cart.length > 0);
-      $("#total").textContent = money(total());
-      $("#submit").disabled = cart.length === 0;
-      for (const p of PRODUCTS) document.getElementById(p.id).classList.toggle("on", cart.some((c) => c.id === p.id));
-    }
-    render();
-
-    // Pay cards: Chime and Cash App, shown side by side, same size. amt/note are set after an order.
-    const qr = (text) => { const q = qrcode(0, "M"); q.addData(text); q.make(); const d = el("div", "qr"); d.innerHTML = q.createSvgTag({ cellSize: 4, margin: 2, scalable: true }); return d; };
-    const PAY = [
-      CHIME && { name: "Chime", handle: "$" + CHIME, cls: "pc-chime", link: () => "https://app.chime.com/link/qr?u=" + encodeURIComponent(CHIME), presets: false },
-      CASHAPP && { name: "Cash App", handle: "$" + CASHAPP, cls: "pc-cash", link: (amt) => "https://cash.app/$" + CASHAPP + (amt ? "/" + amt : ""), presets: true }
-    ].filter(Boolean);
-    const payCards = (amt, note) => {
-      const box = el("div", "paycards");
-      for (const m of PAY) {
-        const c = el("div", "pc " + m.cls);
-        c.append(el("span", "pc-name", m.name), el("div", "pc-handle", m.handle));
-        const a = el("a", "btn pc-pay", (amt ? "Pay " + money(amt) : "Pay") + " on " + m.name + " ↗");
-        a.href = m.link(amt); a.target = "_blank"; a.rel = "noopener";
-        const cp = el("button", "btn ghost", "Copy " + m.handle); cp.type = "button";
-        cp.addEventListener("click", async () => {
-          try { await navigator.clipboard.writeText(m.handle); cp.textContent = "Copied ✓"; }
-          catch (_) { window.prompt("Copy this:", m.handle); }
-          setTimeout(() => { cp.textContent = "Copy " + m.handle; }, 2000);
-        });
-        c.append(a, qr(m.link(amt)), el("span", "pc-scan", "Scan to pay" + (amt && m.presets ? " " + money(amt) : "")), cp);
-        if (amt && !m.presets) c.append(el("span", "pc-scan", "Enter " + money(amt) + " in Chime"));
-        box.append(c);
+    // ---------- Bag ----------
+    const count = () => bag.reduce((s, c) => s + c.qty, 0);
+    const subtotal = () => bag.reduce((s, c) => s + byId(c.id).price * c.qty, 0);
+    const saveBag = () => store.set("yl-bag", bag);
+    function renderBag(bump) {
+      const n = count();
+      $("#bb-count").textContent = n + (n === 1 ? " item" : " items") + " in your bag";
+      $("#bb-total").textContent = money(subtotal()) + " · pickup free or $" + SHIPPING + " shipping";
+      const bar = $("#bagbar");
+      bar.classList.toggle("show", n > 0);
+      document.body.classList.toggle("has-bag", n > 0);
+      if (bump) { bar.classList.remove("bump"); void bar.offsetWidth; bar.classList.add("bump"); }
+      for (const p of PRODUCTS) {
+        const q = bag.filter((c) => c.id === p.id).reduce((s, c) => s + c.qty, 0);
+        const card = document.getElementById(p.id);
+        card.classList.toggle("on", q > 0);
+        const tag = card.querySelector(".inbag"); tag.textContent = q + " in bag"; tag.classList.toggle("hidden", !q);
       }
-      return box;
-    };
-    $("#howpay").append(payCards(0));
-    const makeId = () => "YL-" + Array.from(crypto.getRandomValues(new Uint8Array(4)), (b) => "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"[b % 32]).join("");
+      // bag step
+      const ul = $("#lines"); ul.replaceChildren();
+      bag.forEach((c, i) => {
+        const p = byId(c.id), li = el("li");
+        const im = el("img"); im.src = p.pics[0][1]; im.alt = "";
+        const mid = el("div"); mid.append(el("div", "nm", p.name), el("small", null, "Size " + c.size + " · " + money(p.price)));
+        const mq = el("div", "mini-qty");
+        const mi = el("button", null, "−"), pl = el("button", null, "+"); mi.type = pl.type = "button";
+        mi.setAttribute("aria-label", "One fewer"); pl.setAttribute("aria-label", "One more");
+        mi.addEventListener("click", () => { c.qty--; if (c.qty < 1) bag.splice(i, 1); saveBag(); renderBag(); });
+        pl.addEventListener("click", () => { c.qty = Math.min(20, c.qty + 1); saveBag(); renderBag(); });
+        mq.append(mi, el("span", null, String(c.qty)), pl); mid.append(el("br"), mq);
+        li.append(im, mid, el("span", "amt", money(p.price * c.qty)));
+        ul.append(li);
+      });
+      $("#bag-empty").classList.toggle("hidden", bag.length > 0);
+      if (!sheetOpen() || step <= 2) renderSum();
+    }
 
-    $("#form").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      if (!cart.length) return;
-      const err = $("#err"); err.classList.add("hidden");
-      const oid = makeId(), amt = total(), items = summary();
-      $("#f-order").value = oid; $("#f-items").value = items; $("#f-total").value = money(amt);
-      const btn = $("#submit"); btn.disabled = true; btn.textContent = "Saving…";
-      const data = new URLSearchParams(new FormData(e.target));
-      let saved = false;
+    // ---------- Checkout sheet ----------
+    const TITLES = ["Your bag", "Delivery", "Your info", "Send payment", "Done"];
+    let step = 0;
+    const sheetOpen = () => !$("#sheet").classList.contains("hidden");
+    const delivery = () => document.querySelector('input[name="delivery"]:checked').value;
+    const shipCost = () => (delivery() === "ship" ? SHIPPING : 0);
+    function renderSum() {
+      const sum = $("#sum"); sum.replaceChildren();
+      const line = (a, b, cls) => { const d = el("div", cls); d.append(el("span", null, a), el("span", null, b)); sum.append(d); };
+      if (step >= 3 && pending) { return; }
+      line("Subtotal", money(subtotal()), "muted");
+      if (step >= 1) line(delivery() === "ship" ? "Shipping" : "Hand delivery", delivery() === "ship" ? money(SHIPPING) : "Free", "muted");
+      line("Total", money(subtotal() + (step >= 1 ? shipCost() : 0)), "grand");
+    }
+    function show(n) {
+      step = n;
+      $$("#sh-body > section").forEach((s) => s.classList.toggle("hidden", +s.dataset.step !== n));
+      $("#sh-title").textContent = TITLES[n];
+      $$("#progress span").forEach((s, i) => { s.classList.toggle("done", i < n); s.classList.toggle("now", i === n); });
+      $("#progress").classList.toggle("hidden", n === 4);
+      $("#sh-back").style.visibility = n > 0 && n < 3 ? "visible" : "hidden";
+      const next = $("#sh-next");
+      next.disabled = n === 0 && !bag.length;
+      next.textContent = n === 0 ? "Continue to delivery" : n === 1 ? "Continue" : n === 2 ? "Save order & go to payment" : "Back to the site";
+      $("#sh-foot").classList.toggle("hidden", n === 3);
+      $("#sum").classList.toggle("hidden", n >= 3);
+      $("#sh-err").classList.add("hidden");
+      $("#sh-body").scrollTop = 0;
+      renderSum();
+    }
+    function openSheet(n) {
+      $("#sheet").classList.remove("hidden"); $("#sheet-bg").classList.remove("hidden");
+      document.documentElement.classList.add("lock");
+      show(n);
+      requestAnimationFrame(() => requestAnimationFrame(() => { $("#sheet").classList.add("open"); $("#sheet-bg").classList.add("open"); }));
+    }
+    function closeSheet() {
+      $("#sheet").classList.remove("open"); $("#sheet-bg").classList.remove("open");
+      document.documentElement.classList.remove("lock");
+      setTimeout(() => { $("#sheet").classList.add("hidden"); $("#sheet-bg").classList.add("hidden"); }, 300);
+    }
+    $("#bb-go").addEventListener("click", () => openSheet(pending ? 3 : 0));
+    $("#sh-close").addEventListener("click", closeSheet);
+    $("#sheet-bg").addEventListener("click", closeSheet);
+    $("#sh-back").addEventListener("click", () => show(Math.max(0, step - 1)));
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && sheetOpen()) closeSheet(); });
+    $("#sh-body").addEventListener("input", () => $("#sh-err").classList.add("hidden"));
+    $$('input[name="delivery"]').forEach((r) => r.addEventListener("change", () => { $("#ship-fields").classList.toggle("hidden", delivery() !== "ship"); renderSum(); }));
+
+    const fail = (msg, input) => {
+      const e = $("#sh-err"); e.textContent = msg; e.classList.remove("hidden");
+      if (input) { input.classList.add("bad"); input.focus(); input.addEventListener("input", () => input.classList.remove("bad"), { once: true }); }
+      return false;
+    };
+    function validate() {
+      if (step === 1 && delivery() === "ship") {
+        if (!$("#s-address").value.trim()) return fail("Add your street address.", $("#s-address"));
+        if (!$("#s-city").value.trim()) return fail("Add your city.", $("#s-city"));
+        if (!/^[A-Za-z]{2}$/.test($("#s-state").value.trim())) return fail("Use the 2-letter state, like IN.", $("#s-state"));
+        if (!/^\d{5}(-\d{4})?$/.test($("#s-zip").value.trim())) return fail("Add a 5-digit ZIP.", $("#s-zip"));
+      }
+      if (step === 2) {
+        if ($("#c-name").value.trim().length < 2) return fail("Add your name.", $("#c-name"));
+        if ($("#c-phone").value.replace(/\D/g, "").length < 10) return fail("Add a phone number so we can reach you.", $("#c-phone"));
+        const em = $("#c-email").value.trim();
+        if (em && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) return fail("That email doesn't look right.", $("#c-email"));
+      }
+      return true;
+    }
+
+    const makeId = () => "YL-" + Array.from(crypto.getRandomValues(new Uint8Array(4)), (b) => "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"[b % 32]).join("");
+    const post = async (data) => {
       try {
-        const r = await fetch("/merch/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: data.toString() });
-        saved = r.ok;
-      } catch (x) { saved = false; }
-      // Even if saving failed, the payment note carries the whole order, so nothing is lost.
-      const note = oid + ": " + cart.map((c) => c.qty + " " + byId(c.id).short + " " + c.size).join(", ");
-      document.querySelector("#done .kicker").textContent = saved ? "Order saved" : "Almost done";
-      $("#d-oid").textContent = "Order " + oid;
-      $("#d-amt").textContent = money(amt);
-      $("#d-note").textContent = note;
-      $("#d-pays").replaceChildren(payCards(amt, note));
-      $("#d-fallback").textContent = (saved ? "" : "Your order goes through with your payment. Also screenshot this and DM it to @yxung_lxve96. ") + "Trouble paying? DM @yxung_lxve96 with your order #.";
-      $("#form-box").classList.add("hidden");
-      $("#done").classList.remove("hidden");
-      $("#order").scrollIntoView({ behavior: "smooth", block: "start" });
+        const r = await fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: new URLSearchParams(data).toString() });
+        return r.ok;
+      } catch (_) { return false; }
+    };
+
+    $("#sh-next").addEventListener("click", async () => {
+      if (step === 4) { closeSheet(); return; }
+      if (!validate()) return;
+      if (step < 2) { show(step + 1); return; }
+      // step 2 -> save order, then pay
+      const btn = $("#sh-next"); btn.disabled = true; btn.textContent = "Saving your order…";
+      const ship = delivery() === "ship";
+      const order = {
+        id: makeId(),
+        name: $("#c-name").value.trim(), phone: $("#c-phone").value.trim(), email: $("#c-email").value.trim(),
+        instagram: $("#c-ig").value.trim(), notes: $("#c-notes").value.trim(),
+        items: bag.map((c) => ({ ...c })),
+        subtotal: subtotal(), shipping: ship ? SHIPPING : 0, total: subtotal() + (ship ? SHIPPING : 0),
+        delivery: ship ? "Ship to house ($" + SHIPPING + ")" : "Hand-delivered at a show",
+        address: ship ? $("#s-address").value.trim() : "", city: ship ? $("#s-city").value.trim() : "",
+        state: ship ? $("#s-state").value.trim().toUpperCase() : "", zip: ship ? $("#s-zip").value.trim() : ""
+      };
+      order.saved = await post({
+        "form-name": "preorder", company: "", order: order.id, name: order.name, phone: order.phone, email: order.email,
+        instagram: order.instagram, items: itemsText(order.items), subtotal: money(order.subtotal), shipping: money(order.shipping),
+        total: money(order.total), delivery: order.delivery, address: order.address, city: order.city, state: order.state, zip: order.zip, notes: order.notes
+      });
+      pending = order; store.set("yl-pending", pending);
+      renderPay(); show(3);
     });
 
-    // Jump straight to a product: /merch/#robotnic
+    const itemsText = (items) => items.map((c) => c.qty + " × " + byId(c.id).name + " (" + c.size + ")").join("; ");
+    const noteText = (o) => o.id + ": " + o.items.map((c) => c.qty + " " + byId(c.id).short + " " + c.size).join(", ") + (o.shipping ? ", SHIP" : ", pickup");
+    function renderPay() {
+      const o = pending;
+      $("#p-oid").textContent = "Order " + o.id + " · send exactly";
+      $("#p-amt").textContent = money(o.total);
+      $("#p-note").textContent = noteText(o);
+      $("#p-cards").replaceChildren(payCards(o.total));
+    }
+    $("#p-copy").addEventListener("click", (e) => copy(noteText(pending), e.currentTarget, "Copy"));
+
+    $$("[data-sent]").forEach((b) => b.addEventListener("click", async () => {
+      const method = b.dataset.sent, o = pending;
+      $$("[data-sent]").forEach((x) => (x.disabled = true));
+      b.textContent = "Confirming…";
+      await post({ "form-name": "payment-sent", order: o.id, name: o.name, method, amount: money(o.total), delivery: o.delivery });
+      renderReceipt(o, method);
+      pending = null; store.set("yl-pending", null);
+      bag = []; saveBag(); renderBag();
+      $$("[data-sent]").forEach((x) => { x.disabled = false; x.textContent = "I paid with " + x.dataset.sent; });
+      show(4);
+    }));
+
+    function renderReceipt(o, method) {
+      $("#r-line").textContent = "Order " + o.id + " · " + money(o.total) + " sent with " + method;
+      const box = $("#r-box"); box.replaceChildren();
+      const r = (a, b) => { const d = el("div", "r"); d.append(el("span", null, a), el("span", null, b)); box.append(d); };
+      o.items.forEach((c) => r(c.qty + " × " + byId(c.id).name, "Size " + c.size));
+      box.append(el("hr"));
+      r("Subtotal", money(o.subtotal));
+      r(o.shipping ? "Shipping" : "Hand delivery", o.shipping ? money(o.shipping) : "Free");
+      r("Total", money(o.total));
+      r("Paid with", method);
+      box.append(el("hr"));
+      if (o.shipping) r("Ship to", o.name + ", " + o.address + ", " + o.city + ", " + o.state + " " + o.zip);
+      else r("Pickup", "At a show: Nov 14 if ready, otherwise the next one");
+      r("We'll text", o.phone);
+    }
+
+    renderBag();
+    // Back from the payment app? Pick up right where they left off.
+    if (pending && pending.id) { renderPay(); openSheet(3); }
     if (location.hash) { const t = document.getElementById(location.hash.slice(1)); if (t) t.scrollIntoView({ block: "start" }); }
   </script>
 </body>
