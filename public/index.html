@@ -294,9 +294,53 @@
       .hero::before { animation: none; }
       html { scroll-behavior: auto; }
     }
+    .show-banner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 6px 14px;
+      padding: 11px 16px;
+      background: linear-gradient(90deg, #1a1236, #2a1030 50%, #1a1236);
+      border-bottom: 1px solid #3a2a55;
+      color: #f4ede0;
+      text-decoration: none;
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+    .show-banner .live {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #e6c27a;
+      font-weight: 500;
+    }
+    .show-banner .live::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #c72440;
+      box-shadow: 0 0 0 3px rgba(199, 36, 64, 0.3);
+    }
+    .show-banner .cta { color: #e6c27a; border-bottom: 1px solid currentColor; }
+    .show-banner:hover .cta, .show-banner:focus-visible .cta { color: #f4ede0; }
   </style>
 </head>
 <body>
+  <a class="show-banner" id="show-banner" href="/events/">
+    <span class="live">Live · Sat Nov 14</span>
+    <span>Stuff the Artist · Columbus Bar · Doors 7 PM · No cover · All ages</span>
+    <span class="cta">Details &rarr;</span>
+  </a>
+  <script>
+    // Hide the banner automatically once the show is over (after 2 AM Eastern, Nov 15).
+    if (Date.now() > Date.parse("2026-11-15T07:00:00Z")) document.getElementById("show-banner").remove();
+  </script>
   <header class="hero">
     <img class="avatar" src="images/profile.jpg" alt="Yxung Lxve" width="132" height="132">
     <h1>YXUNG<br>LXVE</h1>
