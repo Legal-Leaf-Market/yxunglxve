@@ -221,6 +221,37 @@
     .back-q { margin: 0 0 12px; text-align: center; font-weight: 700; font-size: 1.05rem; }
     .pay-alt { display: grid; gap: 14px; margin-top: 18px; }
 
+    .txt-adam {
+      width: 100%;
+      display: grid;
+      gap: 10px;
+      padding: 16px;
+      border: 1px solid currentColor;
+      border-radius: 12px;
+      text-align: left;
+    }
+    .txt-why { margin: 0; font-size: 0.92rem; line-height: 1.45; }
+    .txt-alt { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; font-size: 0.82rem; opacity: 0.85; }
+    .txt-alt a { color: inherit; font-weight: 600; }
+    .txt-alt button {
+      font: inherit;
+      font-size: 0.75rem;
+      padding: 0.4rem 0.8rem;
+      border: 1px solid currentColor;
+      border-radius: 999px;
+      background: none;
+      color: inherit;
+      cursor: pointer;
+    }
+    .txt-preview {
+      margin: 0;
+      padding: 12px;
+      border-radius: 10px;
+      background: rgba(127, 127, 127, 0.12);
+      font: 0.8rem/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
     .receipt { display: grid; gap: 14px; text-align: center; justify-items: center; padding-top: 8px; }
     .check { width: 64px; height: 64px; border-radius: 999px; background: var(--ok); display: grid; place-items: center; color: #04130b; font-size: 2rem; font-weight: 700; animation: pop 0.4s cubic-bezier(.2,.8,.2,1.4); }
     @keyframes pop { from { transform: scale(0.3); opacity: 0; } }
@@ -412,10 +443,19 @@
       <section data-step="4">
         <div class="receipt">
           <div class="check" aria-hidden="true">✓</div>
-          <h3>You're locked in</h3>
+          <h3>Last step: text Adam</h3>
           <p class="fine" id="r-line"></p>
+          <div class="txt-adam">
+            <p class="txt-why">Send Adam a quick text so he knows you paid and what you ordered. It's already written for you. Just hit send.</p>
+            <a class="btn wide cash" id="r-sms" href="#">Text Adam my order</a>
+            <div class="txt-alt">
+              <span>On a computer? Text <a id="r-tel" href="tel:+18124477737">(812) 447-7737</a></span>
+              <button type="button" id="r-copy">Copy message</button>
+            </div>
+            <pre class="txt-preview" id="r-msg"></pre>
+          </div>
           <div class="rc" id="r-box"></div>
-          <p class="fine">Screenshot this. We'll check the payment and text you when your merch is ready. Questions? DM <a href="https://www.instagram.com/yxung_lxve96/" target="_blank" rel="noopener">@yxung_lxve96 ↗</a></p>
+          <p class="fine">Screenshot this too. Adam will check the payment and text you back when your merch is ready. Questions? DM <a href="https://www.instagram.com/yxung_lxve96/" target="_blank" rel="noopener">@yxung_lxve96 ↗</a></p>
         </div>
       </section>
     </div>
@@ -754,8 +794,32 @@
       show(4);
     }));
 
+    // Pre-written text to Adam confirming payment + what they ordered.
+    const ADAM_SMS = "+18124477737";
+    const smsText = (o) => [
+      "Hey Adam, I just paid for Yxung Lxve merch.",
+      "",
+      "Order " + o.id,
+      ...o.items.map((c) => "- " + c.qty + " x " + byId(c.id).name + " (size " + c.size + ")"),
+      "",
+      "Total: " + money(o.total) + " sent on Cash App to $" + CASHAPP,
+      o.shipping
+        ? "Ship to: " + o.name + ", " + o.address + ", " + o.city + ", " + o.state + " " + o.zip
+        : "Pickup: hand it to me at a show",
+      "Name: " + o.name,
+      "Phone: " + o.phone,
+      o.instagram ? "IG: " + o.instagram : "",
+      o.notes ? "Notes: " + o.notes : ""
+    ].filter((line, i, arr) => line !== "" || (arr[i - 1] !== "" && i > 0)).join("\n").trim();
+    // "?&body=" works on both iPhone and Android messages apps.
+    const smsHref = (o) => "sms:" + ADAM_SMS + "?&body=" + encodeURIComponent(smsText(o));
+
     function renderReceipt(o) {
       const method = "Cash App";
+      const msg = smsText(o);
+      $("#r-sms").href = smsHref(o);
+      $("#r-msg").textContent = msg;
+      $("#r-copy").onclick = (e) => copy(msg, e.currentTarget, "Copy message");
       $("#r-line").textContent = "Order " + o.id + " · " + money(o.total) + " sent with " + method;
       const box = $("#r-box"); box.replaceChildren();
       const r = (a, b) => { const d = el("div", "r"); d.append(el("span", null, a), el("span", null, b)); box.append(d); };
