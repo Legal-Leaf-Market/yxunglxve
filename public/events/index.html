@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Events · YXUNG LXVE</title>
+  <meta name="description" content="Stuff the Artist: Yxung Lxve live with special guests. Saturday, November 14, Columbus Bar, Columbus, Indiana. No cover, all ages.">
+  <meta property="og:title" content="Stuff the Artist · Yxung Lxve live">
+  <meta property="og:description" content="Sat, Nov 14 · Doors 7 PM · Show 8 PM · Columbus Bar, Columbus, IN · No cover · All ages">
+  <meta property="og:image" content="/images/flyer-stuff-the-artist.jpg">
+  <meta name="theme-color" content="#0b0d1f">
+  <link rel="icon" href="/images/profile.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MusicEvent",
+    "name": "Stuff the Artist: Yxung Lxve",
+    "startDate": "2026-11-14T20:00:00-05:00",
+    "doorTime": "2026-11-14T19:00:00-05:00",
+    "isAccessibleForFree": true,
+    "typicalAgeRange": "all ages",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "image": "/images/flyer-stuff-the-artist.jpg",
+    "location": {
+      "@type": "Place",
+      "name": "Columbus Bar",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "322 4th St",
+        "addressLocality": "Columbus",
+        "addressRegion": "IN",
+        "postalCode": "47201",
+        "addressCountry": "US"
+      }
+    },
+    "performer": [
+      { "@type": "MusicGroup", "name": "Yxung Lxve" },
+      { "@type": "MusicGroup", "name": "$uicybin" },
+      { "@type": "MusicGroup", "name": "Nezio" },
+      { "@type": "MusicGroup", "name": "Amier Lane" },
+      { "@type": "MusicGroup", "name": "Teqz" },
+      { "@type": "MusicGroup", "name": "Lil Bars" },
+      { "@type": "MusicGroup", "name": "StickNasty The Coldhearted Kid" },
+      { "@type": "MusicGroup", "name": "David Cameron" },
+      { "@type": "MusicGroup", "name": "Baby Gawdey" },
+      { "@type": "MusicGroup", "name": "Anxiety Jay" }
+    ]
+  }
+  </script>
+  <style>
+    /* Palette pulled from the "Stuff the Artist" flyer */
+    :root {
+      --bg: #0b0d1f;
+      --bg-2: #141838;
+      --fg: #f4ede0;
+      --muted: #9a98b4;
+      --line: #2a2e57;
+      --gold: #e6c27a;
+      --gold-deep: #b8893d;
+      --crimson: #b3172f;
+      --violet: #7a5cff;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(1200px 600px at 70% -10%, rgba(122, 92, 255, 0.22), transparent 60%),
+        radial-gradient(900px 500px at 0% 40%, rgba(179, 23, 47, 0.14), transparent 60%),
+        var(--bg);
+      color: var(--fg);
+      font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+    }
+    a { color: inherit; }
+
+    /* Top bar */
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      max-width: 1180px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 20px 16px;
+    }
+    .home {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      font-family: "Archivo Black", Impact, sans-serif;
+      letter-spacing: 0.04em;
+      font-size: 1.1rem;
+    }
+    .home img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--line);
+    }
+    .top nav { display: flex; gap: 20px; }
+    .top nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.78rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .top nav a:hover, .top nav a[aria-current] { color: var(--gold); }
+
+    main {
+      flex: 1;
+      max-width: 1180px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 32px 16px 96px;
+    }
+
+    /* Event title */
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--gold);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--crimson);
+      box-shadow: 0 0 0 4px rgba(179, 23, 47, 0.25);
+    }
+    h1 {
+      margin: 14px 0 0;
+      font-family: "Archivo Black", Impact, sans-serif;
+      font-weight: 400;
+      font-size: clamp(2.8rem, 10vw, 6.5rem);
+      line-height: 0.92;
+      letter-spacing: 0.01em;
+      background: linear-gradient(180deg, #f7e2ad 0%, var(--gold) 45%, var(--gold-deep) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    h1 .the {
+      display: block;
+      font-size: 0.32em;
+      letter-spacing: 0.5em;
+      margin: 0.35em 0 0.3em;
+      color: var(--fg);
+      -webkit-text-fill-color: var(--fg);
+    }
+    h1 .artist {
+      color: var(--crimson);
+      -webkit-text-fill-color: #c72440;
+    }
+    .headline-date {
+      margin: 22px 0 0;
+      font-family: "Archivo Black", Impact, sans-serif;
+      font-size: clamp(1.1rem, 3vw, 1.6rem);
+      letter-spacing: 0.04em;
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .chips span {
+      padding: 0.4rem 0.85rem;
+      border: 1px solid var(--gold-deep);
+      color: var(--gold);
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    /* Layout: flyer + details */
+    .event {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 48px;
+      margin-top: 44px;
+      align-items: start;
+    }
+    .event.no-flyer { grid-template-columns: minmax(0, 1fr); max-width: 720px; }
+    .flyer-wrap { position: sticky; top: 24px; margin: 0; }
+    .flyer-wrap a { display: block; }
+    .flyer {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--gold-deep);
+      box-shadow:
+        0 0 0 6px var(--bg),
+        0 0 0 7px rgba(230, 194, 122, 0.35),
+        0 30px 80px rgba(0, 0, 0, 0.6),
+        0 0 120px rgba(122, 92, 255, 0.25);
+    }
+    .credit {
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-align: center;
+    }
+    .credit a { color: var(--gold); text-decoration: none; }
+    .credit a:hover { text-decoration: underline; }
+
+    .panel {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(20, 24, 56, 0.7), rgba(11, 13, 31, 0.7));
+      padding: 28px;
+    }
+    .panel + .panel { margin-top: 20px; }
+    .panel h2 {
+      margin: 0 0 18px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .times { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .time {
+      border: 1px solid var(--line);
+      padding: 14px 16px;
+    }
+    .time .k {
+      display: block;
+      color: var(--muted);
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+    }
+    .time .v {
+      display: block;
+      margin-top: 4px;
+      font-family: "Archivo Black", Impact, sans-serif;
+      font-size: 1.6rem;
+    }
+    .note { margin: 16px 0 0; color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+
+    .venue-name {
+      margin: 0;
+      font-family: "Archivo Black", Impact, sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.02em;
+    }
+    .venue-addr { margin: 6px 0 0; color: var(--muted); line-height: 1.5; }
+
+    .headliner {
+      margin: 0;
+      font-family: "Archivo Black", Impact, sans-serif;
+      font-size: clamp(2rem, 6vw, 2.8rem);
+      line-height: 1;
+      letter-spacing: 0.02em;
+    }
+    .with {
+      margin: 18px 0 12px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+    .guests {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .guests li {
+      padding: 0.55rem 0.9rem;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.02);
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.02em;
+    }
+
+    .actions { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.3rem;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      text-decoration: none;
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      background: none;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn:hover, .btn:focus-visible { background: var(--gold); color: var(--bg); }
+    .btn.solid { background: var(--gold); color: var(--bg); }
+    .btn.solid:hover, .btn.solid:focus-visible { background: transparent; color: var(--gold); }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 32px 16px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    footer a { text-decoration: none; }
+    footer a:hover { color: var(--fg); }
+
+    @media (max-width: 860px) {
+      .event { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+      .flyer-wrap { position: static; max-width: 560px; margin: 0 auto; }
+    }
+    @media (max-width: 480px) {
+      .panel { padding: 20px; }
+      .top nav { gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="/"><img src="/images/profile.jpg" alt="" width="40" height="40">YXUNG LXVE</a>
+    <nav aria-label="Site">
+      <a href="/">Music</a>
+      <a href="/events/" aria-current="page">Events</a>
+    </nav>
+  </header>
+
+  <main>
+    <span class="eyebrow">Upcoming show</span>
+    <h1>STUFF<span class="the">THE</span><span class="artist">ARTIST</span></h1>
+    <p class="headline-date">Saturday, November 14</p>
+    <div class="chips"><span>No cover</span><span>All ages</span><span>Columbus, IN</span></div>
+
+    <section class="event" id="event">
+      <figure class="flyer-wrap" id="flyer-wrap">
+        <a href="/images/flyer-stuff-the-artist.jpg" target="_blank" rel="noopener" aria-label="Open full-size flyer">
+          <img class="flyer" id="flyer" src="/images/flyer-stuff-the-artist.jpg" width="1200" height="1800"
+               alt="Stuff the Artist flyer: Yxung Lxve with special guests $uicybin, Nezio, Amier Lane, Teqz, Lil Bars, StickNasty The Coldhearted Kid, David Cameron, Baby Gawdey and Anxiety Jay. Saturday, November 14. No cover, doors 7 PM, show 8 PM, all ages. Columbus Bar, 322 4th Street, Columbus, IN 47201.">
+        </a>
+        <figcaption class="credit">Flyer design by Rick McHaffey · <a href="https://www.instagram.com/redfoxindy/" target="_blank" rel="noopener">@redfoxindy</a></figcaption>
+      </figure>
+
+      <div class="details">
+        <div class="panel">
+          <h2>When</h2>
+          <div class="times">
+            <div class="time"><span class="k">Doors</span><span class="v">7 PM</span></div>
+            <div class="time"><span class="k">Show</span><span class="v">8 PM</span></div>
+          </div>
+          <p class="note">Saturday, November 14, 2026. No cover, all ages. Food &amp; drink specials to help support the venue.</p>
+          <div class="actions">
+            <button class="btn" type="button" id="cal">Add to calendar</button>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>Where</h2>
+          <p class="venue-name">Columbus Bar</p>
+          <p class="venue-addr">322 4th Street<br>Columbus, IN 47201</p>
+          <div class="actions">
+            <a class="btn solid" href="https://www.google.com/maps/dir/?api=1&destination=Columbus+Bar+322+4th+St+Columbus+IN+47201" target="_blank" rel="noopener">Directions</a>
+            <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Columbus+Bar+322+4th+St+Columbus+IN+47201" target="_blank" rel="noopener">View map</a>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>Lineup</h2>
+          <p class="headliner">YXUNG LXVE</p>
+          <p class="with">With special guests</p>
+          <ul class="guests">
+            <li>$uicybin</li>
+            <li>Nezio</li>
+            <li>Amier Lane</li>
+            <li>Teqz</li>
+            <li>Lil Bars</li>
+            <li>StickNasty The Coldhearted Kid</li>
+            <li>David Cameron</li>
+            <li>Baby Gawdey</li>
+            <li>Anxiety Jay</li>
+          </ul>
+        </div>
+
+        <div class="panel">
+          <h2>Before the show</h2>
+          <p class="note" style="margin-top:0">Get familiar with the set.</p>
+          <div class="actions">
+            <a class="btn solid" href="/#releases">Listen</a>
+            <a class="btn" href="https://open.spotify.com/artist/6g91eYiklNIugok5b35mdZ" target="_blank" rel="noopener">Spotify</a>
+            <a class="btn" href="https://www.instagram.com/yxung_lxve96/" target="_blank" rel="noopener">Instagram</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <a href="/">Home</a>
+    &nbsp;·&nbsp;
+    <a href="https://open.spotify.com/artist/6g91eYiklNIugok5b35mdZ" target="_blank" rel="noopener">Spotify</a>
+    &nbsp;·&nbsp;
+    <a href="https://music.apple.com/us/artist/yxung-lxve/6772523479" target="_blank" rel="noopener">Apple Music</a>
+    &nbsp;·&nbsp;
+    <a href="https://www.youtube.com/@YxungLxve1996" target="_blank" rel="noopener">YouTube</a>
+    &nbsp;·&nbsp;
+    <a href="https://www.instagram.com/yxung_lxve96/" target="_blank" rel="noopener">Instagram</a>
+    &nbsp;·&nbsp; &copy; 2026 Yxung Lxve
+  </footer>
+
+  <script>
+    // If the flyer image isn't uploaded yet, drop the slot and let the details fill the width.
+    const flyer = document.getElementById("flyer");
+    const hideFlyer = () => {
+      document.getElementById("flyer-wrap").remove();
+      document.getElementById("event").classList.add("no-flyer");
+    };
+    if (flyer.complete && flyer.naturalWidth === 0) hideFlyer();
+    else flyer.addEventListener("error", hideFlyer);
+
+    // Downloads an .ics file so the show can be added to any calendar app.
+    document.getElementById("cal").addEventListener("click", () => {
+      const ics = [
+        "BEGIN:VCALENDAR",
+        "VERSION:2.0",
+        "PRODID:-//Yxung Lxve//Events//EN",
+        "BEGIN:VEVENT",
+        "UID:yxunglxve-stuff-the-artist-20261114@yxunglxve",
+        "DTSTAMP:20261112T000000Z",
+        "DTSTART:20261115T000000Z",
+        "DTEND:20261115T050000Z",
+        "SUMMARY:Stuff the Artist: Yxung Lxve at Columbus Bar",
+        "LOCATION:Columbus Bar\\, 322 4th St\\, Columbus\\, IN 47201",
+        "DESCRIPTION:Yxung Lxve with special guests $uicybin\\, Nezio\\, Amier Lane\\, Teqz\\, Lil Bars\\, StickNasty The Coldhearted Kid\\, David Cameron\\, Baby Gawdey\\, Anxiety Jay. Doors 7 PM\\, show 8 PM. No cover\\, all ages.",
+        "END:VEVENT",
+        "END:VCALENDAR"
+      ].join("\r\n");
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(new Blob([ics], { type: "text/calendar" }));
+      a.download = "yxung-lxve-stuff-the-artist.ics";
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    });
+  </script>
+</body>
+</html>
